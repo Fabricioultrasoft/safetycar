@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="safetycar.SafetyCarApplication">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RCP Perspective"
+            class="safetycar.Perspective"
+            id="SafetyCar.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="Mailboxes"
+            allowMultiple="true"
+            icon="icons/sample3.gif"
+            class="safetycar.views.NavigationView"
+            id="SafetyCar.navigationView">
+      </view>
+      <view
+            allowMultiple="false"
+            class="safetycar.views.ClienteView"
+            icon="icons/sample3.gif"
+            id="SafetyCar.client"
+            name="Cadastro de Cliente">
+      </view>
+      <view
+            allowMultiple="false"
+            class="safetycar.views.MainView"
+            icon="icons/sample3.gif"
+            id="SafetyCar.main"
+            name="Inicio">
+      </view>
+      <view
+            allowMultiple="false"
+            class="safetycar.views.ClienteListView"
+            icon="icons/sample3.gif"
+            id="SafetyCar.clientList"
+            name="Lista de Cliente">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            name="Abrir Cadastro de Cliente"
+            description="Abrir Cadastro de Cliente"
+            categoryId="SafetyCar.category"
+            id="SafetyCar.client">
+      </command>
+      <command
+            name="Open Message Dialog"
+            description="Open a message dialog"
+            categoryId="SafetyCar.category"
+            id="SafetyCar.openMessage">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="SafetyCar.client"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+2">
+      </key>
+      <key
+            commandId="SafetyCar.openMessage"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+3">
+      </key>
+      <key
+            commandId="org.eclipse.ui.file.exit"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+X">
+      </key>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="SafetyCar.application"
+            name="Safety Car">
+         <property
+               name="aboutText"
+               value="RCP Mail template created by PDE">
+         </property>
+         <property
+               name="windowImages"
+               value="icons/sample2.gif">
+         </property>
+         <property
+               name="aboutImage"
+               value="product_lg.gif">
+         </property>
+      </product>
+   </extension>
+
+</plugin>
