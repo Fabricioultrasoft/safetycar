@@ -58,10 +58,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         newWindowAction = ActionFactory.OPEN_NEW_WINDOW.create(window);
         register(newWindowAction);
         
-        clienteViewAction = new ViewBasicAction(window, "Cadastro de Clientes", ClienteView.ID);
+        clienteViewAction = new ViewBasicAction(window, "Cadastro de Clientes", ClienteView.ID,safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(clienteViewAction);
         
-        clienteListViewAction = new ViewBasicAction(window, "Lista de Clientes", ClienteListView.ID);
+        clienteListViewAction = new ViewBasicAction(window, "Lista de Clientes", ClienteListView.ID,safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(clienteListViewAction);
         
     }
