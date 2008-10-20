@@ -2,6 +2,7 @@ package safetycar.views.actions;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 
@@ -11,7 +12,7 @@ public class ViewBasicAction extends Action {
 	private final IWorkbenchWindow window;
 	private final String viewId;
 	
-	public ViewBasicAction(IWorkbenchWindow window, String label, String viewId) {
+	public ViewBasicAction(IWorkbenchWindow window, String label, String viewId, ImageDescriptor imageDescriptor) {
 		this.window = window;
 		this.viewId = viewId;
         setText(label);
@@ -19,7 +20,7 @@ public class ViewBasicAction extends Action {
 		setId(viewId);
         // Associate the action with a pre-defined command, to allow key bindings.
 		setActionDefinitionId(viewId);
-		setImageDescriptor(safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+		setImageDescriptor(imageDescriptor);
 		
 	}
 	
