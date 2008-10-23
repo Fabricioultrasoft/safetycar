@@ -1,4 +1,4 @@
-package model;
+package br.com.dimag.safetycar.model;
 
 public class BasicClass {
 	protected Integer id;

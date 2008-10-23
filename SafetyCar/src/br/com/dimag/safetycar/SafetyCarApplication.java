@@ -1,4 +1,4 @@
-package safetycar;
+package br.com.dimag.safetycar;
 
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;

@@ -1,4 +1,4 @@
-package safetycar;
+package br.com.dimag.safetycar;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.application.ActionBarAdvisor;

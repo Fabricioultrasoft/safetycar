@@ -1,11 +1,12 @@
-package safetycar.views.actions;
+package br.com.dimag.safetycar.gui.views.actions;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 
-import safetycar.Activator;
-import safetycar.ICommandIds;
+import br.com.dimag.safetycar.Activator;
+import br.com.dimag.safetycar.ICommandIds;
+
 
 
 public class MessagePopupAction extends Action {
@@ -19,7 +20,7 @@ public class MessagePopupAction extends Action {
         setId(ICommandIds.CMD_OPEN_MESSAGE);
         // Associate the action with a pre-defined command, to allow key bindings.
         setActionDefinitionId(ICommandIds.CMD_OPEN_MESSAGE);
-        setImageDescriptor(safetycar.Activator.getImageDescriptor("/icons/sample3.gif"));
+        setImageDescriptor(br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample3.gif"));
     }
 
     public void run() {

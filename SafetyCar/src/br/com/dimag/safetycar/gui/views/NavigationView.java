@@ -1,4 +1,4 @@
-package safetycar.views;
+package br.com.dimag.safetycar.gui.views;
 
 import java.util.ArrayList;
 

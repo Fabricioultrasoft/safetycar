@@ -1,4 +1,4 @@
-package safetycar;
+package br.com.dimag.safetycar;
 
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.ICoolBarManager;
@@ -16,9 +16,10 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
-import safetycar.views.ClienteListView;
-import safetycar.views.ClienteView;
-import safetycar.views.actions.ViewBasicAction;
+import br.com.dimag.safetycar.gui.views.ClienteListView;
+import br.com.dimag.safetycar.gui.views.ClienteView;
+import br.com.dimag.safetycar.gui.views.actions.ViewBasicAction;
+
 
 
 /**
@@ -58,10 +59,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         newWindowAction = ActionFactory.OPEN_NEW_WINDOW.create(window);
         register(newWindowAction);
         
-        clienteViewAction = new ViewBasicAction(window, "Cadastro de Clientes", ClienteView.ID,safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        clienteViewAction = new ViewBasicAction(window, "Cadastro de Clientes", ClienteView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(clienteViewAction);
         
-        clienteListViewAction = new ViewBasicAction(window, "Lista de Clientes", ClienteListView.ID,safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        clienteListViewAction = new ViewBasicAction(window, "Lista de Clientes", ClienteListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(clienteListViewAction);
         
     }
