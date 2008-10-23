@@ -1,4 +1,4 @@
-package br.com.dimag.safetycar.business.data;
+package br.com.dimag.safetycar.data;
 
 import br.com.dimag.safetycar.model.BasicClass;
 
