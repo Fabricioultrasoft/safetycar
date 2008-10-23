@@ -1,10 +1,13 @@
 package br.com.dimag.safetycar.business;
 
+import br.com.dimag.safetycar.business.cadastro.Cadastro;
+import br.com.dimag.safetycar.business.data.FactoryRepository;
 import br.com.dimag.safetycar.model.Cliente;
 
 public class Facade {
 
 	private static Facade facade;
+	private Cadastro<Cliente> cadastroCliente;
 
 	public static Facade getInstance(){
 		if (facade == null){
@@ -13,10 +16,13 @@ public class Facade {
 		return facade;
 	}
 
+	public Facade(){
+		cadastroCliente = new Cadastro<Cliente>(FactoryRepository.getIntance().getRepositoryCliente());
+	}
 	
 	public void cadastrarCliente(Cliente cliente){
 		System.out.println("Passou pela fachada. "+ cliente.getNome());
-		//Um monte de codigo de negocio e percistencia
+		cadastroCliente.inserir(cliente);
 	}
 	
 	
