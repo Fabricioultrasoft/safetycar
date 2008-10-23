@@ -1,9 +1,8 @@
-package safetycar.views;
+package br.com.dimag.safetycar.gui.views;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Cliente;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -16,7 +15,9 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import safetycar.views.NavigationView.TreeParent;
+import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
+import br.com.dimag.safetycar.model.Cliente;
+
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI

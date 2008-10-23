@@ -1,7 +1,7 @@
-package safetycar;
+package br.com.dimag.safetycar;
 
-import safetycar.views.ClienteListView;
-import safetycar.views.ClienteView;
+import br.com.dimag.safetycar.gui.views.ClienteListView;
+import br.com.dimag.safetycar.gui.views.ClienteView;
 
 /**
  * Interface defining the application's command IDs.

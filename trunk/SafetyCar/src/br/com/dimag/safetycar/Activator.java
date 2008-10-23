@@ -1,4 +1,4 @@
-package safetycar;
+package br.com.dimag.safetycar;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;

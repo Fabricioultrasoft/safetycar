@@ -1,4 +1,4 @@
-package safetycar.views;
+package br.com.dimag.safetycar.gui.views;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;

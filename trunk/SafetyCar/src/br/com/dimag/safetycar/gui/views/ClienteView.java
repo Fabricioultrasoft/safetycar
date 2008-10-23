@@ -1,6 +1,5 @@
-package safetycar.views;
+package br.com.dimag.safetycar.gui.views;
 
-import model.Cliente;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -13,6 +12,9 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
+
+import br.com.dimag.safetycar.business.Fachada;
+import br.com.dimag.safetycar.model.Cliente;
 
 
 /**
@@ -51,6 +53,7 @@ public class ClienteView extends ViewPart {
 				dadosPessoaisLayout.numColumns = 2;
 				groupDadosPessoais.setLayout(dadosPessoaisLayout);
 				groupDadosPessoais.setText("Dados Pessoais");
+				groupDadosPessoais.setSize(243, 215);
 				{
 					labelNomeCliente = new Label(groupDadosPessoais, SWT.NONE);
 					labelNomeCliente.setText("Nome:");
@@ -87,12 +90,9 @@ public class ClienteView extends ViewPart {
 					textTelefone.setLayoutData(textTelefoneLData);
 				}
 				{
-					buttonCancelar = new Button(groupDadosPessoais, SWT.PUSH | SWT.CENTER);
-					buttonCancelar.setText("Cancelar");
-				}
-				{
 					buttonConfirma = new Button(groupDadosPessoais, SWT.PUSH | SWT.CENTER);
 					buttonConfirma.setText("Confirmar");
+					
 					buttonConfirma.addSelectionListener(new SelectionListener(){
 						
 						@Override
@@ -106,6 +106,10 @@ public class ClienteView extends ViewPart {
 						}
 						
 					});
+				}
+				{
+					buttonCancelar = new Button(groupDadosPessoais, SWT.PUSH | SWT.CENTER);
+					buttonCancelar.setText("Cancelar");
 				}
 			}
 		}
@@ -123,8 +127,8 @@ public class ClienteView extends ViewPart {
 		cliente.setEndereco(textEndereço.getText());
 		cliente.setTelefone(textTelefone.getText());
 		
+		Fachada.getInstance().cadastrarCliente(cliente);
 		
 		this.getViewSite().getWorkbenchWindow().getActivePage().hideView(this);
-		
 	}
 }

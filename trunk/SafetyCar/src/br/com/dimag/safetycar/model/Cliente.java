@@ -1,4 +1,4 @@
-package model;
+package br.com.dimag.safetycar.model;
 
 public class Cliente extends BasicClass {
 	private String nome;
