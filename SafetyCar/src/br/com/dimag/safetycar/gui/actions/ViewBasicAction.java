@@ -1,4 +1,4 @@
-package br.com.dimag.safetycar.gui.views.actions;
+package br.com.dimag.safetycar.gui.actions;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;

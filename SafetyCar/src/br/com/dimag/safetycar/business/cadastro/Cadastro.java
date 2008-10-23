@@ -1,6 +1,6 @@
 package br.com.dimag.safetycar.business.cadastro;
 
-import br.com.dimag.safetycar.business.data.IRepository;
+import br.com.dimag.safetycar.data.IRepository;
 import br.com.dimag.safetycar.model.BasicClass;
 
 public class Cadastro<T extends BasicClass> {

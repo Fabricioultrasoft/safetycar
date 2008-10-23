@@ -16,9 +16,9 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
+import br.com.dimag.safetycar.gui.actions.ViewBasicAction;
 import br.com.dimag.safetycar.gui.views.ClienteListView;
 import br.com.dimag.safetycar.gui.views.ClienteView;
-import br.com.dimag.safetycar.gui.views.actions.ViewBasicAction;
 
 
 
