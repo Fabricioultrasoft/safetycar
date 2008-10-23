@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
-import br.com.dimag.safetycar.business.Fachada;
+import br.com.dimag.safetycar.business.Facade;
 import br.com.dimag.safetycar.model.Cliente;
 
 
@@ -127,7 +127,7 @@ public class ClienteView extends ViewPart {
 		cliente.setEndereco(textEndereço.getText());
 		cliente.setTelefone(textTelefone.getText());
 		
-		Fachada.getInstance().cadastrarCliente(cliente);
+		Facade.getInstance().cadastrarCliente(cliente);
 		
 		this.getViewSite().getWorkbenchWindow().getActivePage().hideView(this);
 	}

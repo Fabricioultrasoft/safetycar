@@ -2,15 +2,15 @@ package br.com.dimag.safetycar.business;
 
 import br.com.dimag.safetycar.model.Cliente;
 
-public class Fachada {
+public class Facade {
 
-	private static Fachada fachada;
+	private static Facade facade;
 
-	public static Fachada getInstance(){
-		if (fachada == null){
-			fachada = new Fachada();
+	public static Facade getInstance(){
+		if (facade == null){
+			facade = new Facade();
 		}
-		return fachada;
+		return facade;
 	}
 
 	
@@ -23,7 +23,7 @@ public class Fachada {
 	public static void main(String[] args) {
 		Cliente c = new Cliente();
 		
-		Fachada.getInstance().cadastrarCliente(c);
+		Facade.getInstance().cadastrarCliente(c);
 	}
 	
 }
