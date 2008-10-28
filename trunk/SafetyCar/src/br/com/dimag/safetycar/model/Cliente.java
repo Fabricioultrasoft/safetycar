@@ -1,6 +1,12 @@
 package br.com.dimag.safetycar.model;
 
-public class Cliente extends BasicClass {
+import javax.persistence.PrimaryKeyJoinColumn;
+
+import org.hibernate.annotations.Entity;
+
+@Entity
+@PrimaryKeyJoinColumn(name="CLIENTE_ID")
+public class Cliente extends BaseEntity {
 	private String nome;
 	private String endereco;
 	private String telefone;
