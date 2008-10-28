@@ -18,7 +18,7 @@ public class Repository<T extends BasicClass> implements IRepository<T> {
 
 	@Override
 	public void insert(T type) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
