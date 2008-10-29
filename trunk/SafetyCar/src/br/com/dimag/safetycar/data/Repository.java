@@ -1,8 +1,11 @@
 package br.com.dimag.safetycar.data;
 
-import br.com.dimag.safetycar.model.BasicClass;
+import java.util.List;
 
-public class Repository<T extends BasicClass> implements IRepository<T> {
+import br.com.dimag.safetycar.model.BaseEntity;
+
+
+public class Repository<T extends BaseEntity> implements IRepository<T> {
 
 	private Class<T> classe;
 
@@ -26,6 +29,12 @@ public class Repository<T extends BasicClass> implements IRepository<T> {
 	public void update(T type) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<T> list() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
