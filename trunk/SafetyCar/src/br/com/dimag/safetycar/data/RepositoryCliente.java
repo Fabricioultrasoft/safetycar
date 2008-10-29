@@ -8,5 +8,7 @@ public class RepositoryCliente extends Repository<Cliente> {
 		super(Cliente.class);
 	}
 	
+	
+	
 
 }

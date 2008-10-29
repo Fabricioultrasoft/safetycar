@@ -5,7 +5,7 @@ import java.util.List;
 import br.com.dimag.safetycar.model.BaseEntity;
 
 
-public class Repository<T extends BaseEntity> implements IRepository<T> {
+public abstract class Repository<T extends BaseEntity> implements IRepository<T> {
 
 	private Class<T> classe;
 
