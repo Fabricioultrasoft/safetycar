@@ -1,6 +1,7 @@
 package br.com.dimag.safetycar.business.cadastro;
 
 import br.com.dimag.safetycar.data.IRepository;
+import br.com.dimag.safetycar.exception.DadosInsuficientesException;
 import br.com.dimag.safetycar.model.BasicClass;
 
 public abstract class Cadastro<T extends BasicClass> {

@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
 import br.com.dimag.safetycar.business.Facade;
-import br.com.dimag.safetycar.business.FacadeException;
+import br.com.dimag.safetycar.exception.FacadeException;
 import br.com.dimag.safetycar.model.Cliente;
 
 
