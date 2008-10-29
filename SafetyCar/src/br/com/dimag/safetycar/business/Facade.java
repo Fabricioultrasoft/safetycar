@@ -1,6 +1,7 @@
 package br.com.dimag.safetycar.business;
 
-import br.com.dimag.safetycar.business.cadastro.DadosInsuficientesException;
+import br.com.dimag.safetycar.exception.DadosInsuficientesException;
+import br.com.dimag.safetycar.exception.FacadeException;
 import br.com.dimag.safetycar.model.Cliente;
 
 public class Facade {

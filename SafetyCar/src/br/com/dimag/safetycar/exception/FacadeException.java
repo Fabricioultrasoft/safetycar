@@ -1,4 +1,4 @@
-package br.com.dimag.safetycar.business;
+package br.com.dimag.safetycar.exception;
 
 public class FacadeException extends Exception {
 

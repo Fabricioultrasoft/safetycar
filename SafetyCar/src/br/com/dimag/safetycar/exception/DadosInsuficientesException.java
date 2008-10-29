@@ -1,4 +1,4 @@
-package br.com.dimag.safetycar.business.cadastro;
+package br.com.dimag.safetycar.exception;
 
 
 public class DadosInsuficientesException extends Exception {
