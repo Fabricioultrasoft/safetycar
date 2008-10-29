@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
 import br.com.dimag.safetycar.business.Facade;
+import br.com.dimag.safetycar.business.FacadeException;
 import br.com.dimag.safetycar.model.Cliente;
 
 
@@ -96,13 +97,13 @@ public class ClienteView extends ViewPart {
 					buttonConfirma.addSelectionListener(new SelectionListener(){
 						
 						@Override
-						public void widgetDefaultSelected(SelectionEvent event) {
-							performFinish();
-						}
-						
-						@Override
 						public void widgetSelected(SelectionEvent event) {
 							performFinish();
+						}
+
+						@Override
+						public void widgetDefaultSelected(SelectionEvent arg0) {
+							// TODO Auto-generated method stub
 						}
 						
 					});
@@ -127,8 +128,13 @@ public class ClienteView extends ViewPart {
 		cliente.setEndereco(textEndereço.getText());
 		cliente.setTelefone(textTelefone.getText());
 		
-		Facade.getInstance().cadastrarCliente(cliente);
+		try {
+			Facade.getInstance().cadastrarCliente(cliente);
+			this.getViewSite().getWorkbenchWindow().getActivePage().hideView(this);
+		} catch (FacadeException e) {
+			//TODO Exibir mensageBox para o usuario
+		}
 		
-		this.getViewSite().getWorkbenchWindow().getActivePage().hideView(this);
+		
 	}
 }
