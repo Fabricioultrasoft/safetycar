@@ -9,7 +9,7 @@ public class HibernateUtil {
 	private static final SessionFactory sessionFactory;
 	static {
 		try {
-			sessionFactory = new AnnotationConfiguration().addPackage("br.com.dimag.safetycar.model").configure().buildSessionFactory();
+			sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
 		} catch (Throwable ex) {
 			throw new ExceptionInInitializerError(ex);
 		}

@@ -1,5 +1,7 @@
 package br.com.dimag.safetycar.business.cadastro;
 
+import java.util.List;
+
 import br.com.dimag.safetycar.data.IRepository;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
 import br.com.dimag.safetycar.exception.DataException;
@@ -14,9 +16,9 @@ public abstract class Cadastro<T extends BaseEntity> {
 	}
 	
 	public void inserir(T type) throws DadosInsuficientesException, DataException{
-		if (type.getId() == null){
-			throw new DadosInsuficientesException("O Objeto "+ type.getClass().getSimpleName() +" não possui ID.");
-		}	
+//		if (type.getId() == null){
+//			throw new DadosInsuficientesException("O Objeto "+ type.getClass().getSimpleName() +" não possui ID.");
+//		}	
 		repository.insert(type);
 		
 	}
@@ -33,6 +35,10 @@ public abstract class Cadastro<T extends BaseEntity> {
 			throw new DadosInsuficientesException("O Objeto "+ type.getClass().getSimpleName() +" não possui ID.");
 		}
 		repository.delete(type);
+	}
+	
+	public List<T> list() {
+		return repository.list();
 	}
 	
 }

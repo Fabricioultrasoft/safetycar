@@ -18,25 +18,29 @@ public abstract class Repository<T extends BaseEntity> implements
 
 	@Override
 	public void delete(T type) {
-		
+
 		Session session = HibernateUtil.getSession();
 		session.beginTransaction();
 
 		session.delete(type);
 
 		session.getTransaction().commit();
-		
+
 	}
 
 	@Override
-	public void insert(T type) throws DataException{
-		
-		Session session = HibernateUtil.getSession();
-		session.beginTransaction();
+	public void insert(T type) throws DataException {
+		try {
+			Session session = HibernateUtil.getSession();
+			session.beginTransaction();
 
-		session.save(type);
+			session.save(type);
 
-		session.getTransaction().commit();
+			session.getTransaction().commit();
+		}catch (Exception e) {
+			throw new DataException(e);
+		}
+
 	}
 
 	@Override
@@ -49,14 +53,15 @@ public abstract class Repository<T extends BaseEntity> implements
 		session.getTransaction().commit();
 
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<T> list() {
 		Session session = HibernateUtil.getSession();
 		session.beginTransaction();
 
-		List list = session.createQuery("from "+ classe.getSimpleName()).list();
+		List list = session.createQuery("from " + classe.getSimpleName())
+				.list();
 
 		session.getTransaction().commit();
 		return list;
