@@ -13,9 +13,9 @@ public class BaseEntity {
 	@Basic
 	protected Integer id;
 
-	//public void setId(Integer id) {
-	//	this.id = id;
-	//}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public Integer getId() {

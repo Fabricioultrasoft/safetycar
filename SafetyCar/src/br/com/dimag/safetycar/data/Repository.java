@@ -2,10 +2,13 @@ package br.com.dimag.safetycar.data;
 
 import java.util.List;
 
+import org.hibernate.Session;
+
+import br.com.dimag.safetycar.exception.DataException;
 import br.com.dimag.safetycar.model.BaseEntity;
 
-
-public abstract class Repository<T extends BaseEntity> implements IRepository<T> {
+public abstract class Repository<T extends BaseEntity> implements
+		IRepository<T> {
 
 	private Class<T> classe;
 
@@ -14,27 +17,48 @@ public abstract class Repository<T extends BaseEntity> implements IRepository<T>
 	}
 
 	@Override
-	public void delete(T type){ 
-		// TODO Auto-generated method stub
+	public void delete(T type) {
+		
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
 
+		session.delete(type);
+
+		session.getTransaction().commit();
+		
 	}
 
 	@Override
-	public void insert(T type) {
+	public void insert(T type) throws DataException{
 		
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
 
+		session.save(type);
+
+		session.getTransaction().commit();
 	}
 
 	@Override
 	public void update(T type) {
-		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
+
+		session.merge(type);
+
+		session.getTransaction().commit();
 
 	}
-
+	
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<T> list() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
 
+		List list = session.createQuery("from "+ classe.getSimpleName()).list();
+
+		session.getTransaction().commit();
+		return list;
+	}
 }

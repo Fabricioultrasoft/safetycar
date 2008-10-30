@@ -2,6 +2,7 @@ package br.com.dimag.safetycar.business.cadastro;
 
 import br.com.dimag.safetycar.data.IRepository;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
+import br.com.dimag.safetycar.exception.DataException;
 import br.com.dimag.safetycar.model.BaseEntity;
 
 public abstract class Cadastro<T extends BaseEntity> {
@@ -12,7 +13,7 @@ public abstract class Cadastro<T extends BaseEntity> {
 		this.repository = repository;
 	}
 	
-	public void inserir(T type) throws DadosInsuficientesException{
+	public void inserir(T type) throws DadosInsuficientesException, DataException{
 		if (type.getId() == null){
 			throw new DadosInsuficientesException("O Objeto "+ type.getClass().getSimpleName() +" não possui ID.");
 		}	

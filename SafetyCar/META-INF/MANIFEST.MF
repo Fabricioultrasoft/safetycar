@@ -8,3 +8,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: br.com.dimag.safetycar,
+ br.com.dimag.safetycar.business,
+ br.com.dimag.safetycar.business.cadastro,
+ br.com.dimag.safetycar.data,
+ br.com.dimag.safetycar.exception,
+ br.com.dimag.safetycar.gui.actions,
+ br.com.dimag.safetycar.gui.views,
+ br.com.dimag.safetycar.model
