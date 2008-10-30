@@ -2,9 +2,9 @@ package br.com.dimag.safetycar.business.cadastro;
 
 import br.com.dimag.safetycar.data.IRepository;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
-import br.com.dimag.safetycar.model.BasicClass;
+import br.com.dimag.safetycar.model.BaseEntity;
 
-public abstract class Cadastro<T extends BasicClass> {
+public abstract class Cadastro<T extends BaseEntity> {
 	
 	private IRepository<T> repository;
 	
