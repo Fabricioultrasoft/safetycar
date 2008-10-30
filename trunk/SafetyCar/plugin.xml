@@ -7,7 +7,7 @@
          point="org.eclipse.core.runtime.applications">
       <application>
          <run
-               class="safetycar.SafetyCarApplication">
+               class="br.com.dimag.safetycar.SafetyCarApplication">
          </run>
       </application>
    </extension>
@@ -15,7 +15,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             name="RCP Perspective"
-            class="safetycar.Perspective"
+            class="br.com.dimag.safetycar.Perspective"
             id="SafetyCar.perspective">
       </perspective>
    </extension>
@@ -25,26 +25,26 @@
             name="Mailboxes"
             allowMultiple="true"
             icon="icons/sample3.gif"
-            class="safetycar.views.NavigationView"
+            class="br.com.dimag.safetycar.gui.views.NavigationView"
             id="SafetyCar.navigationView">
       </view>
       <view
             allowMultiple="false"
-            class="safetycar.views.ClienteView"
+            class="br.com.dimag.safetycar.gui.views.ClienteView"
             icon="icons/sample3.gif"
             id="SafetyCar.client"
             name="Cadastro de Cliente">
       </view>
       <view
             allowMultiple="false"
-            class="safetycar.views.MainView"
+            class="br.com.dimag.safetycar.gui.views.MainView"
             icon="icons/sample3.gif"
             id="SafetyCar.main"
             name="Inicio">
       </view>
       <view
             allowMultiple="false"
-            class="safetycar.views.ClienteListView"
+            class="br.com.dimag.safetycar.gui.views.ClienteListView"
             icon="icons/sample3.gif"
             id="SafetyCar.clientList"
             name="Lista de Cliente">
