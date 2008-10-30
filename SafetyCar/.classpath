@@ -4,6 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/Hibernate/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="lib/Hibernate/cglib-2.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/Hibernate/commons-collections-3.1.jar"/>
 	<classpathentry kind="lib" path="lib/Hibernate/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/Hibernate/dom4j.jar"/>
@@ -18,5 +19,7 @@
 	<classpathentry kind="lib" path="lib/Hibernate/slf4j-api-1.5.2.jar"/>
 	<classpathentry kind="lib" path="lib/Hibernate/slf4j-api.jar"/>
 	<classpathentry kind="lib" path="lib/Hibernate/slf4j-log4j12.jar"/>
+	<classpathentry kind="lib" path="lib/Hibernate/asm-attrs.jar"/>
+	<classpathentry kind="lib" path="lib/Hibernate/asm.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

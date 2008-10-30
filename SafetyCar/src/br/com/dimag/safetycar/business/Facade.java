@@ -20,7 +20,12 @@ public class Facade {
 	}
 
 	public Facade(){
-		cadastroCliente = new CadastroCliente();
+		try {
+			cadastroCliente = new CadastroCliente();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void cadastrarCliente(Cliente cliente) throws FacadeException{
@@ -47,6 +52,9 @@ public class Facade {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
+		
+		Facade.getInstance().listCliente();
+		
 		System.out.println("ACABOU!!!!!!!!!!!!!!!!!!!!!!");
 	}
 

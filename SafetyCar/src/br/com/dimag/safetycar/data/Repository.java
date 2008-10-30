@@ -1,49 +1,40 @@
 package br.com.dimag.safetycar.data;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import org.hibernate.Session;
 
-import br.com.dimag.safetycar.exception.DataException;
+import br.com.dimag.safetycar.data.transaction.HibernateTransaction;
+import br.com.dimag.safetycar.data.transaction.HibernateUtil;
 import br.com.dimag.safetycar.model.BaseEntity;
 
 public abstract class Repository<T extends BaseEntity> implements
 		IRepository<T> {
 
-	private Class<T> classe;
+	private ParameterizedType classe;
 
-	public Repository(Class<T> classe) {
-		this.classe = classe;
+	protected Repository() {
+		this.classe = (ParameterizedType) ((ParameterizedType) getClass()
+		.getGenericSuperclass()).getActualTypeArguments()[0];
+		
+		
 	}
 
 	@Override
+	@HibernateTransaction
 	public void delete(T type) {
-
-		Session session = HibernateUtil.getSession();
-		session.beginTransaction();
-
-		session.delete(type);
-
-		session.getTransaction().commit();
-
+		HibernateUtil.getSession().delete(type);
 	}
 
 	@Override
-	public void insert(T type) throws DataException {
-		try {
-			Session session = HibernateUtil.getSession();
-			session.beginTransaction();
-
-			session.save(type);
-
-			session.getTransaction().commit();
-		}catch (Exception e) {
-			throw new DataException(e);
-		}
-
+	@HibernateTransaction
+	public void insert(T type) {
+		HibernateUtil.getSession().save(type);
 	}
 
 	@Override
+	@HibernateTransaction
 	public void update(T type) {
 		Session session = HibernateUtil.getSession();
 		session.beginTransaction();
@@ -56,14 +47,10 @@ public abstract class Repository<T extends BaseEntity> implements
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@HibernateTransaction
 	public List<T> list() {
-		Session session = HibernateUtil.getSession();
-		session.beginTransaction();
 
-		List list = session.createQuery("from " + classe.getSimpleName())
-				.list();
-
-		session.getTransaction().commit();
-		return list;
+		return HibernateUtil.getSession().createQuery(
+				"from " + classe.getClass().getSimpleName()).list();
 	}
 }
