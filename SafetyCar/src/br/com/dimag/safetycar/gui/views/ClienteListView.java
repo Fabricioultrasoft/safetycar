@@ -15,6 +15,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
+import br.com.dimag.safetycar.business.Facade;
 import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
 import br.com.dimag.safetycar.model.Cliente;
 
@@ -39,13 +40,7 @@ public class ClienteListView extends ViewPart {
 		
 		listClientes = new ArrayList<Cliente>();
 		
-		Cliente c1 = new Cliente("Cliente1");
-		Cliente c2 = new Cliente("Cliente2");
-		Cliente c3 = new Cliente("Cliente3");
-		
-		listClientes.add(c1);
-		listClientes.add(c2);
-		listClientes.add(c3);
+		listClientes = Facade.getInstance().listCliente();
 	}
 
 	class ViewContentProvider implements IStructuredContentProvider {

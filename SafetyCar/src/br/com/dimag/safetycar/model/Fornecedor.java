@@ -3,13 +3,13 @@ package br.com.dimag.safetycar.model;
 import javax.persistence.Entity;
 
 @Entity
-public class Cliente extends BaseEntity {
+public class Fornecedor extends BaseEntity {
 	
 	private String nome;
 	private String endereco;
 	private String telefone;
 	
-	public Cliente(){
+	public Fornecedor(){
 		
 	}
 	

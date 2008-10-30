@@ -124,7 +124,6 @@ public class ClienteView extends ViewPart {
 
 	private void performFinish() {
 		cliente = new Cliente();
-		cliente.setId(1);
 		cliente.setNome(textNomeCliente.getText());
 		cliente.setEndereco(textEndereço.getText());
 		cliente.setTelefone(textTelefone.getText());
@@ -133,7 +132,7 @@ public class ClienteView extends ViewPart {
 			Facade.getInstance().cadastrarCliente(cliente);
 			this.getViewSite().getWorkbenchWindow().getActivePage().hideView(this);
 		} catch (FacadeException e) {
-			System.out.println(e.getMessage());
+			throw new RuntimeException(e);
 		}
 		
 		

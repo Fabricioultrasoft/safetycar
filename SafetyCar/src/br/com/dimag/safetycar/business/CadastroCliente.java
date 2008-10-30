@@ -9,5 +9,4 @@ public class CadastroCliente extends Cadastro<Cliente> {
 	protected CadastroCliente() {
 		super(FactoryRepository.getIntance().getRepositoryCliente());
 	}
-
 }
