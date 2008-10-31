@@ -1,9 +1,6 @@
 package br.com.dimag.safetycar.data;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
-
-import org.hibernate.Session;
 
 import br.com.dimag.safetycar.data.transaction.HibernateTransaction;
 import br.com.dimag.safetycar.data.transaction.HibernateUtil;
@@ -41,6 +38,6 @@ public abstract class Repository<T extends BaseEntity> implements
 	@HibernateTransaction
 	public List<T> list(){
 		return HibernateUtil.getSession().createQuery(
-				"from " + classe.getClass().getSimpleName()).list();
+				"from " + classe.getSimpleName()).list();
 	}
 }

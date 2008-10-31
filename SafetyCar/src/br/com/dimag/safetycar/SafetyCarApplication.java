@@ -6,9 +6,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 
-import br.com.dimag.safetycar.business.Facade;
-import br.com.dimag.safetycar.data.transaction.HibernateUtil;
-
 /**
  * This class controls all aspects of the application's execution
  */

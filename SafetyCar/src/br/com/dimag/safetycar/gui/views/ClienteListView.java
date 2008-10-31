@@ -3,7 +3,6 @@ package br.com.dimag.safetycar.gui.views;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
@@ -37,10 +36,8 @@ public class ClienteListView extends ViewPart {
 	private List<Cliente> listClientes;
 	
 	public ClienteListView(){
-		
 		listClientes = new ArrayList<Cliente>();
 		
-		listClientes = Facade.getInstance().listCliente();
 	}
 
 	class ViewContentProvider implements IStructuredContentProvider {
@@ -80,7 +77,7 @@ public class ClienteListView extends ViewPart {
 	 * you will connect to a real model and expose its hierarchy.
 	 */
 	private List<Cliente> createModel() {
-		
+		listClientes = Facade.getInstance().listCliente();
 		
 		return listClientes;
 	}
@@ -90,6 +87,7 @@ public class ClienteListView extends ViewPart {
 	 * it.
 	 */
 	public void createPartControl(Composite parent) {
+		
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
 				| SWT.BORDER_SOLID);
 		viewer.setColumnProperties(new String[]{"Nome","Endereço"});
