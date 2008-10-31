@@ -12,13 +12,10 @@ import br.com.dimag.safetycar.model.BaseEntity;
 public abstract class Repository<T extends BaseEntity> implements
 		IRepository<T> {
 
-	private ParameterizedType classe;
+	private Class<T> classe;
 
-	protected Repository() {
-		this.classe = (ParameterizedType) ((ParameterizedType) getClass()
-		.getGenericSuperclass()).getActualTypeArguments()[0];
-		
-		
+	protected Repository(Class<T> classe) {
+		this.classe = classe;
 	}
 
 	@Override
@@ -36,20 +33,13 @@ public abstract class Repository<T extends BaseEntity> implements
 	@Override
 	@HibernateTransaction
 	public void update(T type) {
-		Session session = HibernateUtil.getSession();
-		session.beginTransaction();
-
-		session.merge(type);
-
-		session.getTransaction().commit();
-
+		HibernateUtil.getSession().merge(type);
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
 	@HibernateTransaction
-	public List<T> list() {
-
+	public List<T> list(){
 		return HibernateUtil.getSession().createQuery(
 				"from " + classe.getClass().getSimpleName()).list();
 	}
