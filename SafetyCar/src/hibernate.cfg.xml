@@ -28,5 +28,6 @@
 		
 		<mapping class="br.com.dimag.safetycar.model.Cliente"/>
 		<mapping class="br.com.dimag.safetycar.model.Fornecedor"/>
+		<mapping class="br.com.dimag.safetycar.model.Automovel"/>
 	</session-factory>
 </hibernate-configuration>

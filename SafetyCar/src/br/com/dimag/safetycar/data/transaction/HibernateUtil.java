@@ -24,6 +24,10 @@ public class HibernateUtil {
 			throw new ExceptionInInitializerError(ex);
 		}
 	}
+	
+	public static void init(){
+		
+	}
 
 	/**
 	 * Should be called to release Hibernate resources

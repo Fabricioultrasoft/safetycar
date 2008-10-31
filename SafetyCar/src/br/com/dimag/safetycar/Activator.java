@@ -4,6 +4,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import br.com.dimag.safetycar.data.transaction.HibernateUtil;
+
 /**
  * The activator class controls the plug-in life cycle
  */
