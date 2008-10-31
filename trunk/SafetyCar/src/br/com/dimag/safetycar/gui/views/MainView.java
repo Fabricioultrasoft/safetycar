@@ -7,6 +7,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 
+import br.com.dimag.safetycar.data.transaction.HibernateUtil;
+
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -46,6 +48,7 @@ public class MainView extends ViewPart {
 			}
 		}
 		// TODO Auto-generated method stub
+		HibernateUtil.init();
 
 	}
 
