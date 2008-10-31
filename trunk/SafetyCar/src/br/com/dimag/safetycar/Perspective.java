@@ -5,7 +5,6 @@ import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.IPlaceholderFolderLayout;
 
-import br.com.dimag.safetycar.data.transaction.HibernateUtil;
 import br.com.dimag.safetycar.gui.views.MainView;
 import br.com.dimag.safetycar.gui.views.NavigationView;
 
