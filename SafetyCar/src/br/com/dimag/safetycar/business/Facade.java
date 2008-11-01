@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
 import br.com.dimag.safetycar.exception.DataException;
 import br.com.dimag.safetycar.exception.FacadeException;
+import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
 
 public class Facade {
@@ -19,7 +20,7 @@ public class Facade {
 		return facade;
 	}
 
-	public Facade(){
+	private Facade(){
 		try {
 			cadastroCliente = new CadastroCliente();
 		} catch (Exception e) {
@@ -56,6 +57,11 @@ public class Facade {
 		Facade.getInstance().listCliente();
 		
 		System.out.println("ACABOU!!!!!!!!!!!!!!!!!!!!!!");
+	}
+	
+	public List<Automovel> searchListAutomovel(Cliente cliente){
+		
+		return null;
 	}
 
 	public List<Cliente> listCliente() {

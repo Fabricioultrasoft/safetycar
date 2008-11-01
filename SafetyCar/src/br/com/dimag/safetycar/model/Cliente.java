@@ -5,17 +5,20 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"nome"})})
 public class Cliente extends BaseEntity {
 	
 	@NotNull
-	@Length(max=30)
+	@Length(max=50)
 	private String nome;
-	@Length(max=30)
+	@Length(max=50)
 	private String endereco;
 	@Length(max=11)
 	private String telefone;
