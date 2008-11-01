@@ -1,9 +1,17 @@
 package br.com.dimag.safetycar.gui.views;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -11,12 +19,15 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import br.com.dimag.safetycar.business.Facade;
 import br.com.dimag.safetycar.exception.FacadeException;
+import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
+import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
-
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -35,6 +46,8 @@ public class ClienteView extends ViewPart {
 	public static final String ID = "SafetyCar.client";
 	private Group groupDadosPessoais;
 	private Label labelEndereco;
+	private ListViewer listViewerAutomovel;
+	private Group groupAutomovel;
 	private Text textTelefone;
 	private Label labelTelefone;
 	private Button buttonCancelar;
@@ -112,9 +125,88 @@ public class ClienteView extends ViewPart {
 					buttonCancelar = new Button(groupDadosPessoais, SWT.PUSH | SWT.CENTER);
 					buttonCancelar.setText("Cancelar");
 				}
+				{
+					groupAutomovel = new Group(groupDadosPessoais, SWT.NONE);
+					GridLayout groupAutomovelLayout = new GridLayout();
+					groupAutomovelLayout.makeColumnsEqualWidth = true;
+					groupAutomovel.setLayout(groupAutomovelLayout);
+					GridData groupAutomovelLData = new GridData();
+					groupAutomovelLData.verticalAlignment = GridData.BEGINNING;
+					groupAutomovelLData.horizontalAlignment = GridData.BEGINNING;
+					groupAutomovelLData.horizontalSpan = 2;
+					groupAutomovelLData.grabExcessHorizontalSpace = true;
+					groupAutomovelLData.grabExcessVerticalSpace = true;
+					groupAutomovelLData.heightHint = 74;
+					groupAutomovel.setLayoutData(groupAutomovelLData);
+					groupAutomovel.setText("Automóveis");
+					{
+						GridData listViewerAutomovelLData = new GridData();
+						listViewerAutomovelLData.verticalAlignment = GridData.BEGINNING;
+						listViewerAutomovelLData.horizontalAlignment = GridData.BEGINNING;
+						listViewerAutomovelLData.grabExcessVerticalSpace = true;
+						listViewerAutomovelLData.grabExcessHorizontalSpace = true;
+						listViewerAutomovel = new ListViewer(groupAutomovel, SWT.NONE);
+						listViewerAutomovel.getControl().setLayoutData(listViewerAutomovelLData);
+						listViewerAutomovel.setContentProvider(new ViewContentProvider());
+						listViewerAutomovel.setLabelProvider(new ViewLabelProvider());
+						listViewerAutomovel.setInput(createModelAutomovel());
+					}
+				}
 			}
 		}
+	}
+	
+	private List<Automovel> createModelAutomovel() {
+		
+		cliente = new Cliente();
+		
+		Automovel automovel = new Automovel();
+		automovel.setPlaca("KKL0099");
+		Automovel automovel2 = new Automovel();
+		automovel2.setPlaca("KZZ1122");
+		cliente.setListAutomovel(new ArrayList<Automovel>());
+		cliente.getListAutomovel().add(automovel);
+		cliente.getListAutomovel().add(automovel2);
+		return cliente.getListAutomovel();
+		
+	}
 
+	class ViewContentProvider implements IStructuredContentProvider {
+
+		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
+			v.getInput();
+		}
+
+		public void dispose() {
+			
+		}
+
+		public Object[] getElements(Object parent) {
+			Automovel[] array = new Automovel[cliente.getListAutomovel().size()];
+			for (int i = 0; i < cliente.getListAutomovel().size(); i++) {
+				Automovel automovel = cliente.getListAutomovel().get(i);
+				array[i] = automovel;
+			}
+			
+			return array;
+		}
+
+	}
+
+	class ViewLabelProvider extends LabelProvider {
+
+		public String getText(Object obj) {
+			Automovel automovel = (Automovel)obj;
+			return automovel.getPlaca();
+		}
+
+		public Image getImage(Object obj) {
+			String imageKey = ISharedImages.IMG_OBJ_ELEMENT;
+			if (obj instanceof TreeParent)
+				imageKey = ISharedImages.IMG_OBJ_FOLDER;
+			return PlatformUI.getWorkbench().getSharedImages().getImage(
+					imageKey);
+		}
 	}
 
 	@Override
