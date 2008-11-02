@@ -1,6 +1,5 @@
 package br.com.dimag.safetycar.business;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.dimag.safetycar.business.cadastro.CadastroAutomovel;
@@ -11,7 +10,6 @@ import br.com.dimag.safetycar.exception.DataException;
 import br.com.dimag.safetycar.exception.FacadeException;
 import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
-import br.com.dimag.safetycar.model.OrdemServico;
 
 public class Facade {
 
