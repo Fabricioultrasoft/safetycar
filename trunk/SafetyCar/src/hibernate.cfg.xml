@@ -25,10 +25,19 @@
 		<!-- this will show us all sql statements -->
 		<property name="hibernate.show_sql">true</property>
 		<!-- validate | update | create | create-drop -->
-		<property name="hibernate.hbm2ddl.auto" >update</property>
+		<property name="hibernate.hbm2ddl.auto" >create-drop</property>
 		
 		<mapping class="br.com.dimag.safetycar.model.Cliente"/>
 		<mapping class="br.com.dimag.safetycar.model.Fornecedor"/>
 		<mapping class="br.com.dimag.safetycar.model.Automovel"/>
+		<mapping class="br.com.dimag.safetycar.model.UF"/>
+		<mapping class="br.com.dimag.safetycar.model.Endereco"/>
+		<mapping class="br.com.dimag.safetycar.model.Pessoa"/>
+		<mapping class="br.com.dimag.safetycar.model.Funcionario"/>
+		<mapping class="br.com.dimag.safetycar.model.TipoFuncionario"/>
+		<mapping class="br.com.dimag.safetycar.model.Produto"/>
+		<mapping class="br.com.dimag.safetycar.model.Servico"/>
+		<mapping class="br.com.dimag.safetycar.model.OrdemServico"/>
+		<mapping class="br.com.dimag.safetycar.model.OrdemServicoProduto"/>
 	</session-factory>
 </hibernate-configuration>
