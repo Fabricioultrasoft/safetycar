@@ -5,23 +5,30 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"nome"})})
-public class Cliente extends BaseEntity {
+@PrimaryKeyJoinColumn(name="PESSOA_ID")
+public class Cliente extends Pessoa {
 	
 	@NotNull
-	@Length(max=50)
+	@Length(max=30)
 	private String nome;
-	@Length(max=50)
+	@Length(max=30)
 	private String endereco;
-	@Length(max=11)
+	
+	@Length(max=10)
 	private String telefone;
+	
+	@Length(max=10)
+	private String telefoneComercial;
+	
+	@Length(max=10)
+	private String telefoneCelular;
+	
 	@OneToMany
 	@JoinColumn(name="clienteId")
 	private List<Automovel> listAutomovel;
@@ -38,17 +45,30 @@ public class Cliente extends BaseEntity {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco.trim();
 	}
-	public String getTelefone() {
-		return telefone;
-	}
-	public void setTelefone(String telefone) {
-		this.telefone = telefone.trim();
-	}
+
 	public List<Automovel> getListAutomovel() {
 		return listAutomovel;
 	}
 
 	public void setListAutomovel(List<Automovel> listAutomovel) {
 		this.listAutomovel = listAutomovel;
+	}
+	public String getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	public String getTelefoneComercial() {
+		return telefoneComercial;
+	}
+	public void setTelefoneComercial(String telefoneComercial) {
+		this.telefoneComercial = telefoneComercial;
+	}
+	public String getTelefoneCelular() {
+		return telefoneCelular;
+	}
+	public void setTelefoneCelular(String telefoneCelular) {
+		this.telefoneCelular = telefoneCelular;
 	}
 }
