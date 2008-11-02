@@ -1,17 +1,18 @@
 package br.com.dimag.safetycar.model;
 
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
+import org.hibernate.validator.NotNull;
 
 @MappedSuperclass
 public abstract class BaseEntity {
 
 	@Id
 	@Basic
-	@Column(nullable=false)
+	@NotNull
 	@GeneratedValue
 	protected Integer id;
 
