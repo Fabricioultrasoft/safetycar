@@ -1,10 +1,6 @@
 package br.com.dimag.safetycar.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 import org.hibernate.validator.Length;
@@ -29,10 +25,6 @@ public class Cliente extends Pessoa {
 	@Length(max=10)
 	private String telefoneCelular;
 	
-	@OneToMany
-	@JoinColumn(name="clienteId")
-	private List<Automovel> listAutomovel;
-	
 	public String getNome() {
 		return nome;
 	}
@@ -46,13 +38,6 @@ public class Cliente extends Pessoa {
 		this.endereco = endereco.trim();
 	}
 
-	public List<Automovel> getListAutomovel() {
-		return listAutomovel;
-	}
-
-	public void setListAutomovel(List<Automovel> listAutomovel) {
-		this.listAutomovel = listAutomovel;
-	}
 	public String getTelefone() {
 		return telefone;
 	}

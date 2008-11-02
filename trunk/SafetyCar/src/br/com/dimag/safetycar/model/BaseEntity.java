@@ -23,4 +23,15 @@ public abstract class BaseEntity {
 	public Integer getId() {
 		return id;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof BaseEntity){
+			BaseEntity baseEntity = (BaseEntity)obj;
+			return baseEntity.getId() == this.getId();
+		}
+		return false;
+	}
 }
+
+	
