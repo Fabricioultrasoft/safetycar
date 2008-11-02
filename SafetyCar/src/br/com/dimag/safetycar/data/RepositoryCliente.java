@@ -20,5 +20,4 @@ public class RepositoryCliente extends Repository<Cliente> {
 	protected RepositoryCliente() {
 		super(Cliente.class);
 	}
-
 }
