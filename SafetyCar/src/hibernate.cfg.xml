@@ -39,5 +39,6 @@
 		<mapping class="br.com.dimag.safetycar.model.Servico"/>
 		<mapping class="br.com.dimag.safetycar.model.OrdemServico"/>
 		<mapping class="br.com.dimag.safetycar.model.OrdemServicoProduto"/>
+		<mapping class="br.com.dimag.safetycar.model.OrdemServicoServico"/>
 	</session-factory>
 </hibernate-configuration>
