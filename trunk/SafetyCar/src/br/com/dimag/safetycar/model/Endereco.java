@@ -1,6 +1,8 @@
 package br.com.dimag.safetycar.model;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
@@ -23,7 +25,6 @@ public class Endereco extends BaseEntity{
 	@Length(max = 9, min = 9)
 	private String cep;
 	
-	
 	@NotNull
 	private TipoEndereco tipoEndereco;
 	
@@ -31,6 +32,11 @@ public class Endereco extends BaseEntity{
 		COMERCIAL, 
 		RESIDENCIAL
 	}
+	
+	@ManyToOne
+	@NotNull
+	@JoinColumn(name = "UF_ID")
+	private UF uf;
 
 	public String getLogradouro() {
 		return logradouro;
@@ -70,6 +76,14 @@ public class Endereco extends BaseEntity{
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+
+	public void setUf(UF uf) {
+		this.uf = uf;
+	}
+
+	public UF getUf() {
+		return uf;
 	}
 	
 }

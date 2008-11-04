@@ -50,6 +50,9 @@ public class OrdemServico extends BaseEntity {
 	
 	@OneToMany(mappedBy="ordemServico", cascade= CascadeType.ALL)  
 	private List<OrdemServicoProduto> listOrdemServicoProduto; 
+	
+	@OneToMany(mappedBy="ordemServico", cascade= CascadeType.ALL)  
+	private List<OrdemServicoServico> listOrdemServicoServico; 
 
 	public enum ClassificacaoOrdemServico {
 		ABERTA, CANCELADA, FECHADA, QUITADA
