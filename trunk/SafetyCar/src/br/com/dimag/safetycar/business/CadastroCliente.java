@@ -2,8 +2,8 @@ package br.com.dimag.safetycar.business;
 
 import java.util.List;
 
-import br.com.dimag.safetycar.data.IRepositoryCliente;
 import br.com.dimag.safetycar.data.RepositoryCliente;
+import br.com.dimag.safetycar.data.api.IRepositoryCliente;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
 import br.com.dimag.safetycar.exception.DataException;
 import br.com.dimag.safetycar.model.Cliente;
