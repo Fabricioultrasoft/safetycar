@@ -2,7 +2,6 @@ package br.com.dimag.safetycar.data;
 
 import java.util.List;
 
-import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.BaseEntity;
 
 public interface IRepository<T extends BaseEntity> {
