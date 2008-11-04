@@ -1,4 +1,4 @@
-package br.com.dimag.safetycar.data;
+package br.com.dimag.safetycar.data.api;
 
 import java.util.List;
 

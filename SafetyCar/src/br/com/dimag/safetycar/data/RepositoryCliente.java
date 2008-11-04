@@ -2,6 +2,7 @@ package br.com.dimag.safetycar.data;
 
 import java.util.List;
 
+import br.com.dimag.safetycar.data.api.IRepositoryCliente;
 import br.com.dimag.safetycar.data.transaction.HibernateInterceptorAnnotation;
 import br.com.dimag.safetycar.data.transaction.HibernateTransaction;
 import br.com.dimag.safetycar.data.transaction.HibernateUtil;

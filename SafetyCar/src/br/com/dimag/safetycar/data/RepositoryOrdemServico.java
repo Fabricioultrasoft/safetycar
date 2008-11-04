@@ -3,17 +3,21 @@ package br.com.dimag.safetycar.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.dimag.safetycar.data.api.IRepositoryOrdemServico;
 import br.com.dimag.safetycar.data.transaction.HibernateInterceptorAnnotation;
+import br.com.dimag.safetycar.data.transaction.HibernateTransaction;
 import br.com.dimag.safetycar.data.transaction.HibernateUtil;
 import br.com.dimag.safetycar.data.transaction.TransactionClass;
 import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.OrdemServico;
 
-public class RepositoryOrdemServico extends Repository<OrdemServico> {
+public class RepositoryOrdemServico implements IRepositoryOrdemServico {
 
-	private static RepositoryOrdemServico instance;	
-	
+	private static RepositoryOrdemServico instance;
+
+	private Class<Cliente> clazz = Cliente.class;
+
 	public static RepositoryOrdemServico getInstance() throws Exception {
 		if (instance == null) {
 			instance = (RepositoryOrdemServico) TransactionClass.create(
@@ -23,11 +27,34 @@ public class RepositoryOrdemServico extends Repository<OrdemServico> {
 		return instance;
 	}
 
-	
-	protected RepositoryOrdemServico() {
-		super(OrdemServico.class);
+	@Override
+	@HibernateTransaction
+	public void delete(OrdemServico ordemServico) {
+		HibernateUtil.getSession().delete(ordemServico);
+	}
+
+	@Override
+	@HibernateTransaction
+	public void insert(OrdemServico ordemServico) {
+		HibernateUtil.getSession().save(ordemServico);
+	}
+
+	@Override
+	@HibernateTransaction
+	public void update(OrdemServico ordemServico) {
+		HibernateUtil.getSession().merge(ordemServico);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	@HibernateTransaction
+	public List<OrdemServico> list() {
+		return HibernateUtil.getSession().createQuery(
+				"from " + clazz.getSimpleName()).list();
 	}
 	
+	@Override
+	@HibernateTransaction
 	public List<Automovel> listAutomovel(Cliente cliente){
 		List<Automovel> listAutomovel = new ArrayList<Automovel>();
 		List<OrdemServico> list = HibernateUtil.getSession().createQuery("from OrdemServico os where os.cliente.id= :clienteId").setParameter("clienteId", cliente.getId()).list();
@@ -36,6 +63,4 @@ public class RepositoryOrdemServico extends Repository<OrdemServico> {
 		}
 		return listAutomovel; 
 	}
-	
-	
 }

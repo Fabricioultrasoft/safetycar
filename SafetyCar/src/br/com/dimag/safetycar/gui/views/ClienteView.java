@@ -158,17 +158,7 @@ public class ClienteView extends ViewPart {
 	
 	private List<Automovel> createModelAutomovel() {
 		
-		cliente = new Cliente();
-		
-		Automovel automovel = new Automovel();
-		automovel.setPlaca("KKL0099");
-		Automovel automovel2 = new Automovel();
-		automovel2.setPlaca("KZZ1122");
-		cliente.setListAutomovel(new ArrayList<Automovel>());
-		cliente.getListAutomovel().add(automovel);
-		cliente.getListAutomovel().add(automovel2);
-		return cliente.getListAutomovel();
-		
+		return Facade.getInstance().searchListAutomovel(cliente);
 	}
 
 	class ViewContentProvider implements IStructuredContentProvider {
@@ -182,9 +172,10 @@ public class ClienteView extends ViewPart {
 		}
 
 		public Object[] getElements(Object parent) {
-			Automovel[] array = new Automovel[cliente.getListAutomovel().size()];
-			for (int i = 0; i < cliente.getListAutomovel().size(); i++) {
-				Automovel automovel = cliente.getListAutomovel().get(i);
+			List<Automovel> list = (List<Automovel> )parent;
+			Automovel[] array = new Automovel[list.size()];
+			for (int i = 0; i < list.size(); i++) {
+				Automovel automovel = list.get(i);
 				array[i] = automovel;
 			}
 			
