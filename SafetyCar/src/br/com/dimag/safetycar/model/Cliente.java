@@ -1,5 +1,7 @@
 package br.com.dimag.safetycar.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -13,6 +15,7 @@ public class Cliente extends Pessoa {
 	@NotNull
 	@Length(max=30)
 	private String nome;
+	
 	@Length(max=30)
 	private String endereco;
 	

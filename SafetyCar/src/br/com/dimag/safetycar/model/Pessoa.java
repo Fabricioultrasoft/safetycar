@@ -3,6 +3,8 @@ package br.com.dimag.safetycar.model;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
@@ -19,7 +21,7 @@ public abstract class Pessoa extends BaseEntity {
 	private String nomeRazaoSocial;
 
 	@Length(max = 200)
-	private String nomeFantasia;
+	private String apelidoFantasia;
 
 	@NotNull
 	@Length(max = 14, min = 11)
@@ -31,6 +33,14 @@ public abstract class Pessoa extends BaseEntity {
 	public enum TipoPessoa {
 		JURIDICA, FISICA
 	}
+	
+	@ManyToOne
+	@JoinColumn(name = "enderecoResidencialId")
+	private Endereco enderecoResidencial;
+	
+	@ManyToOne
+	@JoinColumn(name = "enderecoComercialId")
+	private Endereco enderecoComercial;
 
 	public String getNomeRazaoSocial() {
 		return nomeRazaoSocial;
@@ -40,12 +50,12 @@ public abstract class Pessoa extends BaseEntity {
 		this.nomeRazaoSocial = nomeRazaoSocial;
 	}
 
-	public String getNomeFantasia() {
-		return nomeFantasia;
+	public String getApelidoFantasia() {
+		return apelidoFantasia;
 	}
 
-	public void setNomeFantasia(String nomeFantasia) {
-		this.nomeFantasia = nomeFantasia;
+	public void setApelidoFantasia(String apelidoFantasia) {
+		this.apelidoFantasia = apelidoFantasia;
 	}
 
 	public String getCpfCnpj() {
@@ -62,6 +72,22 @@ public abstract class Pessoa extends BaseEntity {
 
 	public void setTipoPessoa(TipoPessoa tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
+	}
+
+	public Endereco getEnderecoResidencial() {
+		return enderecoResidencial;
+	}
+
+	public void setEnderecoResidencial(Endereco enderecoResidencial) {
+		this.enderecoResidencial = enderecoResidencial;
+	}
+
+	public Endereco getEnderecoComercial() {
+		return enderecoComercial;
+	}
+
+	public void setEnderecoComercial(Endereco enderecoComercial) {
+		this.enderecoComercial = enderecoComercial;
 	}
 
 }
