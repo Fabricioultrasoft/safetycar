@@ -44,7 +44,6 @@ public class Facade {
 	public void cadastrarCliente(Cliente cliente) throws FacadeException{
 		
 		try {
-			
 			cadastroCliente.inserir(cliente);
 		} catch (DadosInsuficientesException e) {
 			throw new FacadeException("Erro ao tentar inserir um cliente. Dados Insuficientes.");

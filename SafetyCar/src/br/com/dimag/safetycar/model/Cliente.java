@@ -1,12 +1,9 @@
 package br.com.dimag.safetycar.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 import org.hibernate.validator.Length;
-import org.hibernate.validator.NotNull;
 
 @Entity
 @PrimaryKeyJoinColumn(name="PESSOA_ID")

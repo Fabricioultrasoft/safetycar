@@ -6,6 +6,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
@@ -28,18 +30,33 @@ public abstract class Pessoa extends BaseEntity {
 	private String cpfCnpj;
 
 	@NotNull
+	@Cascade(value=CascadeType.SAVE_UPDATE)
 	private TipoPessoa tipoPessoa;
 
 	public enum TipoPessoa {
-		JURIDICA, FISICA
+		JURIDICA("Jurídica"), 
+		FISICA("Física");
+	
+		private String tipoPessoa;
+		
+		private TipoPessoa (String tipoPessoa){
+			this.tipoPessoa = tipoPessoa;
+		}
+		
+		public String getDescricao() {
+			return tipoPessoa;
+		}
+	
 	}
 	
 	@ManyToOne
 	@JoinColumn(name = "enderecoResidencialId")
+	@Cascade(value=CascadeType.SAVE_UPDATE)
 	private Endereco enderecoResidencial;
 	
 	@ManyToOne
 	@JoinColumn(name = "enderecoComercialId")
+	@Cascade(value=CascadeType.SAVE_UPDATE)
 	private Endereco enderecoComercial;
 
 	public String getNomeRazaoSocial() {

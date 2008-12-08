@@ -21,6 +21,7 @@ import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.Endereco;
 import br.com.dimag.safetycar.model.UF;
 import br.com.dimag.safetycar.model.Endereco.TipoEndereco;
+import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -68,6 +69,11 @@ public class ClienteView extends ViewPart {
 	private Label labelTelefone;
 	private Button buttonCancelar;
 	private Button buttonConfirma;
+	
+	//CCOMBO TIPOPESSOA
+	private CCombo cComboTipoPessoa;
+	private Label labelTipoPessoa;
+	
 	//NOME - RAZÃO SOCIAL
 	private Label labelNomeCliente;
 	private Text textNomeCliente;
@@ -219,6 +225,7 @@ public class ClienteView extends ViewPart {
 					textTelefone = new Text(groupDadosPessoais, SWT.NONE);
 					textTelefone.setLayoutData(textTelefoneLData);
 				}
+				//CCOMBO UF
 				{
 					labelUf = new Label(groupDadosPessoais, SWT.NONE);
 					GridData labelUfLData = new GridData();
@@ -235,6 +242,25 @@ public class ClienteView extends ViewPart {
 					cComboUfLData.heightHint = 16;
 					cComboUf.setLayoutData(cComboUfLData);
 				}
+				
+				//CCOMBO TIPOPESSOA
+				{
+					labelTipoPessoa = new Label(groupDadosPessoais, SWT.NONE);
+					GridData labelUfLData = new GridData();
+					labelUfLData.horizontalAlignment = GridData.FILL;
+					labelTipoPessoa.setLayoutData(labelUfLData);
+					labelTipoPessoa.setText("Tipo Pessoa:");
+				}
+				{
+					cComboTipoPessoa = new CCombo(groupDadosPessoais, SWT.NONE);
+					GridData cComboUfLData = new GridData();
+					cComboUfLData.horizontalAlignment = GridData.FILL;
+					cComboUfLData.grabExcessHorizontalSpace = true;
+					cComboUfLData.widthHint = 155;
+					cComboUfLData.heightHint = 16;
+					cComboTipoPessoa.setLayoutData(cComboUfLData);
+				}
+		
 				{
 					buttonConfirma = new Button(groupDadosPessoais, SWT.PUSH | SWT.CENTER);
 					GridData buttonConfirmaLData = new GridData();
@@ -282,18 +308,26 @@ public class ClienteView extends ViewPart {
 	}
 	
 	private void loadData() {
-		// TODO Auto-generated method stub
+		// UF
 		List<UF> listUFs = Facade.getInstance().carregarUfs();
 		cComboUf.removeAll();
 		for(UF uf : listUFs){
 			cComboUf.setData(uf.getDescricao(),uf);
 			cComboUf.add(uf.getDescricao());
 		}	
+		//TIPO ENDEREÇO
 		cComboTipoEndereco.removeAll();
 		for(TipoEndereco tipo : TipoEndereco.values()){
 			cComboTipoEndereco.setData(tipo.getDescricao(),tipo);
 			cComboTipoEndereco.add(tipo.getDescricao());
 		}
+		//TIPO PESSOA
+		cComboTipoPessoa.removeAll();
+		for(TipoPessoa tipo : TipoPessoa.values()){
+			cComboTipoPessoa.setData(tipo.getDescricao(),tipo);
+			cComboTipoPessoa.add(tipo.getDescricao());
+		}
+		
 	}
 
 	@Override
@@ -306,8 +340,9 @@ public class ClienteView extends ViewPart {
 		cliente = new Cliente();
 		
 		cliente.setNomeRazaoSocial(textNomeCliente.getText());
-//		cliente.setApelidoFantasia(textApelidoFantasia.getText());
-	
+		cliente.setApelidoFantasia(textApelidoFantasia.getText());
+		cliente.setCpfCnpj(textCpfCnpj.getText());
+		
 		String key;
 		UF uf = null;
 		if (cComboUf.getSelectionIndex() != -1){
@@ -323,6 +358,7 @@ public class ClienteView extends ViewPart {
 		endereco.setCep(textEndereçoCep.getText());
 		endereco.setUf(uf);
 		
+		//tipo Endereço
 		key = cComboTipoEndereco.getItem(cComboTipoEndereco.getSelectionIndex());
 		TipoEndereco tipo = (TipoEndereco) cComboTipoEndereco.getData(key);
 		
@@ -331,6 +367,11 @@ public class ClienteView extends ViewPart {
 		}else if (tipo == TipoEndereco.RESIDENCIAL){
 			cliente.setEnderecoResidencial(endereco);
 		}
+		
+		//tipo Pessoa
+		key = cComboTipoPessoa.getItem(cComboTipoPessoa.getSelectionIndex());
+		cliente.setTipoPessoa((TipoPessoa) cComboTipoPessoa.getData(key));
+		
 		cliente.setTelefone(textTelefone.getText());
 		
 		try {

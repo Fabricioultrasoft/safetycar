@@ -5,14 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import org.hibernate.validator.NotNull;
-
 @MappedSuperclass
 public abstract class BaseEntity {
 
 	@Id
 	@Basic
-	@NotNull
 	@GeneratedValue
 	protected Integer id;
 
