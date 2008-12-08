@@ -5,7 +5,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.Length;
-import org.hibernate.validator.NotNull;
 
 @Entity
 public class Endereco extends BaseEntity{
@@ -22,7 +21,7 @@ public class Endereco extends BaseEntity{
 	private String municipio;
 	
 //	@NotNull
-	@Length(max = 9, min = 9)
+	@Length(max = 8, min = 8)
 	private String cep;
 	
 //	@NotNull
