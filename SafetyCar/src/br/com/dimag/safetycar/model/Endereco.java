@@ -29,8 +29,18 @@ public class Endereco extends BaseEntity{
 	private TipoEndereco tipoEndereco;
 	
 	public enum TipoEndereco{
-		COMERCIAL, 
-		RESIDENCIAL
+		COMERCIAL("Comercial"), 
+		RESIDENCIAL("Residencial");
+		
+		private String descricao;
+		
+		private TipoEndereco (String descricao){
+			this.descricao = descricao;
+		}
+		
+		public String getDescricao() {
+			return descricao;
+		}
 	}
 	
 	@ManyToOne

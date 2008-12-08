@@ -5,11 +5,13 @@ import java.util.List;
 import br.com.dimag.safetycar.business.cadastro.CadastroAutomovel;
 import br.com.dimag.safetycar.business.cadastro.CadastroCliente;
 import br.com.dimag.safetycar.business.cadastro.CadastroOrdemServico;
+import br.com.dimag.safetycar.business.cadastro.CadastroUF;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
 import br.com.dimag.safetycar.exception.DataException;
 import br.com.dimag.safetycar.exception.FacadeException;
 import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
+import br.com.dimag.safetycar.model.UF;
 import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
 public class Facade {
@@ -18,6 +20,7 @@ public class Facade {
 	private CadastroCliente cadastroCliente;
 	private CadastroAutomovel cadastroAutomovel;
 	private CadastroOrdemServico cadastroOrdemServico;
+	private CadastroUF cadastroUf;
 
 	public static Facade getInstance(){
 		if (facade == null){
@@ -31,6 +34,7 @@ public class Facade {
 			cadastroCliente = new CadastroCliente();
 			cadastroAutomovel = new CadastroAutomovel();
 			cadastroOrdemServico = new CadastroOrdemServico();
+			cadastroUf = new CadastroUF();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,6 +82,10 @@ public class Facade {
 
 	public List<Cliente> listCliente() {
 		return cadastroCliente.list();
+	}
+
+	public List<UF> carregarUfs() {
+		return cadastroUf.list();
 	}
 	
 }

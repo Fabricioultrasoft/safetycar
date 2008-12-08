@@ -60,7 +60,7 @@ public class ClienteListView extends ViewPart {
 
 		public String getText(Object obj) {
 			Cliente cliente = (Cliente)obj;
-			return cliente.getNome();
+			return cliente.getNomeRazaoSocial();
 		}
 
 		public Image getImage(Object obj) {
