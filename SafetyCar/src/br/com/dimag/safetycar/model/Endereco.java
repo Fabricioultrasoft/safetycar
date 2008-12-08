@@ -9,7 +9,7 @@ import org.hibernate.validator.NotNull;
 
 @Entity
 public class Endereco extends BaseEntity{
-	@NotNull
+//	@NotNull
 	@Length(max = 200)
 	private String logradouro;
 	

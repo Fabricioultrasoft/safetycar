@@ -52,6 +52,13 @@ public class ClienteView extends ViewPart {
 	//ENDEREÇO BAIRRO
 	private Label labelEnderecoBairro;
 	private Text textEndereçoBairro;
+	//ENDEREÇO MUNICIPIO
+	private Label labelEnderecoMunicipio;
+	private Text textEndereçoMunicipio;
+	//ENDEREÇO CEP
+	private Label labelEnderecoCep;
+	private Text textEndereçoCep;
+	
 	
 	private ListViewer listViewerAutomovel;
 	private Group groupAutomovel;
@@ -131,7 +138,34 @@ public class ClienteView extends ViewPart {
 					textEndereçoBairro.setLayoutData(EndereçoLData);
 				}
 				
-// daki pra baixo Guto + Diego				
+				//MUNICIPIO
+				{
+					labelEnderecoMunicipio = new Label(groupDadosPessoais, SWT.NONE);
+					labelEnderecoMunicipio.setText("Cidade:");
+				}
+				{
+					GridData EndereçoLData = new GridData();
+					EndereçoLData.heightHint = 13;
+					EndereçoLData.horizontalAlignment = GridData.FILL;
+					EndereçoLData.grabExcessHorizontalSpace = true;
+					textEndereçoMunicipio = new Text(groupDadosPessoais, SWT.NONE);
+					textEndereçoMunicipio.setLayoutData(EndereçoLData);
+				}
+				
+				//CEP
+				{
+					labelEnderecoCep = new Label(groupDadosPessoais, SWT.NONE);
+					labelEnderecoCep.setText("Cidade:");
+				}
+				{
+					GridData EndereçoLData = new GridData();
+					EndereçoLData.heightHint = 13;
+					EndereçoLData.horizontalAlignment = GridData.FILL;
+					EndereçoLData.grabExcessHorizontalSpace = true;
+					textEndereçoCep = new Text(groupDadosPessoais, SWT.NONE);
+					textEndereçoCep.setLayoutData(EndereçoLData);
+				}
+// daki pra cima Guto + Diego				
 				{
 					labelTelefone = new Label(groupDadosPessoais, SWT.NONE);
 					labelTelefone.setText("Telefone:");
@@ -254,6 +288,9 @@ public class ClienteView extends ViewPart {
 		enderecoResidencial = new Endereco();
 		enderecoResidencial.setLogradouro(textEndereçoResidencial.getText());
 		enderecoResidencial.setBairro(textEndereçoBairro.getText());
+		enderecoResidencial.setMunicipio(textEndereçoMunicipio.getText());
+		enderecoResidencial.setCep(textEndereçoCep.getText());
+		
 		
 		cliente.setEnderecoResidencial(enderecoResidencial);
 		cliente.setTelefone(textTelefone.getText());
