@@ -14,7 +14,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.part.ViewPart;
 
 import br.com.dimag.safetycar.business.Facade;
 import br.com.dimag.safetycar.model.Cliente;
@@ -35,7 +34,7 @@ import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class ClienteView extends ViewPart {
+public class ClienteView extends BasicView {
 
 	public static final String ID = "SafetyCar.client";
 	private Group groupDadosPessoais;

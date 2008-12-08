@@ -12,7 +12,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.part.ViewPart;
 
 import br.com.dimag.safetycar.business.Facade;
 import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
@@ -29,7 +28,7 @@ import br.com.dimag.safetycar.model.Cliente;
  * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
  * ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
-public class ClienteListView extends ViewPart {
+public class ClienteListView extends BasicView {
 
 	public static final String ID = "SafetyCar.clientList";
 	private TableViewer viewer;

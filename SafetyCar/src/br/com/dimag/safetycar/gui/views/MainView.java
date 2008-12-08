@@ -4,7 +4,6 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.part.ViewPart;
 
 import br.com.dimag.safetycar.data.transaction.HibernateUtil;
 
@@ -21,7 +20,7 @@ import br.com.dimag.safetycar.data.transaction.HibernateUtil;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class MainView extends ViewPart {
+public class MainView extends BasicView { 
 
 	public static final String ID = "SafetyCar.main";
 	private CTabFolder cTabFolder1;

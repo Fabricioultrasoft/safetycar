@@ -12,9 +12,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.part.ViewPart;
 
-public class NavigationView extends ViewPart {
+public class NavigationView extends BasicView {
 	public static final String ID = "SafetyCar.navigationView";
 	private TreeViewer viewer;
 	 
