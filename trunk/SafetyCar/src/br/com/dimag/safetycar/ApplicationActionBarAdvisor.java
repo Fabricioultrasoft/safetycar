@@ -19,6 +19,7 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import br.com.dimag.safetycar.gui.actions.ViewBasicAction;
 import br.com.dimag.safetycar.gui.views.ClienteListView;
 import br.com.dimag.safetycar.gui.views.ClienteView;
+import br.com.dimag.safetycar.gui.views.OSView;
 
 
 
@@ -36,6 +37,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     private IWorkbenchAction aboutAction;
     private IWorkbenchAction newWindowAction;
 	private ViewBasicAction clienteViewAction;
+	private ViewBasicAction OSViewAction;
 	private ViewBasicAction clienteListViewAction;
     
 
@@ -62,6 +64,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         clienteViewAction = new ViewBasicAction(window, "Cadastro de Clientes", ClienteView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(clienteViewAction);
         
+        OSViewAction = new ViewBasicAction(window, "Ordem de Serviço", OSView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        register(OSViewAction);
+        
         clienteListViewAction = new ViewBasicAction(window, "Lista de Clientes", ClienteListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(clienteListViewAction);
         
@@ -80,6 +85,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(newWindowAction);
         fileMenu.add(new Separator());
         fileMenu.add(clienteViewAction);
+        fileMenu.add(OSViewAction);
         fileMenu.add(clienteListViewAction);
         fileMenu.add(new Separator());
         fileMenu.add(exitAction);
@@ -92,6 +98,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
         coolBar.add(new ToolBarContributionItem(toolbar, "main"));   
         toolbar.add(clienteViewAction);
+        toolbar.add(OSViewAction);
         toolbar.add(clienteListViewAction);
         
     }

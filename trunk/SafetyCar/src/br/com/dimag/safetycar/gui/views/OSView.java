@@ -50,32 +50,10 @@ public class OSView extends ViewPart {
 
 	public static final String ID = "SafetyCar.os";
 	private Group groupDadosOS;
-	//ENDEREÇO RESIDENCIAL
-	private Label labelEnderecoResidencial;
-	private Text textEndereçoResidencial;
-	//ENDEREÇO BAIRRO
-	private Label labelEnderecoBairro;
-	private Text textEndereçoBairro;
-	//ENDEREÇO MUNICIPIO
-	private Label labelEnderecoMunicipio;
-	private Text textEndereçoMunicipio;
-	//ENDEREÇO CEP
-	private Label labelEnderecoCep;
-	private Text textEndereçoCep;
-	private CCombo cComboUf;
-	private CCombo cComboTipoEndereco;
-	private Label labelErro;
-	private Label labelTipoEndereco;
-	private Label labelUf;
-
-	private Text textTelefone;
-	private Label labelTelefone;
-	private Button buttonCancelar;
 	private Button buttonConfirma;
-	private Label labelData;
-	private Text textDataOS;
-	private Cliente cliente;
-	private Endereco endereco;
+	private Button buttonCancelar;
+	private Label labelErro;
+	
 	
 	@Override
 	public void createPartControl(Composite composite) {
@@ -90,136 +68,7 @@ public class OSView extends ViewPart {
 				groupDadosOS.setText("Dados OS");
 				groupDadosOS.setSize(243, 215);
 	
-				{
-					labelData = new Label(groupDadosOS, SWT.NONE);
-					labelData.setText("Nome:");
-				}
-				{
-					textDataOS = new Text(groupDadosOS, SWT.NONE);
-					GridData nomeClienteLData = new GridData();
-					nomeClienteLData.heightHint = 13;
-					nomeClienteLData.horizontalAlignment = GridData.FILL;
-					nomeClienteLData.grabExcessHorizontalSpace = true;
-					textDataOS.setLayoutData(nomeClienteLData);
-				}
 				
-				
-				/*		{
-					labelNomeCliente = new Label(groupDadosPessoais, SWT.NONE);
-					labelNomeCliente.setText("Nome:");
-				}
-				{
-					textNomeCliente = new Text(groupDadosPessoais, SWT.NONE);
-					GridData nomeClienteLData = new GridData();
-					nomeClienteLData.heightHint = 13;
-					nomeClienteLData.horizontalAlignment = GridData.FILL;
-					nomeClienteLData.grabExcessHorizontalSpace = true;
-					textNomeCliente.setLayoutData(nomeClienteLData);
-				} */
-				{
-					labelTipoEndereco = new Label(groupDadosOS, SWT.NONE);
-					labelTipoEndereco.setText("Tipo Endereço:");
-					GridData labelTipoEnderecoLData = new GridData();
-					labelTipoEnderecoLData.verticalAlignment = GridData.BEGINNING;
-					labelTipoEnderecoLData.horizontalAlignment = GridData.BEGINNING;
-					labelTipoEndereco.setLayoutData(labelTipoEnderecoLData);
-				}
-				{
-					cComboTipoEndereco = new CCombo(groupDadosOS, SWT.NONE);
-					GridData cComboTipoEnderecoLData = new GridData();
-					cComboTipoEnderecoLData.verticalAlignment = GridData.BEGINNING;
-					cComboTipoEnderecoLData.horizontalAlignment = GridData.BEGINNING;
-					cComboTipoEnderecoLData.grabExcessHorizontalSpace = true;
-					cComboTipoEnderecoLData.heightHint = 16;
-					cComboTipoEnderecoLData.widthHint = 155;
-					cComboTipoEndereco.setLayoutData(cComboTipoEnderecoLData);
-				}
-				{
-					labelEnderecoResidencial = new Label(groupDadosOS, SWT.NONE);
-					labelEnderecoResidencial.setText("Endereço Residencial:");
-				}
-				{
-					GridData EndereçoLData = new GridData();
-					EndereçoLData.horizontalAlignment = GridData.BEGINNING;
-					EndereçoLData.verticalAlignment = GridData.BEGINNING;
-					EndereçoLData.widthHint = 149;
-					EndereçoLData.heightHint = 13;
-					EndereçoLData.grabExcessHorizontalSpace = true;
-					textEndereçoResidencial = new Text(groupDadosOS, SWT.NONE);
-					textEndereçoResidencial.setLayoutData(EndereçoLData);
-				}
-
-				//BAIRRO
-				{
-					labelEnderecoBairro = new Label(groupDadosOS, SWT.NONE);
-					labelEnderecoBairro.setText("Bairro:");
-				}
-				{
-					GridData EndereçoLData = new GridData();
-					EndereçoLData.heightHint = 13;
-					EndereçoLData.horizontalAlignment = GridData.FILL;
-					EndereçoLData.grabExcessHorizontalSpace = true;
-					textEndereçoBairro = new Text(groupDadosOS, SWT.NONE);
-					textEndereçoBairro.setLayoutData(EndereçoLData);
-				}
-				
-				//MUNICIPIO
-				{
-					labelEnderecoMunicipio = new Label(groupDadosOS, SWT.NONE);
-					labelEnderecoMunicipio.setText("Cidade:");
-				}
-				{
-					GridData EndereçoLData = new GridData();
-					EndereçoLData.heightHint = 13;
-					EndereçoLData.horizontalAlignment = GridData.FILL;
-					EndereçoLData.grabExcessHorizontalSpace = true;
-					textEndereçoMunicipio = new Text(groupDadosOS, SWT.NONE);
-					textEndereçoMunicipio.setLayoutData(EndereçoLData);
-				}
-				
-				//CEP
-				{
-					labelEnderecoCep = new Label(groupDadosOS, SWT.NONE);
-					labelEnderecoCep.setText("Cidade:");
-				}
-				{
-					GridData EndereçoLData = new GridData();
-					EndereçoLData.heightHint = 13;
-					EndereçoLData.horizontalAlignment = GridData.FILL;
-					EndereçoLData.grabExcessHorizontalSpace = true;
-					textEndereçoCep = new Text(groupDadosOS, SWT.NONE);
-					textEndereçoCep.setLayoutData(EndereçoLData);
-				}
-				// daki pra cima Guto + Diego				
-				{
-					labelTelefone = new Label(groupDadosOS, SWT.NONE);
-					labelTelefone.setText("Telefone:");
-				}
-				{
-					GridData textTelefoneLData = new GridData();
-					textTelefoneLData.grabExcessHorizontalSpace = true;
-					textTelefoneLData.horizontalAlignment = GridData.FILL;
-					textTelefone = new Text(groupDadosOS, SWT.NONE);
-					textTelefone.setLayoutData(textTelefoneLData);
-				}
-				{
-					labelUf = new Label(groupDadosOS, SWT.NONE);
-					GridData labelUfLData = new GridData();
-					labelUfLData.verticalAlignment = GridData.BEGINNING;
-					labelUfLData.horizontalAlignment = GridData.BEGINNING;
-					labelUf.setLayoutData(labelUfLData);
-					labelUf.setText("UF:");
-				}
-				{
-					cComboUf = new CCombo(groupDadosOS, SWT.NONE);
-					GridData cComboUfLData = new GridData();
-					cComboUfLData.verticalAlignment = GridData.BEGINNING;
-					cComboUfLData.horizontalAlignment = GridData.BEGINNING;
-					cComboUfLData.grabExcessHorizontalSpace = true;
-					cComboUfLData.widthHint = 155;
-					cComboUfLData.heightHint = 16;
-					cComboUf.setLayoutData(cComboUfLData);
-				}
 				{
 					buttonConfirma = new Button(groupDadosOS, SWT.PUSH | SWT.CENTER);
 					GridData buttonConfirmaLData = new GridData();
@@ -253,14 +102,14 @@ public class OSView extends ViewPart {
 				{
 					labelErro = new Label(groupDadosOS, SWT.NONE);
 					GridData labelErroLData = new GridData();
-					labelErroLData.verticalAlignment = GridData.BEGINNING;
-					labelErroLData.horizontalAlignment = GridData.BEGINNING;
+					labelErroLData.verticalAlignment = GridData.FILL;
+					labelErroLData.horizontalAlignment = GridData.FILL;
 					labelErroLData.horizontalSpan = 2;
 					labelErroLData.grabExcessHorizontalSpace = true;
 					labelErroLData.widthHint = 319;
 					labelErroLData.heightHint = 26;
 					labelErro.setLayoutData(labelErroLData);
-					labelErro.setText("label Erro");
+					labelErro.setText("");
 				}
 			}
 		}
@@ -268,18 +117,7 @@ public class OSView extends ViewPart {
 	}
 	
 	private void loadData() {
-		// TODO Auto-generated method stub
-		List<UF> listUFs = Facade.getInstance().carregarUfs();
-		cComboUf.removeAll();
-		for(UF uf : listUFs){
-			cComboUf.setData(uf.getDescricao(),uf);
-			cComboUf.add(uf.getDescricao());
-		}	
-		cComboTipoEndereco.removeAll();
-		for(TipoEndereco tipo : TipoEndereco.values()){
-			cComboTipoEndereco.setData(tipo.getDescricao(),tipo);
-			cComboTipoEndereco.add(tipo.getDescricao());
-		}
+		
 	}
 
 	@Override
@@ -288,44 +126,8 @@ public class OSView extends ViewPart {
 	}
 
 	private void performFinish() {
-		//dados cliente
-		cliente = new Cliente();
 		
-		cliente.setNomeRazaoSocial(textDataOS.getText());
-		
-		String key;
-		UF uf = null;
-		if (cComboUf.getSelectionIndex() != -1){
-			key = cComboUf.getItem(cComboUf.getSelectionIndex());
-			uf = (UF) cComboUf.getData(key);
-		}
-		
-		//endereço Cliente Residencial
-		endereco = new Endereco();
-		endereco.setLogradouro(textEndereçoResidencial.getText());
-		endereco.setBairro(textEndereçoBairro.getText());
-		endereco.setMunicipio(textEndereçoMunicipio.getText());
-		endereco.setCep(textEndereçoCep.getText());
-		endereco.setUf(uf);
-		
-		key = cComboTipoEndereco.getItem(cComboTipoEndereco.getSelectionIndex());
-		TipoEndereco tipo = (TipoEndereco) cComboTipoEndereco.getData(key);
-		
-		if (tipo == TipoEndereco.COMERCIAL){
-			cliente.setEnderecoComercial(endereco);
-		}else if (tipo == TipoEndereco.RESIDENCIAL){
-			cliente.setEnderecoResidencial(endereco);
-		}
-		cliente.setTelefone(textTelefone.getText());
-		
-		try {
-			Facade.getInstance().cadastrarCliente(cliente);
-			this.getViewSite().getWorkbenchWindow().getActivePage().hideView(this);
-		} catch (Exception e) {
-			labelErro.setText(e.getMessage());
-			//throw new RuntimeException(e);
-		}
-		
+		this.getViewSite().getWorkbenchWindow().getActivePage().hideView(this);
 		
 	}
 }
