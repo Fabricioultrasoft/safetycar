@@ -10,6 +10,7 @@ import br.com.dimag.safetycar.exception.DataException;
 import br.com.dimag.safetycar.exception.FacadeException;
 import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
+import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
 public class Facade {
 
@@ -53,6 +54,10 @@ public class Facade {
 		Cliente c = new Cliente();
 		c.setNome("Nome Clietne");
 		c.setEndereco("Endereco1");
+		c.setCpfCnpj("123456");
+		c.setNomeRazaoSocial("Cliente");
+		
+		c.setTipoPessoa(TipoPessoa.FISICA);
 		
 		try {
 			Facade.getInstance().cadastrarCliente(c);
