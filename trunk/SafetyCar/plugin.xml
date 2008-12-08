@@ -35,6 +35,13 @@
             id="SafetyCar.client"
             name="Cadastro de Cliente">
       </view>
+       <view
+            allowMultiple="false"
+            class="br.com.dimag.safetycar.gui.views.OSView"
+            icon="icons/sample3.gif"
+            id="SafetyCar.os"
+            name="Cadastro de OS">
+      </view>
       <view
             allowMultiple="false"
             class="br.com.dimag.safetycar.gui.views.MainView"

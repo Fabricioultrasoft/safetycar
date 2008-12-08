@@ -3,10 +3,16 @@ package br.com.dimag.safetycar.gui.views;
 
 import java.util.List;
 
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -14,13 +20,19 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import br.com.dimag.safetycar.business.Facade;
+import br.com.dimag.safetycar.exception.FacadeException;
+import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
+import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.Endereco;
 import br.com.dimag.safetycar.model.UF;
 import br.com.dimag.safetycar.model.Endereco.TipoEndereco;
+import br.com.dimag.safetycar.model.OrdemServico;;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -34,15 +46,13 @@ import br.com.dimag.safetycar.model.Endereco.TipoEndereco;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class ClienteView extends ViewPart {
+public class OSView extends ViewPart {
 
-	public static final String ID = "SafetyCar.client";
-	private Group groupDadosPessoais;
+	public static final String ID = "SafetyCar.os";
+	private Group groupDadosOS;
 	//ENDEREÇO RESIDENCIAL
 	private Label labelEnderecoResidencial;
 	private Text textEndereçoResidencial;
-	
-	
 	//ENDEREÇO BAIRRO
 	private Label labelEnderecoBairro;
 	private Text textEndereçoBairro;
@@ -52,29 +62,18 @@ public class ClienteView extends ViewPart {
 	//ENDEREÇO CEP
 	private Label labelEnderecoCep;
 	private Text textEndereçoCep;
-	//CCOMBO UF
 	private CCombo cComboUf;
-	private Label labelUf;
-	//CCOMBO TIPO ENDEREÇO
 	private CCombo cComboTipoEndereco;
-	private Label labelTipoEndereco;
-	//LABEL ERROS
 	private Label labelErro;
-	//CPF CNPJ
-	private Label labelCpfCnpj;
-	private Text textCpfCnpj;
-	
+	private Label labelTipoEndereco;
+	private Label labelUf;
+
 	private Text textTelefone;
 	private Label labelTelefone;
 	private Button buttonCancelar;
 	private Button buttonConfirma;
-	//NOME - RAZÃO SOCIAL
-	private Label labelNomeCliente;
-	private Text textNomeCliente;
-	//NOME APELIDO - NOME FANTASIA
-	private Label labelApelidoFantasia;
-	private Text textApelidoFantasia;
-	
+	private Label labelData;
+	private Text textDataOS;
 	private Cliente cliente;
 	private Endereco endereco;
 	
@@ -84,16 +83,28 @@ public class ClienteView extends ViewPart {
 		{
 			composite.setSize(336, 231);
 			{
-				groupDadosPessoais = new Group(composite, SWT.NONE);
+				groupDadosOS = new Group(composite, SWT.NONE);
 				GridLayout dadosPessoaisLayout = new GridLayout();
 				dadosPessoaisLayout.numColumns = 2;
-				groupDadosPessoais.setLayout(dadosPessoaisLayout);
-				groupDadosPessoais.setText("Dados Pessoais");
-				groupDadosPessoais.setSize(243, 215);
-				
-				//NOME CLIENTE - RAZÃO SOCIAL
-				
+				groupDadosOS.setLayout(dadosPessoaisLayout);
+				groupDadosOS.setText("Dados OS");
+				groupDadosOS.setSize(243, 215);
+	
 				{
+					labelData = new Label(groupDadosOS, SWT.NONE);
+					labelData.setText("Nome:");
+				}
+				{
+					textDataOS = new Text(groupDadosOS, SWT.NONE);
+					GridData nomeClienteLData = new GridData();
+					nomeClienteLData.heightHint = 13;
+					nomeClienteLData.horizontalAlignment = GridData.FILL;
+					nomeClienteLData.grabExcessHorizontalSpace = true;
+					textDataOS.setLayoutData(nomeClienteLData);
+				}
+				
+				
+				/*		{
 					labelNomeCliente = new Label(groupDadosPessoais, SWT.NONE);
 					labelNomeCliente.setText("Nome:");
 				}
@@ -104,71 +115,43 @@ public class ClienteView extends ViewPart {
 					nomeClienteLData.horizontalAlignment = GridData.FILL;
 					nomeClienteLData.grabExcessHorizontalSpace = true;
 					textNomeCliente.setLayoutData(nomeClienteLData);
-				}
-				
-				//APELIDO-NOME FANTASIA
-				
+				} */
 				{
-					labelApelidoFantasia = new Label(groupDadosPessoais, SWT.NONE);
-					labelApelidoFantasia.setText("Apelido/Nome Fantasia:");
-				}
-				{
-					textApelidoFantasia = new Text(groupDadosPessoais, SWT.NONE);
-					GridData nomeClienteLData = new GridData();
-					nomeClienteLData.heightHint = 13;
-					nomeClienteLData.horizontalAlignment = GridData.FILL;
-					nomeClienteLData.grabExcessHorizontalSpace = true;
-					textApelidoFantasia.setLayoutData(nomeClienteLData);
-				}
-				
-				//CPF CNPJ
-				{
-					labelCpfCnpj = new Label(groupDadosPessoais, SWT.NONE);
-					labelCpfCnpj.setText("CPF/CNPJ:");
-				}
-				{
-					textCpfCnpj = new Text(groupDadosPessoais, SWT.NONE);
-					GridData nomeClienteLData = new GridData();
-					nomeClienteLData.heightHint = 13;
-					nomeClienteLData.horizontalAlignment = GridData.FILL;
-					nomeClienteLData.grabExcessHorizontalSpace = true;
-					textCpfCnpj.setLayoutData(nomeClienteLData);
-				}
-				
-				//OK
-				{
-					labelTipoEndereco = new Label(groupDadosPessoais, SWT.NONE);
+					labelTipoEndereco = new Label(groupDadosOS, SWT.NONE);
 					labelTipoEndereco.setText("Tipo Endereço:");
 					GridData labelTipoEnderecoLData = new GridData();
-					labelTipoEnderecoLData.horizontalAlignment = GridData.FILL;
+					labelTipoEnderecoLData.verticalAlignment = GridData.BEGINNING;
+					labelTipoEnderecoLData.horizontalAlignment = GridData.BEGINNING;
 					labelTipoEndereco.setLayoutData(labelTipoEnderecoLData);
 				}
 				{
-					cComboTipoEndereco = new CCombo(groupDadosPessoais, SWT.NONE);
+					cComboTipoEndereco = new CCombo(groupDadosOS, SWT.NONE);
 					GridData cComboTipoEnderecoLData = new GridData();
-					cComboTipoEnderecoLData.horizontalAlignment = GridData.FILL;
+					cComboTipoEnderecoLData.verticalAlignment = GridData.BEGINNING;
+					cComboTipoEnderecoLData.horizontalAlignment = GridData.BEGINNING;
 					cComboTipoEnderecoLData.grabExcessHorizontalSpace = true;
 					cComboTipoEnderecoLData.heightHint = 16;
 					cComboTipoEnderecoLData.widthHint = 155;
 					cComboTipoEndereco.setLayoutData(cComboTipoEnderecoLData);
 				}
 				{
-					labelEnderecoResidencial = new Label(groupDadosPessoais, SWT.NONE);
-					labelEnderecoResidencial.setText("Endereço:");
+					labelEnderecoResidencial = new Label(groupDadosOS, SWT.NONE);
+					labelEnderecoResidencial.setText("Endereço Residencial:");
 				}
 				{
 					GridData EndereçoLData = new GridData();
-					EndereçoLData.horizontalAlignment = GridData.FILL;
+					EndereçoLData.horizontalAlignment = GridData.BEGINNING;
+					EndereçoLData.verticalAlignment = GridData.BEGINNING;
 					EndereçoLData.widthHint = 149;
 					EndereçoLData.heightHint = 13;
 					EndereçoLData.grabExcessHorizontalSpace = true;
-					textEndereçoResidencial = new Text(groupDadosPessoais, SWT.NONE);
+					textEndereçoResidencial = new Text(groupDadosOS, SWT.NONE);
 					textEndereçoResidencial.setLayoutData(EndereçoLData);
 				}
 
 				//BAIRRO
 				{
-					labelEnderecoBairro = new Label(groupDadosPessoais, SWT.NONE);
+					labelEnderecoBairro = new Label(groupDadosOS, SWT.NONE);
 					labelEnderecoBairro.setText("Bairro:");
 				}
 				{
@@ -176,13 +159,13 @@ public class ClienteView extends ViewPart {
 					EndereçoLData.heightHint = 13;
 					EndereçoLData.horizontalAlignment = GridData.FILL;
 					EndereçoLData.grabExcessHorizontalSpace = true;
-					textEndereçoBairro = new Text(groupDadosPessoais, SWT.NONE);
+					textEndereçoBairro = new Text(groupDadosOS, SWT.NONE);
 					textEndereçoBairro.setLayoutData(EndereçoLData);
 				}
 				
 				//MUNICIPIO
 				{
-					labelEnderecoMunicipio = new Label(groupDadosPessoais, SWT.NONE);
+					labelEnderecoMunicipio = new Label(groupDadosOS, SWT.NONE);
 					labelEnderecoMunicipio.setText("Cidade:");
 				}
 				{
@@ -190,53 +173,55 @@ public class ClienteView extends ViewPart {
 					EndereçoLData.heightHint = 13;
 					EndereçoLData.horizontalAlignment = GridData.FILL;
 					EndereçoLData.grabExcessHorizontalSpace = true;
-					textEndereçoMunicipio = new Text(groupDadosPessoais, SWT.NONE);
+					textEndereçoMunicipio = new Text(groupDadosOS, SWT.NONE);
 					textEndereçoMunicipio.setLayoutData(EndereçoLData);
 				}
 				
 				//CEP
 				{
-					labelEnderecoCep = new Label(groupDadosPessoais, SWT.NONE);
-					labelEnderecoCep.setText("Cep:");
+					labelEnderecoCep = new Label(groupDadosOS, SWT.NONE);
+					labelEnderecoCep.setText("Cidade:");
 				}
 				{
 					GridData EndereçoLData = new GridData();
 					EndereçoLData.heightHint = 13;
 					EndereçoLData.horizontalAlignment = GridData.FILL;
 					EndereçoLData.grabExcessHorizontalSpace = true;
-					textEndereçoCep = new Text(groupDadosPessoais, SWT.NONE);
+					textEndereçoCep = new Text(groupDadosOS, SWT.NONE);
 					textEndereçoCep.setLayoutData(EndereçoLData);
 				}
 				// daki pra cima Guto + Diego				
 				{
-					labelTelefone = new Label(groupDadosPessoais, SWT.NONE);
+					labelTelefone = new Label(groupDadosOS, SWT.NONE);
 					labelTelefone.setText("Telefone:");
 				}
 				{
 					GridData textTelefoneLData = new GridData();
 					textTelefoneLData.grabExcessHorizontalSpace = true;
 					textTelefoneLData.horizontalAlignment = GridData.FILL;
-					textTelefone = new Text(groupDadosPessoais, SWT.NONE);
+					textTelefone = new Text(groupDadosOS, SWT.NONE);
 					textTelefone.setLayoutData(textTelefoneLData);
 				}
 				{
-					labelUf = new Label(groupDadosPessoais, SWT.NONE);
+					labelUf = new Label(groupDadosOS, SWT.NONE);
 					GridData labelUfLData = new GridData();
-					labelUfLData.horizontalAlignment = GridData.FILL;
+					labelUfLData.verticalAlignment = GridData.BEGINNING;
+					labelUfLData.horizontalAlignment = GridData.BEGINNING;
 					labelUf.setLayoutData(labelUfLData);
 					labelUf.setText("UF:");
 				}
 				{
-					cComboUf = new CCombo(groupDadosPessoais, SWT.NONE);
+					cComboUf = new CCombo(groupDadosOS, SWT.NONE);
 					GridData cComboUfLData = new GridData();
-					cComboUfLData.horizontalAlignment = GridData.FILL;
+					cComboUfLData.verticalAlignment = GridData.BEGINNING;
+					cComboUfLData.horizontalAlignment = GridData.BEGINNING;
 					cComboUfLData.grabExcessHorizontalSpace = true;
 					cComboUfLData.widthHint = 155;
 					cComboUfLData.heightHint = 16;
 					cComboUf.setLayoutData(cComboUfLData);
 				}
 				{
-					buttonConfirma = new Button(groupDadosPessoais, SWT.PUSH | SWT.CENTER);
+					buttonConfirma = new Button(groupDadosOS, SWT.PUSH | SWT.CENTER);
 					GridData buttonConfirmaLData = new GridData();
 					buttonConfirmaLData.verticalAlignment = GridData.BEGINNING;
 					buttonConfirmaLData.horizontalAlignment = GridData.BEGINNING;
@@ -258,7 +243,7 @@ public class ClienteView extends ViewPart {
 					});
 				}
 				{
-					buttonCancelar = new Button(groupDadosPessoais, SWT.PUSH | SWT.CENTER);
+					buttonCancelar = new Button(groupDadosOS, SWT.PUSH | SWT.CENTER);
 					GridData buttonCancelarLData = new GridData();
 					buttonCancelarLData.verticalAlignment = GridData.BEGINNING;
 					buttonCancelarLData.horizontalAlignment = GridData.BEGINNING;
@@ -266,9 +251,10 @@ public class ClienteView extends ViewPart {
 					buttonCancelar.setText("Cancelar");
 				}
 				{
-					labelErro = new Label(groupDadosPessoais, SWT.NONE);
+					labelErro = new Label(groupDadosOS, SWT.NONE);
 					GridData labelErroLData = new GridData();
-					labelErroLData.horizontalAlignment = GridData.FILL;
+					labelErroLData.verticalAlignment = GridData.BEGINNING;
+					labelErroLData.horizontalAlignment = GridData.BEGINNING;
 					labelErroLData.horizontalSpan = 2;
 					labelErroLData.grabExcessHorizontalSpace = true;
 					labelErroLData.widthHint = 319;
@@ -305,9 +291,8 @@ public class ClienteView extends ViewPart {
 		//dados cliente
 		cliente = new Cliente();
 		
-		cliente.setNomeRazaoSocial(textNomeCliente.getText());
-//		cliente.setApelidoFantasia(textApelidoFantasia.getText());
-	
+		cliente.setNomeRazaoSocial(textDataOS.getText());
+		
 		String key;
 		UF uf = null;
 		if (cComboUf.getSelectionIndex() != -1){
@@ -315,7 +300,7 @@ public class ClienteView extends ViewPart {
 			uf = (UF) cComboUf.getData(key);
 		}
 		
-		//endereço Cliente
+		//endereço Cliente Residencial
 		endereco = new Endereco();
 		endereco.setLogradouro(textEndereçoResidencial.getText());
 		endereco.setBairro(textEndereçoBairro.getText());
