@@ -28,6 +28,7 @@ import br.com.dimag.safetycar.exception.FacadeException;
 import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
 import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
+import br.com.dimag.safetycar.model.Endereco;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -45,18 +46,25 @@ public class ClienteView extends ViewPart {
 
 	public static final String ID = "SafetyCar.client";
 	private Group groupDadosPessoais;
-	private Label labelEndereco;
+	//ENDEREÇO RESIDENCIAL
+	private Label labelEnderecoResidencial;
+	private Text textEndereçoResidencial;
+	//ENDEREÇO BAIRRO
+	private Label labelEnderecoBairro;
+	private Text textEndereçoBairro;
+	
 	private ListViewer listViewerAutomovel;
 	private Group groupAutomovel;
 	private Text textTelefone;
 	private Label labelTelefone;
 	private Button buttonCancelar;
 	private Button buttonConfirma;
-	private Text textEndereço;
+//	private Text textEndereço;
 	private Label labelNomeCliente;
 	private Text textNomeCliente;
 	private Cliente cliente;
-
+	private Endereco enderecoResidencial;
+	
 	@Override
 	public void createPartControl(Composite composite) {
 		{
@@ -80,6 +88,7 @@ public class ClienteView extends ViewPart {
 					nomeClienteLData.grabExcessHorizontalSpace = true;
 					textNomeCliente.setLayoutData(nomeClienteLData);
 				}
+/* PARTE Q MODIFICAMOS DO ENDEREÇO
 				{
 					labelEndereco = new Label(groupDadosPessoais, SWT.NONE);
 					labelEndereco.setText("Endereço:");
@@ -92,6 +101,37 @@ public class ClienteView extends ViewPart {
 					textEndereço = new Text(groupDadosPessoais, SWT.NONE);
 					textEndereço.setLayoutData(EndereçoLData);
 				}
+*/
+// daki pra baixo Guto + Diego
+				//LOGRADOURO
+				{
+					labelEnderecoResidencial = new Label(groupDadosPessoais, SWT.NONE);
+					labelEnderecoResidencial.setText("Endereço Residencial:");
+				}
+				{
+					GridData EndereçoLData = new GridData();
+					EndereçoLData.heightHint = 13;
+					EndereçoLData.horizontalAlignment = GridData.FILL;
+					EndereçoLData.grabExcessHorizontalSpace = true;
+					textEndereçoResidencial = new Text(groupDadosPessoais, SWT.NONE);
+					textEndereçoResidencial.setLayoutData(EndereçoLData);
+				}
+				
+				//BAIRRO
+				{
+					labelEnderecoBairro = new Label(groupDadosPessoais, SWT.NONE);
+					labelEnderecoBairro.setText("Bairro:");
+				}
+				{
+					GridData EndereçoLData = new GridData();
+					EndereçoLData.heightHint = 13;
+					EndereçoLData.horizontalAlignment = GridData.FILL;
+					EndereçoLData.grabExcessHorizontalSpace = true;
+					textEndereçoBairro = new Text(groupDadosPessoais, SWT.NONE);
+					textEndereçoBairro.setLayoutData(EndereçoLData);
+				}
+				
+// daki pra baixo Guto + Diego				
 				{
 					labelTelefone = new Label(groupDadosPessoais, SWT.NONE);
 					labelTelefone.setText("Telefone:");
@@ -206,9 +246,16 @@ public class ClienteView extends ViewPart {
 	}
 
 	private void performFinish() {
+		//dados cliente
 		cliente = new Cliente();
-		cliente.setNome(textNomeCliente.getText());
-		cliente.setEndereco(textEndereço.getText());
+		
+		cliente.setNomeRazaoSocial(textNomeCliente.getText());
+		//endereço Cliente Residencial
+		enderecoResidencial = new Endereco();
+		enderecoResidencial.setLogradouro(textEndereçoResidencial.getText());
+		enderecoResidencial.setBairro(textEndereçoBairro.getText());
+		
+		cliente.setEnderecoResidencial(enderecoResidencial);
 		cliente.setTelefone(textTelefone.getText());
 		
 		try {

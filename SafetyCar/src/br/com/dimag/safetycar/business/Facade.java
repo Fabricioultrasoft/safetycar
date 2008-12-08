@@ -52,8 +52,7 @@ public class Facade {
 	
 	public static void main(String[] args) {
 		Cliente c = new Cliente();
-		c.setNome("Nome Clietne");
-		c.setEndereco("Endereco1");
+		c.setNomeRazaoSocial("Cliente");
 		c.setCpfCnpj("123456");
 		c.setNomeRazaoSocial("Cliente");
 		
