@@ -114,8 +114,9 @@ public class ClienteView extends ViewPart {
 					cComboTipoEnderecoLData.verticalAlignment = GridData.BEGINNING;
 					cComboTipoEnderecoLData.horizontalAlignment = GridData.BEGINNING;
 					cComboTipoEnderecoLData.grabExcessHorizontalSpace = true;
+					cComboTipoEnderecoLData.heightHint = 16;
+					cComboTipoEnderecoLData.widthHint = 155;
 					cComboTipoEndereco.setLayoutData(cComboTipoEnderecoLData);
-					cComboTipoEndereco.setText("cCombo1");
 				}
 				{
 					labelEnderecoResidencial = new Label(groupDadosPessoais, SWT.NONE);
@@ -125,7 +126,10 @@ public class ClienteView extends ViewPart {
 					GridData EndereçoLData = new GridData();
 					EndereçoLData.horizontalAlignment = GridData.BEGINNING;
 					EndereçoLData.verticalAlignment = GridData.BEGINNING;
-					textEndereçoResidencial = new Text(groupDadosPessoais, SWT.MULTI);
+					EndereçoLData.widthHint = 149;
+					EndereçoLData.heightHint = 13;
+					EndereçoLData.grabExcessHorizontalSpace = true;
+					textEndereçoResidencial = new Text(groupDadosPessoais, SWT.NONE);
 					textEndereçoResidencial.setLayoutData(EndereçoLData);
 				}
 
@@ -192,7 +196,13 @@ public class ClienteView extends ViewPart {
 				}
 				{
 					cComboUf = new CCombo(groupDadosPessoais, SWT.NONE);
-					cComboUf.setText("cComboUf");
+					GridData cComboUfLData = new GridData();
+					cComboUfLData.verticalAlignment = GridData.BEGINNING;
+					cComboUfLData.horizontalAlignment = GridData.BEGINNING;
+					cComboUfLData.grabExcessHorizontalSpace = true;
+					cComboUfLData.widthHint = 155;
+					cComboUfLData.heightHint = 16;
+					cComboUf.setLayoutData(cComboUfLData);
 				}
 				{
 					buttonConfirma = new Button(groupDadosPessoais, SWT.PUSH | SWT.CENTER);
@@ -230,7 +240,9 @@ public class ClienteView extends ViewPart {
 					labelErroLData.verticalAlignment = GridData.BEGINNING;
 					labelErroLData.horizontalAlignment = GridData.BEGINNING;
 					labelErroLData.horizontalSpan = 2;
-					labelErroLData.heightHint = 13;
+					labelErroLData.grabExcessHorizontalSpace = true;
+					labelErroLData.widthHint = 319;
+					labelErroLData.heightHint = 26;
 					labelErro.setLayoutData(labelErroLData);
 					labelErro.setText("label Erro");
 				}
