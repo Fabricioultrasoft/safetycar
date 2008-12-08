@@ -12,13 +12,13 @@ import org.hibernate.validator.NotNull;
 @PrimaryKeyJoinColumn(name="PESSOA_ID")
 public class Cliente extends Pessoa {
 	
-	@NotNull
+/*	@NotNull
 	@Length(max=30)
 	private String nome;
 	
 	@Length(max=30)
 	private String endereco;
-	
+*/	
 	@Length(max=10)
 	private String telefone;
 	
@@ -27,7 +27,7 @@ public class Cliente extends Pessoa {
 	
 	@Length(max=10)
 	private String telefoneCelular;
-	
+/*	
 	public String getNome() {
 		return nome;
 	}
@@ -40,7 +40,7 @@ public class Cliente extends Pessoa {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco.trim();
 	}
-
+*/
 	public String getTelefone() {
 		return telefone;
 	}

@@ -13,19 +13,19 @@ public class Endereco extends BaseEntity{
 	@Length(max = 200)
 	private String logradouro;
 	
-	@NotNull
+//	@NotNull
 	@Length(max = 50)
 	private String bairro;
 	
-	@NotNull
+//	@NotNull
 	@Length(max = 200)
 	private String municipio;
 	
-	@NotNull
+//	@NotNull
 	@Length(max = 9, min = 9)
 	private String cep;
 	
-	@NotNull
+//	@NotNull
 	private TipoEndereco tipoEndereco;
 	
 	public enum TipoEndereco{
@@ -34,7 +34,7 @@ public class Endereco extends BaseEntity{
 	}
 	
 	@ManyToOne
-	@NotNull
+//	@NotNull
 	@JoinColumn(name = "UF_ID")
 	private UF uf;
 
