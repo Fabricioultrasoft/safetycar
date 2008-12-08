@@ -289,6 +289,20 @@ public class ClienteView extends BasicView {
 					buttonCancelarLData.horizontalAlignment = GridData.BEGINNING;
 					buttonCancelar.setLayoutData(buttonCancelarLData);
 					buttonCancelar.setText("Cancelar");
+					
+					buttonCancelar.addSelectionListener(new SelectionListener(){
+						
+						@Override
+						public void widgetSelected(SelectionEvent event) {
+							closeView();
+						}
+
+						@Override
+						public void widgetDefaultSelected(SelectionEvent arg0) {
+							// TODO Auto-generated method stub
+						}
+						
+					});
 				}
 				{
 					labelErro = new Label(groupDadosPessoais, SWT.NONE);
@@ -375,7 +389,7 @@ public class ClienteView extends BasicView {
 		
 		try {
 			Facade.getInstance().cadastrarCliente(cliente);
-			this.getViewSite().getWorkbenchWindow().getActivePage().hideView(this);
+			closeView();
 		} catch (Exception e) {
 			labelErro.setText(e.getMessage());
 			//throw new RuntimeException(e);
