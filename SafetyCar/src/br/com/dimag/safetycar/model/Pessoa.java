@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.Length;
+import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
 
 @Entity
@@ -19,6 +20,7 @@ public abstract class Pessoa extends BaseEntity {
 	 * Nome do cliente ou da empresa
 	 */
 	@NotNull
+	@NotEmpty
 	@Length(max = 200)
 	private String nomeRazaoSocial;
 
