@@ -86,5 +86,14 @@ public class Facade {
 	public List<UF> carregarUfs() {
 		return cadastroUf.list();
 	}
+
+	public void atualizarCliente(Cliente cliente) throws FacadeException {
+		try {
+			cadastroCliente.atualizar(cliente);
+		} catch (DadosInsuficientesException e) {
+			throw new FacadeException(e.getMessage());
+		}
+		
+	}
 	
 }

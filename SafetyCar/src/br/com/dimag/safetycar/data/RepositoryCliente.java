@@ -44,7 +44,7 @@ public abstract class RepositoryCliente implements IRepositoryCliente {
 	@Override
 	@HibernateTransaction
 	public void update(Cliente cliente) {
-		HibernateUtil.getSession().merge(cliente);
+		HibernateUtil.getSession().update(cliente);
 	}
 
 	@Override
