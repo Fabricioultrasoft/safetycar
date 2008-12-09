@@ -34,8 +34,8 @@ public class Produto extends BaseEntity {
 	@NotNull
 	private double valorUnitario;
 	
-	@OneToMany(mappedBy="produto", cascade= CascadeType.ALL)
-	private List<OrdemServicoProduto> listOrdemServicoProduto; 
+//	@OneToMany(mappedBy="produto", cascade= CascadeType.ALL)
+//	private List<OrdemServicoProduto> listOrdemServicoProduto; 
 
 	public String getDescricao() {
 		return descricao;
@@ -77,13 +77,13 @@ public class Produto extends BaseEntity {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public List<OrdemServicoProduto> getListOrdemServicoProduto() {
-		return listOrdemServicoProduto;
-	}
-
-	public void setListOrdemServicoProduto(
-			List<OrdemServicoProduto> listOrdemServicoProduto) {
-		this.listOrdemServicoProduto = listOrdemServicoProduto;
-	}
+//	public List<OrdemServicoProduto> getListOrdemServicoProduto() {
+//		return listOrdemServicoProduto;
+//	}
+//
+//	public void setListOrdemServicoProduto(
+//			List<OrdemServicoProduto> listOrdemServicoProduto) {
+//		this.listOrdemServicoProduto = listOrdemServicoProduto;
+//	}
 
 }

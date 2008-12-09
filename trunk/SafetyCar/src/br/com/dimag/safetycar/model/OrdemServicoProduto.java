@@ -12,8 +12,8 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.ForeignKey;
 
-@Entity
-@org.hibernate.annotations.Entity(mutable = false)
+//@Entity
+//@org.hibernate.annotations.Entity(mutable = false)
 public class OrdemServicoProduto {
 
 	@Embeddable

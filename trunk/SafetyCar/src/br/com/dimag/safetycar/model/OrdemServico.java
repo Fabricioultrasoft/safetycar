@@ -3,12 +3,15 @@ package br.com.dimag.safetycar.model;
 import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
@@ -31,29 +34,34 @@ public class OrdemServico extends BaseEntity {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "atendenteId")
+	@Cascade(value=CascadeType.SAVE_UPDATE)
 	private Funcionario atendente;
 
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "mecanicoId")
+	@Cascade(value=CascadeType.SAVE_UPDATE)
 	private Funcionario mecanico;
 
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "clienteId")
+	@Cascade(value=CascadeType.SAVE_UPDATE)
 	private Cliente cliente;
 
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "automovelId")
+	@Cascade(value=CascadeType.SAVE_UPDATE)
 	private Automovel automovel;
 	
-	@OneToMany(mappedBy="ordemServico", cascade= CascadeType.ALL)  
-	private List<OrdemServicoProduto> listOrdemServicoProduto; 
+	@ManyToMany(fetch=FetchType.EAGER)  
+	@JoinTable(name="os_servico",   
+	joinColumns=@JoinColumn(name="idos"),  
+	inverseJoinColumns=@JoinColumn(name="idservico"))
+	@Cascade(value=CascadeType.SAVE_UPDATE)
+	private List<Servico> servicos;
 	
-	@OneToMany(mappedBy="ordemServico", cascade= CascadeType.ALL)  
-	private List<OrdemServicoServico> listOrdemServicoServico; 
-
 	public enum ClassificacaoOrdemServico {
 		ABERTA, CANCELADA, FECHADA, QUITADA
 	}
@@ -127,14 +135,12 @@ public class OrdemServico extends BaseEntity {
 		this.automovel = automovel;
 	}
 
-	public List<OrdemServicoProduto> getListOrdemServicoProduto() {
-		return listOrdemServicoProduto;
+	public List<Servico> getServicos() {
+		return servicos;
 	}
 
-	public void setListOrdemServicoProduto(
-			List<OrdemServicoProduto> listOrdemServicoProduto) {
-		this.listOrdemServicoProduto = listOrdemServicoProduto;
+	public void setServicos(List<Servico> servicos) {
+		this.servicos = servicos;
 	}
-
 
 }

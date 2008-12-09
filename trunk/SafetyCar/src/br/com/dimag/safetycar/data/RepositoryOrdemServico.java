@@ -11,12 +11,13 @@ import br.com.dimag.safetycar.data.transaction.TransactionClass;
 import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.OrdemServico;
+import br.com.dimag.safetycar.model.OrdemServicoServico;
 
 public class RepositoryOrdemServico implements IRepositoryOrdemServico {
 
 	private static RepositoryOrdemServico instance;
 
-	private Class<Cliente> clazz = Cliente.class;
+	private Class<OrdemServico> clazz = OrdemServico.class;
 
 	public static RepositoryOrdemServico getInstance() throws Exception {
 		if (instance == null) {
@@ -42,7 +43,7 @@ public class RepositoryOrdemServico implements IRepositoryOrdemServico {
 	@Override
 	@HibernateTransaction
 	public void update(OrdemServico ordemServico) {
-		HibernateUtil.getSession().merge(ordemServico);
+		HibernateUtil.getSession().update(ordemServico);
 	}
 
 	@Override
@@ -62,5 +63,11 @@ public class RepositoryOrdemServico implements IRepositoryOrdemServico {
 			listAutomovel.add(ordemServico.getAutomovel());
 		}
 		return listAutomovel; 
+	}
+
+	public List<OrdemServicoServico> listOrdemServicoServico(OrdemServico os) {
+
+		return HibernateUtil.getSession().createQuery("from OrdemServicoServico oss where oss.ordemServico.id = :osId").setParameter("osId", os.getId()).list();
+		
 	}
 }
