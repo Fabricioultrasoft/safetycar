@@ -430,14 +430,13 @@ public class ClienteView extends BasicView {
 	}
 
 	private void fillCliente() throws ValidatorException {
+		//SET NOME RAZAOSOCIAL
 		if (textNomeCliente.getText() == null || textNomeCliente.getText().equals("")){
 			throw new ValidatorException("O Campo Nome Cliente é obrigatório");
 		}
-		
-		
-		
 		cliente.setNomeRazaoSocial(textNomeCliente.getText());
 		
+		//SET APELIDOFANTASIA PODE SER NULO
 		cliente.setApelidoFantasia(textApelidoFantasia.getText());
 		cliente.setCpfCnpj(textCpfCnpj.getText());
 
