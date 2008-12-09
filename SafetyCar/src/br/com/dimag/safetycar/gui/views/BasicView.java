@@ -10,6 +10,13 @@ public abstract class BasicView extends ViewPart {
 		this.getViewSite().getWorkbenchWindow().getActivePage().hideView(this);
 	}
 
+	public void closeView(String id) {
+		IViewPart view = findView(id);
+		if (view != null){
+		this.getViewSite().getWorkbenchWindow().getActivePage().hideView(view);
+		}	
+	}
+	
 	public void openView(String id) {
 		try {
 			this.getViewSite().getWorkbenchWindow().getActivePage().showView(id);
