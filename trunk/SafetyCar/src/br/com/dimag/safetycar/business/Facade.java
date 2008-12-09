@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.dimag.safetycar.business.cadastro.CadastroAutomovel;
 import br.com.dimag.safetycar.business.cadastro.CadastroCliente;
+import br.com.dimag.safetycar.business.cadastro.CadastroFuncionario;
 import br.com.dimag.safetycar.business.cadastro.CadastroOrdemServico;
 import br.com.dimag.safetycar.business.cadastro.CadastroUF;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
@@ -11,6 +12,9 @@ import br.com.dimag.safetycar.exception.DataException;
 import br.com.dimag.safetycar.exception.FacadeException;
 import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
+import br.com.dimag.safetycar.model.Funcionario;
+import br.com.dimag.safetycar.model.OrdemServico;
+import br.com.dimag.safetycar.model.OrdemServicoServico;
 import br.com.dimag.safetycar.model.UF;
 import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
@@ -21,6 +25,7 @@ public class Facade {
 	private CadastroAutomovel cadastroAutomovel;
 	private CadastroOrdemServico cadastroOrdemServico;
 	private CadastroUF cadastroUf;
+	private CadastroFuncionario cadastroFuncionario;
 
 	public static Facade getInstance(){
 		if (facade == null){
@@ -35,6 +40,7 @@ public class Facade {
 			cadastroAutomovel = new CadastroAutomovel();
 			cadastroOrdemServico = new CadastroOrdemServico();
 			cadastroUf = new CadastroUF();
+			cadastroFuncionario = new CadastroFuncionario();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,8 +89,31 @@ public class Facade {
 		return cadastroCliente.list();
 	}
 
-	public List<UF> carregarUfs() {
+	public List<UF> listUf() {
 		return cadastroUf.list();
+	}
+
+	public List<Automovel> listAutomovel() {
+		return cadastroAutomovel.list();
+		
+	}
+
+	public List<OrdemServico> listOrdemServico() {
+		return cadastroOrdemServico.list();
+	}
+
+	public List<OrdemServicoServico> listOrdemServicoServico(OrdemServico os) {
+		return cadastroOrdemServico.listOrdemServicoServico(os);
+		
+	}
+
+	public void cadastrarOrdemServico(OrdemServico ordemServico) throws DadosInsuficientesException, DataException {
+		cadastroOrdemServico.inserir(ordemServico);
+		
+	}
+
+	public List<Funcionario> listAtendente() {
+		return cadastroFuncionario.listAtendente();
 	}
 
 	public void atualizarCliente(Cliente cliente) throws FacadeException {
@@ -93,7 +122,5 @@ public class Facade {
 		} catch (DadosInsuficientesException e) {
 			throw new FacadeException(e.getMessage());
 		}
-		
 	}
-	
 }
