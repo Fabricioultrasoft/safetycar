@@ -6,6 +6,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -96,7 +97,7 @@ public class ClienteView extends BasicView {
 	public void createPartControl(Composite composite) {
 
 		{
-			composite.setSize(484, 291);
+			composite.setSize(484, 418);
 			{
 				groupDadosPessoais = new Group(composite, SWT.NONE);
 				GridLayout dadosPessoaisLayout = new GridLayout();
@@ -109,8 +110,7 @@ public class ClienteView extends BasicView {
 				{
 					labelTipoPessoa = new Label(groupDadosPessoais, SWT.NONE);
 					GridData labelUfLData = new GridData();
-					labelUfLData.horizontalAlignment = GridData.BEGINNING;
-					labelUfLData.verticalAlignment = GridData.BEGINNING;
+					labelUfLData.horizontalAlignment = GridData.FILL;
 					labelTipoPessoa.setLayoutData(labelUfLData);
 					labelTipoPessoa.setText("Tipo Pessoa:");
 				}
@@ -121,7 +121,6 @@ public class ClienteView extends BasicView {
 					cComboUfLData.grabExcessHorizontalSpace = true;
 					cComboUfLData.widthHint = 155;
 					cComboUfLData.heightHint = 16;
-					cComboUfLData.verticalAlignment = GridData.BEGINNING;
 					cComboTipoPessoa.setLayoutData(cComboUfLData);
 				}
 				
@@ -129,6 +128,9 @@ public class ClienteView extends BasicView {
 
 				{
 					labelNomeCliente = new Label(groupDadosPessoais, SWT.NONE);
+					GridData labelNomeClienteLData = new GridData();
+					labelNomeClienteLData.horizontalAlignment = GridData.FILL;
+					labelNomeCliente.setLayoutData(labelNomeClienteLData);
 					labelNomeCliente.setText("Nome:");
 				}
 				{
