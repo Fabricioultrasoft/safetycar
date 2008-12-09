@@ -433,12 +433,17 @@ public class ClienteView extends BasicView {
 	private void fillCliente() throws ValidatorException {
 		//SET NOME RAZAOSOCIAL
 		if (textNomeCliente.getText() == null || textNomeCliente.getText().equals("")){
-			throw new ValidatorException("O Campo Nome Cliente é obrigatório");
+			throw new ValidatorException("O Campo Nome Cliente é obrigatório!");
 		}
 		cliente.setNomeRazaoSocial(textNomeCliente.getText());
 		
 		//SET APELIDOFANTASIA PODE SER NULO
 		cliente.setApelidoFantasia(textApelidoFantasia.getText());
+		
+		//SET CPFCNPJ
+		if (textCpfCnpj.getText() == null || textCpfCnpj.getText().equals("")){
+			throw new ValidatorException("O Campo Cpf/Cnpj é obrigatório!");
+		}
 		cliente.setCpfCnpj(textCpfCnpj.getText());
 
 		String key;
@@ -446,7 +451,7 @@ public class ClienteView extends BasicView {
 		if (cComboUf.getSelectionIndex() != -1) {
 			key = cComboUf.getItem(cComboUf.getSelectionIndex());
 			uf = (UF) cComboUf.getData(key);
-		}
+		} else{throw new ValidatorException("Selecionar uma UF é obrigatório!");}
 
 		// tipo Endereço
 		key = cComboTipoEndereco
