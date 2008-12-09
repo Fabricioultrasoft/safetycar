@@ -105,7 +105,7 @@ public class ClienteListView extends BasicView {
 			public void doubleClick(DoubleClickEvent event) {
 				// TODO Auto-generated method stub
 				StructuredSelection sl = (StructuredSelection) event.getSelection();
-				
+				closeView();
 				openView(ClienteView.ID);
 				ClienteView view = (ClienteView)findView(ClienteView.ID);
 				view.loadCliente((Cliente)sl.getFirstElement());

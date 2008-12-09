@@ -62,8 +62,11 @@ public class ClienteView extends BasicView {
 	private Label labelCpfCnpj;
 	private Text textCpfCnpj;
 
+	//TELEFONE
 	private Text textTelefone;
 	private Label labelTelefone;
+	
+	//BOTÕES DE CONFIRMA E CANCELAR
 	private Button buttonCancelar;
 	private Button buttonConfirma;
 
@@ -380,6 +383,7 @@ public class ClienteView extends BasicView {
 			} else {
 				fillCliente();
 				Facade.getInstance().atualizarCliente(cliente);
+				openView(ClienteListView.ID);
 			}
 			closeView();
 		} catch (FacadeException e) {
