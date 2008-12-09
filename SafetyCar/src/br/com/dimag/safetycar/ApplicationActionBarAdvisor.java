@@ -102,4 +102,5 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         toolbar.add(clienteListViewAction);
         
     }
+
 }

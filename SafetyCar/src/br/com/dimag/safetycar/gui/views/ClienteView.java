@@ -321,6 +321,12 @@ public class ClienteView extends BasicView {
 	}
 	
 	private void loadData() {
+		
+		if (cliente != null){
+			String s = "";
+			s.substring(0);
+		}
+		
 		// UF
 		List<UF> listUFs = Facade.getInstance().carregarUfs();
 		cComboUf.removeAll();
@@ -394,7 +400,12 @@ public class ClienteView extends BasicView {
 			labelErro.setText(e.getMessage());
 			//throw new RuntimeException(e);
 		}
+	}
+	
+	public void loadCliente(Cliente cliente) {
+		this.cliente = cliente;
 		
+		textNomeCliente.setText(this.cliente.getNomeRazaoSocial());
 		
 	}
 }
