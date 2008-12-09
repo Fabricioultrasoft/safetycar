@@ -6,7 +6,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -17,6 +16,7 @@ import org.eclipse.swt.widgets.Text;
 
 import br.com.dimag.safetycar.business.Facade;
 import br.com.dimag.safetycar.exception.FacadeException;
+import br.com.dimag.safetycar.exception.ValidatorException;
 import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.Endereco;
 import br.com.dimag.safetycar.model.UF;
@@ -414,7 +414,6 @@ public class ClienteView extends BasicView {
 			if (cliente == null) {
 				cliente = new Cliente();
 				fillCliente();
-
 				Facade.getInstance().cadastrarCliente(cliente);
 			} else {
 				fillCliente();
@@ -424,13 +423,21 @@ public class ClienteView extends BasicView {
 			closeView();
 		} catch (FacadeException e) {
 			labelErro.setText(e.getMessage());
-			// throw new RuntimeException(e);
+		} catch (ValidatorException e) {
+			labelErro.setText(e.getMessage());
 		}
 
 	}
 
-	private void fillCliente() {
+	private void fillCliente() throws ValidatorException {
+		if (textNomeCliente.getText() == null || textNomeCliente.getText().equals("")){
+			throw new ValidatorException("O Campo Nome Cliente é obrigatório");
+		}
+		
+		
+		
 		cliente.setNomeRazaoSocial(textNomeCliente.getText());
+		
 		cliente.setApelidoFantasia(textApelidoFantasia.getText());
 		cliente.setCpfCnpj(textCpfCnpj.getText());
 
