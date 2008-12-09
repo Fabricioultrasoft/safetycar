@@ -445,8 +445,10 @@ public class ClienteView extends BasicView {
 			throw new ValidatorException("O Campo Cpf/Cnpj é obrigatório!");
 		}
 		cliente.setCpfCnpj(textCpfCnpj.getText());
-
+		
+		//Declaração de string key para ser usada nos cCombos 
 		String key;
+		//SET Seleção cCombo UF
 		UF uf = null;
 		if (cComboUf.getSelectionIndex() != -1) {
 			key = cComboUf.getItem(cComboUf.getSelectionIndex());
@@ -454,9 +456,12 @@ public class ClienteView extends BasicView {
 		} else{throw new ValidatorException("Selecionar uma UF é obrigatório!");}
 
 		// tipo Endereço
-		key = cComboTipoEndereco
+		TipoEndereco tipoEndereço;
+		if (cComboTipoEndereco.getSelectionIndex() != -1) {
+			key = cComboTipoEndereco
 				.getItem(cComboTipoEndereco.getSelectionIndex());
-		TipoEndereco tipo = (TipoEndereco) cComboTipoEndereco.getData(key);
+			tipoEndereço = (TipoEndereco) cComboTipoEndereco.getData(key);
+		} else{throw new ValidatorException("Selecionar o Tipo Endereço é obrigatório!");}
 
 		//Instancia endereço e sets
 		Endereco endereco = new Endereco();
@@ -464,7 +469,7 @@ public class ClienteView extends BasicView {
 		endereco.setBairro(textEnderecoBairro.getText());
 		endereco.setMunicipio(textEnderecoMunicipio.getText());
 		endereco.setCep(textEnderecoCep.getText());
-		endereco.setTipoEndereco(tipo);
+		endereco.setTipoEndereco(tipoEndereço);
 		endereco.setUf(uf);
 		
 		//set Endereço
