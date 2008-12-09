@@ -66,6 +66,14 @@ public class ClienteView extends BasicView {
 	private Text textTelefone;
 	private Label labelTelefone;
 	
+	//TELEFONE COMERCIAL
+	private Text textTelefoneComercial;
+	private Label labelTelefoneComercial;
+	
+	//TELEFONE CELULAR
+	private Text textTelefoneCelular;
+	private Label labelTelefoneCelular;
+	
 	//BOTÕES DE CONFIRMA E CANCELAR
 	private Button buttonCancelar;
 	private Button buttonConfirma;
@@ -96,6 +104,8 @@ public class ClienteView extends BasicView {
 				groupDadosPessoais.setLayout(dadosPessoaisLayout);
 				groupDadosPessoais.setText("Dados Pessoais");
 				groupDadosPessoais.setSize(243, 215);
+				
+				//TIPO PESSOA
 				{
 					labelTipoPessoa = new Label(groupDadosPessoais, SWT.NONE);
 					GridData labelUfLData = new GridData();
@@ -160,7 +170,7 @@ public class ClienteView extends BasicView {
 					textCpfCnpj.setLayoutData(nomeClienteLData);
 				}
 
-				// OK
+				// CCOMBO TIPO ENDEREÇO
 				{
 					labelTipoEndereco = new Label(groupDadosPessoais, SWT.NONE);
 					labelTipoEndereco.setText("Tipo Endereço:");
@@ -178,6 +188,7 @@ public class ClienteView extends BasicView {
 					cComboTipoEnderecoLData.widthHint = 155;
 					cComboTipoEndereco.setLayoutData(cComboTipoEnderecoLData);
 				}
+				//LOGRADOURO
 				{
 					labelEndereco = new Label(groupDadosPessoais, SWT.NONE);
 					labelEndereco.setText("Endereço:");
@@ -236,6 +247,8 @@ public class ClienteView extends BasicView {
 					textEnderecoCep = new Text(groupDadosPessoais, SWT.NONE);
 					textEnderecoCep.setLayoutData(EndereçoLData);
 				}
+				
+				//LABEL UF
 				{
 					labelUf = new Label(groupDadosPessoais, SWT.NONE);
 					GridData labelUfLData = new GridData();
@@ -254,7 +267,7 @@ public class ClienteView extends BasicView {
 					cComboUfLData.verticalAlignment = GridData.BEGINNING;
 					cComboUf.setLayoutData(cComboUfLData);
 				}
-				// daki pra cima Guto + Diego
+				// TELEFONE
 				{
 					labelTelefone = new Label(groupDadosPessoais, SWT.NONE);
 					labelTelefone.setText("Telefone:");
@@ -266,10 +279,36 @@ public class ClienteView extends BasicView {
 					textTelefone = new Text(groupDadosPessoais, SWT.NONE);
 					textTelefone.setLayoutData(textTelefoneLData);
 				}
-				// CCOMBO UF
+				
+				// TELEFONE COMERCIAL
+				{
+					labelTelefoneComercial = new Label(groupDadosPessoais, SWT.NONE);
+					labelTelefoneComercial.setText("Telefone Comercial:");
+				}
+				{
+					GridData textTelefoneLData = new GridData();
+					textTelefoneLData.grabExcessHorizontalSpace = true;
+					textTelefoneLData.horizontalAlignment = GridData.FILL;
+					textTelefoneComercial = new Text(groupDadosPessoais, SWT.NONE);
+					textTelefoneComercial.setLayoutData(textTelefoneLData);
+				}
+				
+				// TELEFONE CELULAR
+				{
+					labelTelefoneCelular = new Label(groupDadosPessoais, SWT.NONE);
+					labelTelefoneCelular.setText("Telefone Celular:");
+				}
+				{
+					GridData textTelefoneLData = new GridData();
+					textTelefoneLData.grabExcessHorizontalSpace = true;
+					textTelefoneLData.horizontalAlignment = GridData.FILL;
+					textTelefoneCelular = new Text(groupDadosPessoais, SWT.NONE);
+					textTelefoneCelular.setLayoutData(textTelefoneLData);
+				}
+	
 
 				// CCOMBO TIPOPESSOA
-
+				//view BOTÃO CONFIRMA
 				{
 					buttonConfirma = new Button(groupDadosPessoais, SWT.PUSH
 							| SWT.CENTER);
@@ -295,6 +334,7 @@ public class ClienteView extends BasicView {
 
 							});
 				}
+				//view BOTÃO CANCELAR
 				{
 					buttonCancelar = new Button(groupDadosPessoais, SWT.PUSH
 							| SWT.CENTER);
@@ -410,7 +450,7 @@ public class ClienteView extends BasicView {
 				.getItem(cComboTipoEndereco.getSelectionIndex());
 		TipoEndereco tipo = (TipoEndereco) cComboTipoEndereco.getData(key);
 
-		// endereço Cliente
+		//Instancia endereço e sets
 		endereco = new Endereco();
 		endereco.setLogradouro(textEndereco.getText());
 		endereco.setBairro(textEnderecoBairro.getText());
@@ -418,32 +458,61 @@ public class ClienteView extends BasicView {
 		endereco.setCep(textEnderecoCep.getText());
 		endereco.setTipoEndereco(tipo);
 		endereco.setUf(uf);
-
+		
+		//set Endereço
 		cliente.setEndereco(endereco);
 
 		// tipo Pessoa
 		key = cComboTipoPessoa.getItem(cComboTipoPessoa.getSelectionIndex());
 		cliente.setTipoPessoa((TipoPessoa) cComboTipoPessoa.getData(key));
-
+		
+		//TELEFONE
 		cliente.setTelefone(textTelefone.getText());
+
+		//TELEFONE COMERCIAL
+		cliente.setTelefoneComercial(textTelefoneComercial.getText());
+	
+		//TELEFONE CELULAR
+		cliente.setTelefoneCelular(textTelefoneCelular.getText());
 	}
 
 	public void loadCliente(Cliente cliente) {
 		this.cliente = cliente;
 
 		cComboTipoPessoa.setText(this.cliente.getTipoPessoa().getDescricao());
-		textNomeCliente.setText(this.cliente.getNomeRazaoSocial());
-		textApelidoFantasia.setText(this.cliente.getApelidoFantasia());
-		textCpfCnpj.setText(this.cliente.getCpfCnpj());
-		cComboTipoEndereco.setText(this.cliente.getEndereco().getTipoEndereco()
+		if (this.cliente.getNomeRazaoSocial() != null){
+			textNomeCliente.setText(this.cliente.getNomeRazaoSocial());
+		}
+		if (this.cliente.getApelidoFantasia() != null){
+			textApelidoFantasia.setText(this.cliente.getApelidoFantasia());
+		}
+		if (this.cliente.getCpfCnpj() != null) {
+			textCpfCnpj.setText(this.cliente.getCpfCnpj());
+		}
+			cComboTipoEndereco.setText(this.cliente.getEndereco().getTipoEndereco()
 				.getDescricao());
-		textEndereco.setText(this.cliente.getEndereco().getLogradouro());
-		textEnderecoBairro.setText(this.cliente.getEndereco().getBairro());
-		textEnderecoMunicipio
+		if (this.cliente.getEndereco().getLogradouro() != null){
+			textEndereco.setText(this.cliente.getEndereco().getLogradouro());
+		}
+		if (this.cliente.getEndereco().getBairro() != null){
+			textEnderecoBairro.setText(this.cliente.getEndereco().getBairro());
+		}
+		if (this.cliente.getEndereco().getMunicipio() != null){
+			textEnderecoMunicipio
 				.setText(this.cliente.getEndereco().getMunicipio());
-		textEnderecoCep.setText(this.cliente.getEndereco().getCep());
+		}
+		if (this.cliente.getEndereco().getCep() != null){
+			textEnderecoCep.setText(this.cliente.getEndereco().getCep());
+		}
 		cComboUf.setText(this.cliente.getEndereco().getUf().getDescricao());
-		textTelefone.setText(this.cliente.getTelefone());
-
+		if (this.cliente.getTelefone() != null) {
+			textTelefone.setText(this.cliente.getTelefone());
+		}
+		if (this.cliente.getTelefoneComercial() != null){
+			textTelefoneComercial.setText(this.cliente.getTelefoneComercial());
+		}
+		if (this.cliente.getTelefoneCelular() != null){
+			textTelefoneCelular.setText(this.cliente.getTelefoneCelular());
+		}
 	}
 }
