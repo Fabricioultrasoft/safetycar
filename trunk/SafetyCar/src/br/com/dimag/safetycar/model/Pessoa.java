@@ -50,14 +50,10 @@ public abstract class Pessoa extends BaseEntity {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "enderecoResidencialId")
+	@JoinColumn(name = "enderecoId")
 	@Cascade(value=CascadeType.SAVE_UPDATE)
-	private Endereco enderecoResidencial;
+	private Endereco endereco;
 	
-	@ManyToOne
-	@JoinColumn(name = "enderecoComercialId")
-	@Cascade(value=CascadeType.SAVE_UPDATE)
-	private Endereco enderecoComercial;
 
 	public String getNomeRazaoSocial() {
 		return nomeRazaoSocial;
@@ -91,20 +87,12 @@ public abstract class Pessoa extends BaseEntity {
 		this.tipoPessoa = tipoPessoa;
 	}
 
-	public Endereco getEnderecoResidencial() {
-		return enderecoResidencial;
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	public void setEnderecoResidencial(Endereco enderecoResidencial) {
-		this.enderecoResidencial = enderecoResidencial;
-	}
-
-	public Endereco getEnderecoComercial() {
-		return enderecoComercial;
-	}
-
-	public void setEnderecoComercial(Endereco enderecoComercial) {
-		this.enderecoComercial = enderecoComercial;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 }
