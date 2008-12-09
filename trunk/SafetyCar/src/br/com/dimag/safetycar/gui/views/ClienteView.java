@@ -6,7 +6,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -91,7 +90,7 @@ public class ClienteView extends BasicView {
 	private Text textApelidoFantasia;
 
 	private Cliente cliente;
-	private Endereco endereco;
+
 
 	@Override
 	public void createPartControl(Composite composite) {
@@ -455,7 +454,7 @@ public class ClienteView extends BasicView {
 		TipoEndereco tipo = (TipoEndereco) cComboTipoEndereco.getData(key);
 
 		//Instancia endereço e sets
-		endereco = new Endereco();
+		Endereco endereco = new Endereco();
 		endereco.setLogradouro(textEndereco.getText());
 		endereco.setBairro(textEnderecoBairro.getText());
 		endereco.setMunicipio(textEnderecoMunicipio.getText());
