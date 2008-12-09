@@ -6,6 +6,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -84,7 +85,7 @@ public class ClienteView extends BasicView {
 	public void createPartControl(Composite composite) {
 
 		{
-			composite.setSize(336, 231);
+			composite.setSize(484, 291);
 			{
 				groupDadosPessoais = new Group(composite, SWT.NONE);
 				GridLayout dadosPessoaisLayout = new GridLayout();
@@ -92,7 +93,25 @@ public class ClienteView extends BasicView {
 				groupDadosPessoais.setLayout(dadosPessoaisLayout);
 				groupDadosPessoais.setText("Dados Pessoais");
 				groupDadosPessoais.setSize(243, 215);
-
+				{
+					labelTipoPessoa = new Label(groupDadosPessoais, SWT.NONE);
+					GridData labelUfLData = new GridData();
+					labelUfLData.horizontalAlignment = GridData.BEGINNING;
+					labelUfLData.verticalAlignment = GridData.BEGINNING;
+					labelTipoPessoa.setLayoutData(labelUfLData);
+					labelTipoPessoa.setText("Tipo Pessoa:");
+				}
+				{
+					cComboTipoPessoa = new CCombo(groupDadosPessoais, SWT.NONE);
+					GridData cComboUfLData = new GridData();
+					cComboUfLData.horizontalAlignment = GridData.FILL;
+					cComboUfLData.grabExcessHorizontalSpace = true;
+					cComboUfLData.widthHint = 155;
+					cComboUfLData.heightHint = 16;
+					cComboUfLData.verticalAlignment = GridData.BEGINNING;
+					cComboTipoPessoa.setLayoutData(cComboUfLData);
+				}
+				
 				// NOME CLIENTE - RAZÃO SOCIAL
 
 				{
@@ -214,6 +233,24 @@ public class ClienteView extends BasicView {
 					textEnderecoCep = new Text(groupDadosPessoais, SWT.NONE);
 					textEnderecoCep.setLayoutData(EndereçoLData);
 				}
+				{
+					labelUf = new Label(groupDadosPessoais, SWT.NONE);
+					GridData labelUfLData = new GridData();
+					labelUfLData.horizontalAlignment = GridData.FILL;
+					labelUf.setLayoutData(labelUfLData);
+					labelUf.setText("UF:");
+				}
+				//CCOMBO UF
+				{
+					cComboUf = new CCombo(groupDadosPessoais, SWT.NONE);
+					GridData cComboUfLData = new GridData();
+					cComboUfLData.horizontalAlignment = GridData.FILL;
+					cComboUfLData.grabExcessHorizontalSpace = true;
+					cComboUfLData.widthHint = 155;
+					cComboUfLData.heightHint = 16;
+					cComboUfLData.verticalAlignment = GridData.BEGINNING;
+					cComboUf.setLayoutData(cComboUfLData);
+				}
 				// daki pra cima Guto + Diego
 				{
 					labelTelefone = new Label(groupDadosPessoais, SWT.NONE);
@@ -227,40 +264,8 @@ public class ClienteView extends BasicView {
 					textTelefone.setLayoutData(textTelefoneLData);
 				}
 				// CCOMBO UF
-				{
-					labelUf = new Label(groupDadosPessoais, SWT.NONE);
-					GridData labelUfLData = new GridData();
-					labelUfLData.horizontalAlignment = GridData.FILL;
-					labelUf.setLayoutData(labelUfLData);
-					labelUf.setText("UF:");
-				}
-				{
-					cComboUf = new CCombo(groupDadosPessoais, SWT.NONE);
-					GridData cComboUfLData = new GridData();
-					cComboUfLData.horizontalAlignment = GridData.FILL;
-					cComboUfLData.grabExcessHorizontalSpace = true;
-					cComboUfLData.widthHint = 155;
-					cComboUfLData.heightHint = 16;
-					cComboUf.setLayoutData(cComboUfLData);
-				}
 
 				// CCOMBO TIPOPESSOA
-				{
-					labelTipoPessoa = new Label(groupDadosPessoais, SWT.NONE);
-					GridData labelUfLData = new GridData();
-					labelUfLData.horizontalAlignment = GridData.FILL;
-					labelTipoPessoa.setLayoutData(labelUfLData);
-					labelTipoPessoa.setText("Tipo Pessoa:");
-				}
-				{
-					cComboTipoPessoa = new CCombo(groupDadosPessoais, SWT.NONE);
-					GridData cComboUfLData = new GridData();
-					cComboUfLData.horizontalAlignment = GridData.FILL;
-					cComboUfLData.grabExcessHorizontalSpace = true;
-					cComboUfLData.widthHint = 155;
-					cComboUfLData.heightHint = 16;
-					cComboTipoPessoa.setLayoutData(cComboUfLData);
-				}
 
 				{
 					buttonConfirma = new Button(groupDadosPessoais, SWT.PUSH
