@@ -380,7 +380,7 @@ public class ClienteView extends BasicView {
 	private void loadData() {
 
 		// UF
-		List<UF> listUFs = Facade.getInstance().carregarUfs();
+		List<UF> listUFs = Facade.getInstance().listUf();
 		cComboUf.removeAll();
 		for (UF uf : listUFs) {
 			cComboUf.setData(uf.getDescricao(), uf);

@@ -41,4 +41,9 @@ public class CadastroFuncionario {
 		return repository.list();
 	}
 
+	public List<Funcionario> listAtendente() {
+		
+		return repository.listAtendente();
+	}
+
 }

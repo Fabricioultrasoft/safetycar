@@ -12,8 +12,8 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.ForeignKey;
 
-@Entity
-@org.hibernate.annotations.Entity(mutable = false)
+//@Entity
+//@org.hibernate.annotations.Entity(mutable = false)
 public class OrdemServicoServico {
 	
 	@Embeddable
@@ -50,12 +50,12 @@ public class OrdemServicoServico {
 	@EmbeddedId
 	private Id id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_OS", insertable = false, updatable = false)
 	@ForeignKey(name = "FK_OSSERVICO_OS_ID")
 	private OrdemServico ordemServico;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_SERVICO", insertable = false, updatable = false)
 	@ForeignKey(name = "FK_OSSERVICO_SERVICO_ID")
 	private Servico servico;
