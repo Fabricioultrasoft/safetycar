@@ -3,14 +3,20 @@ package br.com.dimag.safetycar.gui.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import br.com.dimag.safetycar.business.Facade;
@@ -93,6 +99,19 @@ public class ClienteListView extends BasicView {
 		viewer.setContentProvider(new ViewContentProvider());
 		viewer.setLabelProvider(new ViewLabelProvider());
 		viewer.setInput(createModel());
+		viewer.addDoubleClickListener(new IDoubleClickListener(){
+
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+				// TODO Auto-generated method stub
+				StructuredSelection sl = (StructuredSelection) event.getSelection();
+				
+				openView(ClienteView.ID);
+				ClienteView view = (ClienteView)findView(ClienteView.ID);
+				view.loadCliente((Cliente)sl.getFirstElement());
+			}
+			
+		});
 	}
 
 	/**
@@ -101,5 +120,7 @@ public class ClienteListView extends BasicView {
 	public void setFocus() {
 		viewer.getControl().setFocus();
 	}
-
+	
+	
+	
 }
