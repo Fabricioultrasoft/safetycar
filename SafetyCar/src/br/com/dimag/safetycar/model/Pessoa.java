@@ -28,6 +28,7 @@ public abstract class Pessoa extends BaseEntity {
 	private String apelidoFantasia;
 
 	@NotNull
+	@NotEmpty
 	@Length(max = 14, min = 11)
 	private String cpfCnpj;
 
