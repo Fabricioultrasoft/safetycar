@@ -304,6 +304,7 @@ public class ClienteView extends BasicView {
 						
 					});
 				}
+				//LABEL ERRO
 				{
 					labelErro = new Label(groupDadosPessoais, SWT.NONE);
 					GridData labelErroLData = new GridData();
@@ -313,7 +314,7 @@ public class ClienteView extends BasicView {
 					labelErroLData.widthHint = 319;
 					labelErroLData.heightHint = 26;
 					labelErro.setLayoutData(labelErroLData);
-					labelErro.setText("label Erro");
+					labelErro.setText("");
 				}
 			}
 		}
@@ -369,23 +370,22 @@ public class ClienteView extends BasicView {
 			uf = (UF) cComboUf.getData(key);
 		}
 		
+		//tipo Endereço
+		key = cComboTipoEndereco.getItem(cComboTipoEndereco.getSelectionIndex());
+		TipoEndereco tipo = (TipoEndereco) cComboTipoEndereco.getData(key);
+		
+		
+		
 		//endereço Cliente
 		endereco = new Endereco();
 		endereco.setLogradouro(textEndereçoResidencial.getText());
 		endereco.setBairro(textEndereçoBairro.getText());
 		endereco.setMunicipio(textEndereçoMunicipio.getText());
 		endereco.setCep(textEndereçoCep.getText());
+		endereco.setTipoEndereco(tipo);
 		endereco.setUf(uf);
 		
-		//tipo Endereço
-		key = cComboTipoEndereco.getItem(cComboTipoEndereco.getSelectionIndex());
-		TipoEndereco tipo = (TipoEndereco) cComboTipoEndereco.getData(key);
-		
-		if (tipo == TipoEndereco.COMERCIAL){
-			cliente.setEnderecoComercial(endereco);
-		}else if (tipo == TipoEndereco.RESIDENCIAL){
-			cliente.setEnderecoResidencial(endereco);
-		}
+		cliente.setEndereco(endereco);
 		
 		//tipo Pessoa
 		key = cComboTipoPessoa.getItem(cComboTipoPessoa.getSelectionIndex());
@@ -406,6 +406,9 @@ public class ClienteView extends BasicView {
 		this.cliente = cliente;
 		
 		textNomeCliente.setText(this.cliente.getNomeRazaoSocial());
+		textApelidoFantasia.setText(this.cliente.getApelidoFantasia());
+		textCpfCnpj.setText(this.cliente.getCpfCnpj());
+		//cComboTipoEndereco.setText(this.cliente.)
 		
 	}
 }
