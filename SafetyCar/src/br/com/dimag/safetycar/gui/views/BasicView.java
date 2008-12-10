@@ -5,6 +5,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 
 public abstract class BasicView extends ViewPart {
+	
+	protected static boolean isUpdate = false;
 
 	public void closeView() { 
 		this.getViewSite().getWorkbenchWindow().getActivePage().hideView(this);

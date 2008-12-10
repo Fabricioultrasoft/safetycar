@@ -5,44 +5,65 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.Length;
+import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"placa"})})
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "placa" }) })
 public class Automovel extends BaseEntity {
-	
+
 	@NotNull
-	@Length(max=7)
+	@NotEmpty
+	@Length(max = 7)
 	private String placa;
-	
+
 	@NotNull
-	@Length(max=50)
+	@NotEmpty
+	@Length(max = 50)
 	private String modelo;
-	
+
 	@NotNull
-	@Length(max=50)
+	@NotEmpty
+	@Length(max = 50)
 	private String marca;
-	
+
 	@NotNull
-	@Length(max=50)
+	@NotEmpty
+	@Length(max = 50)
 	private String cor;
-	
+
 	@NotNull
-	@Length(max=4, min=4)
+	@NotEmpty
+	@Length(max = 4, min = 4)
 	private String ano;
-	
+
 	@NotNull
-	@Length(max=17)
+	@NotEmpty
+	@Length(max = 17)
 	private String chassi;
 
 	@NotNull
 	private TipoCombustivel tipoCombustivel;
 
 	public enum TipoCombustivel {
-		ALCOOL, GASOLINA, DIESEL, GNV, FLEX, TETRAFUEL
+		ALCOOL("Alcool"), 
+		GASOLINA("Gasolina"), 
+		DIESEL("Diesel"), 
+		GNV("Gnv"), 
+		FLEX("Flex"),
+		TETRAFUEL("Tetrafull");
+
+		private String descricao;
+
+		private TipoCombustivel(String descricao) {
+			this.descricao = descricao;
+		}
+
+		public String getDescricao() {
+			return descricao;
+		}
 	}
-	
-	
+
 	public String getPlaca() {
 		return placa;
 	}

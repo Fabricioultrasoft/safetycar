@@ -379,7 +379,7 @@ public class ClienteView extends BasicView {
 	}
 
 	private void loadData() {
-
+		isUpdate = false;
 		// UF
 		List<UF> listUFs = Facade.getInstance().listUf();
 		cComboUf.removeAll();
@@ -426,6 +426,10 @@ public class ClienteView extends BasicView {
 			labelErro.setText(e.getMessage());
 		} catch (ValidatorException e) {
 			labelErro.setText(e.getMessage());
+		}finally{
+			if (!isUpdate){
+				cliente = null;
+			}
 		}
 
 	}
@@ -530,6 +534,7 @@ public class ClienteView extends BasicView {
 	}
 
 	public void loadCliente(Cliente cliente) {
+		isUpdate = true;
 		this.cliente = cliente;
 
 		cComboTipoPessoa.setText(this.cliente.getTipoPessoa().getDescricao());
