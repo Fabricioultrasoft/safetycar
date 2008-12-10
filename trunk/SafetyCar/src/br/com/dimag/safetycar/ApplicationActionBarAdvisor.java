@@ -24,7 +24,7 @@ import br.com.dimag.safetycar.gui.views.ClienteView;
 import br.com.dimag.safetycar.gui.views.OSListView;
 import br.com.dimag.safetycar.gui.views.OSView;
 import br.com.dimag.safetycar.gui.views.ProdutoView;
-
+import br.com.dimag.safetycar.gui.views.ProdutoListView;
 
 /**
  * An action bar advisor is responsible for creating, adding, and disposing of the
@@ -41,11 +41,12 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     private IWorkbenchAction newWindowAction;
 	private ViewBasicAction clienteViewAction;
 	private ViewBasicAction OSViewAction;
+	private ViewBasicAction OSListViewAction;
 	private ViewBasicAction clienteListViewAction;
 	private ViewBasicAction automovelViewAction;
 	private ViewBasicAction automovelListViewAction;
-	private ViewBasicAction OSListViewAction;
 	private ViewBasicAction produtoViewAction;
+	private ViewBasicAction produtoListViewAction;
 
     public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
         super(configurer);
@@ -88,6 +89,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         produtoViewAction = new ViewBasicAction(window, "Cadastro de Produtos",ProdutoView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(produtoViewAction);
 
+        produtoListViewAction = new ViewBasicAction(window, "Lista de Produtos",ProdutoListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        register(OSListViewAction);
     }
     
     protected void fillMenuBar(IMenuManager menuBar) {
@@ -109,6 +112,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(automovelViewAction);
         fileMenu.add(automovelListViewAction);
         fileMenu.add(produtoViewAction);
+        fileMenu.add(produtoListViewAction);
         fileMenu.add(new Separator());
         fileMenu.add(exitAction);
         
@@ -126,6 +130,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         toolbar.add(automovelViewAction);
         toolbar.add(automovelListViewAction);
         toolbar.add(produtoViewAction);
+        toolbar.add(produtoListViewAction);
         
         
     }
