@@ -94,13 +94,13 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         register(produtoViewAction);
 
         produtoListViewAction = new ViewBasicAction(window, "Lista de Produtos",ProdutoListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
-        register(OSListViewAction);
+        register(produtoListViewAction);
 
         servicoViewAction = new ViewBasicAction(window, "Cadastro de Serviços",ServicoView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
-        register(produtoViewAction);
+        register(servicoViewAction);
 
         servicoListViewAction = new ViewBasicAction(window, "Lista de Serviços",ServicoListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
-        register(OSListViewAction);
+        register(servicoListViewAction);
         
     }
     
