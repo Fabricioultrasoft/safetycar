@@ -17,6 +17,8 @@ import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
 import br.com.dimag.safetycar.gui.actions.ViewBasicAction;
+import br.com.dimag.safetycar.gui.views.AutomovelListView;
+import br.com.dimag.safetycar.gui.views.AutomovelView;
 import br.com.dimag.safetycar.gui.views.ClienteListView;
 import br.com.dimag.safetycar.gui.views.ClienteView;
 import br.com.dimag.safetycar.gui.views.OSListView;
@@ -40,7 +42,12 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private ViewBasicAction clienteViewAction;
 	private ViewBasicAction OSViewAction;
 	private ViewBasicAction clienteListViewAction;
+<<<<<<< .mine
+	private ViewBasicAction automovelViewAction;
+	private ViewBasicAction automovelListViewAction;
+=======
 	private ViewBasicAction OSListViewAction;
+>>>>>>> .r85
     
 
     public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
@@ -72,8 +79,16 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         clienteListViewAction = new ViewBasicAction(window, "Lista de Clientes", ClienteListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(clienteListViewAction);
         
+<<<<<<< .mine
+        automovelViewAction = new ViewBasicAction(window, "Cadastro de Automoveis", AutomovelView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        register(automovelViewAction);
+        
+        automovelListViewAction = new ViewBasicAction(window, "Lista de Automovel", AutomovelListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        register(automovelListViewAction);
+=======
         OSListViewAction = new ViewBasicAction(window, "Lista de Ordem de Serviço",OSListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(OSListViewAction);
+>>>>>>> .r85
     }
     
     protected void fillMenuBar(IMenuManager menuBar) {
@@ -92,6 +107,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(OSViewAction);
         fileMenu.add(OSListViewAction);
         fileMenu.add(clienteListViewAction);
+        fileMenu.add(automovelViewAction);
+        fileMenu.add(automovelListViewAction);
         fileMenu.add(new Separator());
         fileMenu.add(exitAction);
         
@@ -106,6 +123,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         toolbar.add(clienteListViewAction);
         toolbar.add(OSViewAction);
         toolbar.add(OSListViewAction);
+        toolbar.add(automovelViewAction);
+        toolbar.add(automovelListViewAction);
         
         
     }
