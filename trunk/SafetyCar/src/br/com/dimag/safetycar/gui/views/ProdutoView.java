@@ -310,7 +310,7 @@ public class ProdutoView extends BasicView {
 		produto.setValorUnitario(Double.parseDouble(textValorUnitario.getText()));
 		} catch (Exception e) {
 			// TODO: handle exception
-			throw new ValidatorException("O Valor Unitário (R$) é de Formato Numérico obrigatório! Ex: 132.59");	
+			throw new ValidatorException("O Valor Unitário (R$) é de Formato Numérico obrigatório!(Utilize . ) Ex: 132.59");	
 		}
 	}
 
