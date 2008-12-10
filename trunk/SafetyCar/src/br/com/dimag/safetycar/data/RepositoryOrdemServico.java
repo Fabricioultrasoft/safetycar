@@ -11,7 +11,6 @@ import br.com.dimag.safetycar.data.transaction.TransactionClass;
 import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.OrdemServico;
-import br.com.dimag.safetycar.model.OrdemServicoServico;
 
 public class RepositoryOrdemServico implements IRepositoryOrdemServico {
 
@@ -65,9 +64,4 @@ public class RepositoryOrdemServico implements IRepositoryOrdemServico {
 		return listAutomovel; 
 	}
 
-	public List<OrdemServicoServico> listOrdemServicoServico(OrdemServico os) {
-
-		return HibernateUtil.getSession().createQuery("from OrdemServicoServico oss where oss.ordemServico.id = :osId").setParameter("osId", os.getId()).list();
-		
-	}
 }

@@ -46,4 +46,8 @@ public class CadastroFuncionario {
 		return repository.listAtendente();
 	}
 
+	public List<Funcionario> listMecanico() {
+		return repository.listMecanico();
+	}
+
 }

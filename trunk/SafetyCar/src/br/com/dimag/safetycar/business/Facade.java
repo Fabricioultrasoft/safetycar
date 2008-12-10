@@ -6,6 +6,8 @@ import br.com.dimag.safetycar.business.cadastro.CadastroAutomovel;
 import br.com.dimag.safetycar.business.cadastro.CadastroCliente;
 import br.com.dimag.safetycar.business.cadastro.CadastroFuncionario;
 import br.com.dimag.safetycar.business.cadastro.CadastroOrdemServico;
+import br.com.dimag.safetycar.business.cadastro.CadastroProduto;
+import br.com.dimag.safetycar.business.cadastro.CadastroServico;
 import br.com.dimag.safetycar.business.cadastro.CadastroUF;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
 import br.com.dimag.safetycar.exception.DataException;
@@ -14,7 +16,8 @@ import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.Funcionario;
 import br.com.dimag.safetycar.model.OrdemServico;
-import br.com.dimag.safetycar.model.OrdemServicoServico;
+import br.com.dimag.safetycar.model.Produto;
+import br.com.dimag.safetycar.model.Servico;
 import br.com.dimag.safetycar.model.UF;
 import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
@@ -26,6 +29,8 @@ public class Facade {
 	private CadastroOrdemServico cadastroOrdemServico;
 	private CadastroUF cadastroUf;
 	private CadastroFuncionario cadastroFuncionario;
+	private CadastroServico cadastroServico;
+	private CadastroProduto cadastroProduto;
 
 	public static Facade getInstance(){
 		if (facade == null){
@@ -41,6 +46,8 @@ public class Facade {
 			cadastroOrdemServico = new CadastroOrdemServico();
 			cadastroUf = new CadastroUF();
 			cadastroFuncionario = new CadastroFuncionario();
+			cadastroServico = new CadastroServico();
+			cadastroProduto = new CadastroProduto();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,11 +109,6 @@ public class Facade {
 		return cadastroOrdemServico.list();
 	}
 
-	public List<OrdemServicoServico> listOrdemServicoServico(OrdemServico os) {
-		return cadastroOrdemServico.listOrdemServicoServico(os);
-		
-	}
-
 	public void cadastrarOrdemServico(OrdemServico ordemServico) throws DadosInsuficientesException, DataException {
 		cadastroOrdemServico.inserir(ordemServico);
 		
@@ -122,5 +124,18 @@ public class Facade {
 		} catch (DadosInsuficientesException e) {
 			throw new FacadeException(e.getMessage());
 		}
+	}
+
+	public List<Servico> listServico() {
+		return cadastroServico.list();
+	}
+
+	public List<Produto> listProduto() {
+		return cadastroProduto.list();
+	}
+
+	public List<Funcionario> listMecanico() {
+		return cadastroFuncionario.listMecanico();
+	
 	}
 }

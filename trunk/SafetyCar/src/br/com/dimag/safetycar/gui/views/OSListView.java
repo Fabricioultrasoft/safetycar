@@ -19,6 +19,7 @@ import org.eclipse.ui.PlatformUI;
 import br.com.dimag.safetycar.business.Facade;
 import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
 import br.com.dimag.safetycar.model.Cliente;
+import br.com.dimag.safetycar.model.OrdemServico;
 
 
 /**
@@ -31,14 +32,14 @@ import br.com.dimag.safetycar.model.Cliente;
  * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
  * ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
-public class ClienteListView extends BasicView {
+public class OSListView extends BasicView {
 
-	public static final String ID = "SafetyCar.clientList";
+	public static final String ID = "SafetyCar.osList";
 	private TableViewer viewer;
-	private List<Cliente> listClientes;
+	private List<OrdemServico> listOS;
 	
-	public ClienteListView(){
-		listClientes = new ArrayList<Cliente>();
+	public OSListView(){
+		listOS = new ArrayList<OrdemServico>();
 		
 	}
 
@@ -53,7 +54,7 @@ public class ClienteListView extends BasicView {
 		}
 
 		public Object[] getElements(Object parent) {
-			return listClientes.toArray(new Cliente[listClientes.size()]);
+			return listOS.toArray(new OrdemServico[listOS.size()]);
 		}
 
 	}
@@ -61,8 +62,8 @@ public class ClienteListView extends BasicView {
 	class ViewLabelProvider extends LabelProvider {
 
 		public String getText(Object obj) {
-			Cliente cliente = (Cliente)obj;
-			return cliente.getNomeRazaoSocial();
+			OrdemServico os = (OrdemServico)obj;
+			return os.getAutomovel().getModelo() + " - " + os.getAutomovel().getPlaca() + " - " + os.getMecanico().getNomeRazaoSocial();
 		}
 
 		public Image getImage(Object obj) {
@@ -78,10 +79,9 @@ public class ClienteListView extends BasicView {
 	 * We will set up a dummy model to initialize tree heararchy. In real code,
 	 * you will connect to a real model and expose its hierarchy.
 	 */
-	private List<Cliente> createModel() {
-		listClientes = Facade.getInstance().listCliente();
-		
-		return listClientes;
+	private List<OrdemServico> createModel() {
+		listOS = Facade.getInstance().listOrdemServico();
+		return listOS;
 	}
 
 	/**
@@ -103,9 +103,9 @@ public class ClienteListView extends BasicView {
 				// TODO Auto-generated method stub
 				StructuredSelection sl = (StructuredSelection) event.getSelection();
 				closeView();
-				openView(ClienteView.ID);
-				ClienteView view = (ClienteView)findView(ClienteView.ID);
-				view.loadCliente((Cliente)sl.getFirstElement());
+				openView(OSView.ID);
+				OSView view = (OSView)findView(OSView.ID);
+				view.loadOS((OrdemServico)sl.getFirstElement());
 			}
 			
 		});

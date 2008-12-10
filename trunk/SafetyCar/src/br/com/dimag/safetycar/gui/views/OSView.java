@@ -1,7 +1,7 @@
 package br.com.dimag.safetycar.gui.views;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -19,24 +19,21 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
 import br.com.dimag.safetycar.business.Facade;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
-import br.com.dimag.safetycar.exception.DataException;
 import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
 import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.Funcionario;
 import br.com.dimag.safetycar.model.OrdemServico;
-import br.com.dimag.safetycar.model.OrdemServicoServico;
+import br.com.dimag.safetycar.model.Produto;
 import br.com.dimag.safetycar.model.Servico;
-import br.com.dimag.safetycar.model.UF;
-import br.com.dimag.safetycar.model.Automovel.TipoCombustivel;
 import br.com.dimag.safetycar.model.OrdemServico.ClassificacaoOrdemServico;
 import br.com.dimag.safetycar.model.OrdemServico.StatusOrdemServico;
-import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -55,21 +52,32 @@ public class OSView extends BasicView {
 	private Button buttonConfirma;
 	private Button buttonCancelar;
 	private Label labelErro;
+	private CCombo cComboMecanico;
+	private Label labelMecanico;
+	private Button buttonAddProduto;
+	private CCombo cComboProdutos;
+	private TableViewer tableViewerProduto;
+	private Group groupProduto;
+	private Button buttonAddServico;
+	private CCombo cComboServicos;
 	private CCombo cComboAtendente;
 	private Label labelAtendente;
 	private Group groupServiico;
 	private TableViewer tableViewerServico;
 	private CCombo cComboCliente;
 	private Label labelCliente;
-	private CCombo cComboPlaca;
+	private CCombo cComboAutomovel;
 	private Label labelPlacaVeiculo;
 	private OrdemServico ordemServico;
+
+	private List<Servico> listServicoTableViewers;
+	private List<Produto> listProdutoTableViewers;
 
 	@Override
 	public void createPartControl(Composite composite) {
 
 		{
-			composite.setSize(336, 231);
+			composite.setSize(399, 309);
 			{
 				groupDadosOS = new Group(composite, SWT.NONE);
 				GridLayout dadosPessoaisLayout = new GridLayout();
@@ -90,8 +98,8 @@ public class OSView extends BasicView {
 					cComboPlacaLData.verticalAlignment = GridData.BEGINNING;
 					cComboPlacaLData.horizontalAlignment = GridData.FILL;
 					cComboPlacaLData.grabExcessHorizontalSpace = true;
-					cComboPlaca = new CCombo(groupDadosOS, SWT.NONE);
-					cComboPlaca.setLayoutData(cComboPlacaLData);
+					cComboAutomovel = new CCombo(groupDadosOS, SWT.NONE);
+					cComboAutomovel.setLayoutData(cComboPlacaLData);
 				}
 				{
 					labelCliente = new Label(groupDadosOS, SWT.NONE);
@@ -110,7 +118,6 @@ public class OSView extends BasicView {
 					GridData labelAtendenteLData = new GridData();
 					labelAtendenteLData.verticalAlignment = GridData.BEGINNING;
 					labelAtendenteLData.horizontalAlignment = GridData.FILL;
-					labelAtendenteLData.grabExcessHorizontalSpace = true;
 					labelAtendente.setLayoutData(labelAtendenteLData);
 					labelAtendente.setText("Atendente");
 				}
@@ -123,32 +130,143 @@ public class OSView extends BasicView {
 					cComboAtendente.setLayoutData(cComboAtendenteLData);
 				}
 				{
+					labelMecanico = new Label(groupDadosOS, SWT.NONE);
+					GridData labelMecanicoLData = new GridData();
+					labelMecanicoLData.verticalAlignment = GridData.BEGINNING;
+					labelMecanicoLData.horizontalAlignment = GridData.FILL;
+					labelMecanico.setLayoutData(labelMecanicoLData);
+					labelMecanico.setText("Mecânico");
+				}
+				{
+					GridData cComboMecanicoLData = new GridData();
+					cComboMecanicoLData.grabExcessHorizontalSpace = true;
+					cComboMecanicoLData.verticalAlignment = GridData.BEGINNING;
+					cComboMecanicoLData.horizontalAlignment = GridData.FILL;
+					cComboMecanico = new CCombo(groupDadosOS, SWT.NONE);
+					cComboMecanico.setLayoutData(cComboMecanicoLData);
+				}
+				{
 					groupServiico = new Group(groupDadosOS, SWT.NONE);
 					GridLayout group1Layout = new GridLayout();
-					group1Layout.makeColumnsEqualWidth = true;
 					groupServiico.setLayout(group1Layout);
 					GridData group1LData = new GridData();
-					group1LData.verticalAlignment = GridData.BEGINNING;
+					group1LData.verticalAlignment = GridData.FILL;
 					group1LData.horizontalAlignment = GridData.FILL;
 					group1LData.horizontalSpan = 2;
+					group1Layout.numColumns = 2;
 					group1LData.grabExcessHorizontalSpace = true;
+					group1LData.grabExcessVerticalSpace = true;
 					group1LData.widthHint = 314;
 					group1LData.heightHint = 64;
 					groupServiico.setLayoutData(group1LData);
 					groupServiico.setText("Serviço:");
 					{
+						GridData cComboServicosLData = new GridData();
+						cComboServicosLData.grabExcessHorizontalSpace = true;
+						cComboServicosLData.horizontalAlignment = SWT.FILL;
+						cComboServicos = new CCombo(groupServiico, SWT.NONE);
+						cComboServicos.setLayoutData(cComboServicosLData);
+					}
+					{
+						buttonAddServico = new Button(groupServiico, SWT.PUSH
+								| SWT.CENTER);
+						buttonAddServico.setText("Adicionar");
+						buttonAddServico
+								.addSelectionListener(new SelectionListener() {
+
+									@Override
+									public void widgetDefaultSelected(
+											SelectionEvent event) {
+										// TODO Auto-generated method stub
+									}
+
+									@Override
+									public void widgetSelected(
+											SelectionEvent event) {
+										adicionarServico();
+
+									}
+
+								});
+					}
+					{
 						GridData tableViewerServicoLData = new GridData();
 						tableViewerServicoLData.verticalAlignment = GridData.FILL;
 						tableViewerServicoLData.horizontalAlignment = GridData.FILL;
+						tableViewerServicoLData.horizontalSpan = 2;
 						tableViewerServicoLData.grabExcessHorizontalSpace = true;
 						tableViewerServicoLData.grabExcessVerticalSpace = true;
 						tableViewerServico = new TableViewer(groupServiico,
 								SWT.NONE);
 						tableViewerServico.getControl().setLayoutData(
 								tableViewerServicoLData);
-						tableViewerServico.setContentProvider(new ViewContentProvider());
-						tableViewerServico.setLabelProvider(new ViewLabelProvider());
-						tableViewerServico.setColumnProperties(new String[]{"Descrição","Valor"});
+						tableViewerServico
+								.setContentProvider(new ViewContentProviderServico());
+						tableViewerServico
+								.setLabelProvider(new ViewLabelProviderServico());
+						tableViewerServico.setColumnProperties(new String[] {
+								"Descrição", "Valor" });
+					}
+				}
+				{
+					groupProduto = new Group(groupDadosOS, SWT.NONE);
+					groupProduto.setText("Produtos:");
+					GridLayout groupProdutoLayout = new GridLayout();
+					groupProdutoLayout.makeColumnsEqualWidth = false;
+					groupProdutoLayout.numColumns = 2;
+					GridData groupProdutoLData = new GridData();
+					groupProdutoLData.grabExcessHorizontalSpace = true;
+					groupProdutoLData.grabExcessVerticalSpace = true;
+					groupProdutoLData.horizontalSpan = 2;
+					groupProdutoLData.verticalAlignment = SWT.FILL;
+					groupProdutoLData.horizontalAlignment = SWT.FILL;
+					groupProduto.setLayoutData(groupProdutoLData);
+					groupProduto.setLayout(groupProdutoLayout);
+					{
+						GridData cComboProdutosLData = new GridData();
+						cComboProdutosLData.grabExcessHorizontalSpace = true;
+						cComboProdutosLData.horizontalAlignment = SWT.FILL;
+						cComboProdutos = new CCombo(groupProduto, SWT.NONE);
+						cComboProdutos.setLayoutData(cComboProdutosLData);
+					}
+					{
+						buttonAddProduto = new Button(groupProduto, SWT.PUSH
+								| SWT.CENTER);
+						buttonAddProduto.setText("Adicionar");
+						buttonAddProduto
+								.addSelectionListener(new SelectionListener() {
+
+									@Override
+									public void widgetDefaultSelected(
+											SelectionEvent event) {
+										// TODO Auto-generated method stub
+									}
+
+									@Override
+									public void widgetSelected(
+											SelectionEvent event) {
+										adicionarProduto();
+									}
+
+								});
+					}
+					{
+						GridData tableViewerProdutoLData = new GridData();
+						tableViewerProdutoLData.grabExcessHorizontalSpace = true;
+						tableViewerProdutoLData.grabExcessVerticalSpace = true;
+						tableViewerProdutoLData.horizontalSpan = 2;
+						tableViewerProdutoLData.verticalAlignment = SWT.FILL;
+						tableViewerProdutoLData.horizontalAlignment = SWT.FILL;
+						tableViewerProduto = new TableViewer(groupProduto,
+								SWT.NONE);
+						tableViewerProduto.getControl().setLayoutData(
+								tableViewerProdutoLData);
+						tableViewerProduto
+								.setContentProvider(new ViewContentProviderProduto());
+						tableViewerProduto
+								.setLabelProvider(new ViewLabelProviderProduto());
+						tableViewerProduto.setColumnProperties(new String[] {
+								"Descrição", "Valor" });
 					}
 				}
 
@@ -220,12 +338,58 @@ public class OSView extends BasicView {
 		loadData();
 	}
 
+	private void adicionarServico() {
+		String key = cComboServicos.getItem(cComboServicos.getSelectionIndex());
+		Servico servico = (Servico) cComboServicos.getData(key);
+
+		if (!listServicoTableViewers.contains(servico)) {
+			listServicoTableViewers.add(servico);
+			atualizarTableViewerServico();
+		} else {
+			MessageBox mb = new MessageBox(getViewSite().getShell());
+			mb.setText("Conflito");
+			mb.setMessage("Este servico já está na lista");
+			mb.open();
+		}
+	}
+
+	private void adicionarProduto() {
+		String key = cComboProdutos.getItem(cComboProdutos.getSelectionIndex());
+		Produto produto = (Produto) cComboProdutos.getData(key);
+
+		if (!listProdutoTableViewers.contains(produto)) {
+			listProdutoTableViewers.add(produto);
+			atualizarTableViewerProduto();
+		} else {
+			MessageBox mb = new MessageBox(getViewSite().getShell());
+			mb.setText("Conflito");
+			mb.setMessage("Este produto já está na lista");
+			mb.open();
+		}
+	}
+
+	private void atualizarTableViewerProduto() {
+		tableViewerProduto.setInput(listProdutoTableViewers);
+	}
+
+	private void atualizarTableViewerServico() {
+		tableViewerServico.setInput(listServicoTableViewers);
+	}
+
+	public void loadOrdemServico() {
+		List<OrdemServico> list = Facade.getInstance().listOrdemServico();
+		ordemServico = list.get(1);
+		atualizarTableViewerServico();
+	}
+
 	private void loadData() {
+		listServicoTableViewers = new ArrayList<Servico>();
+		listProdutoTableViewers = new ArrayList<Produto>();
 
 		List<Automovel> listAutomovel = Facade.getInstance().listAutomovel();
 		for (Automovel automovel : listAutomovel) {
-			cComboPlaca.setData(automovel.getPlaca(), automovel);
-			cComboPlaca.add(automovel.getPlaca());
+			cComboAutomovel.setData(automovel.getPlaca(), automovel);
+			cComboAutomovel.add(automovel.getPlaca());
 		}
 
 		List<Cliente> listCliente = Facade.getInstance().listCliente();
@@ -233,14 +397,34 @@ public class OSView extends BasicView {
 			cComboCliente.setData(cliente.getNomeRazaoSocial(), cliente);
 			cComboCliente.add(cliente.getNomeRazaoSocial());
 		}
-		loadOrdemServico();
-		
-		List<Funcionario> listFuncionario = Facade.getInstance().listAtendente();
-		for (Funcionario funcionario : listFuncionario) {
-			cComboAtendente.setData(funcionario.getNomeRazaoSocial(), funcionario);
+
+		List<Servico> listServico = Facade.getInstance().listServico();
+		for (Servico servico : listServico) {
+			cComboServicos.setData(servico.getDescricao(), servico);
+			cComboServicos.add(servico.getDescricao());
+		}
+
+		List<Produto> listProduto = Facade.getInstance().listProduto();
+		for (Produto produto : listProduto) {
+			cComboProdutos.setData(produto.getDescricao(), produto);
+			cComboProdutos.add(produto.getDescricao());
+		}
+
+		List<Funcionario> listAtendente = Facade.getInstance()
+				.listAtendente();
+		for (Funcionario funcionario : listAtendente) {
+			cComboAtendente.setData(funcionario.getNomeRazaoSocial(),
+					funcionario);
 			cComboAtendente.add(funcionario.getNomeRazaoSocial());
 		}
-		loadOrdemServico();
+
+		List<Funcionario> listMecanico = Facade.getInstance()
+				.listMecanico();
+		for (Funcionario funcionario : listMecanico) {
+			cComboMecanico.setData(funcionario.getNomeRazaoSocial(),
+					funcionario);
+			cComboMecanico.add(funcionario.getNomeRazaoSocial());
+		}
 	}
 
 	@Override
@@ -250,61 +434,45 @@ public class OSView extends BasicView {
 
 	private void performFinish() {
 		ordemServico = new OrdemServico();
-		List<Servico> listServico = new ArrayList<Servico>();
-		Servico servico = new Servico();
-		servico.setDescricao("SERVICO 1");
-		servico.setValorServico(200);
-		listServico.add(servico);
-
-		servico = new Servico();
-		servico.setDescricao("SERVICO 2");
-		servico.setValorServico(300);
-		listServico.add(servico);
-		
-		ordemServico.setServicos(listServico);
+		ordemServico.setServicos(listServicoTableViewers);
+		ordemServico.setProdutos(listProdutoTableViewers);
 
 		String key;
 		Funcionario atendente = null;
-		if (cComboAtendente.getSelectionIndex() != -1){
+		if (cComboAtendente.getSelectionIndex() != -1) {
 			key = cComboAtendente.getItem(cComboAtendente.getSelectionIndex());
 			atendente = (Funcionario) cComboAtendente.getData(key);
 		}
 		ordemServico.setAtendente(atendente);
-		
-		Funcionario func = new Funcionario();
-		func.setMatricula(12345);
-		func.setCpfCnpj("12345678901");
-		func.setDataAdmissao(new Date(1223456));
-		func.setNomeRazaoSocial("NOME DO FUNCIONARIO");
-		func.setTipoPessoa(TipoPessoa.FISICA);
-		ordemServico.setMecanico(func);
 
-		ordemServico.setData(new Date(123476543));
+		Funcionario mecanico = null;
+		if (cComboMecanico.getSelectionIndex() != -1) {
+			key = cComboMecanico.getItem(cComboMecanico.getSelectionIndex());
+			mecanico = (Funcionario) cComboMecanico.getData(key);
+		}
+		ordemServico.setMecanico(mecanico);
+
+		ordemServico.setData(new GregorianCalendar());
 
 		ordemServico.setDefeitoReclamado("Carro quebrado");
 		ordemServico.setStatusOrdemServico(StatusOrdemServico.AUTORIZADO);
 		ordemServico
 				.setClassificacaoOrdemServico(ClassificacaoOrdemServico.ABERTA);
 
-		Automovel auto = new Automovel();
-		auto.setPlaca("KLZ8905");
-		auto.setModelo("CELTA");
-		auto.setMarca("asdasda");
-		auto.setCor("asdasd");
-		auto.setChassi("asdasd");
-		auto.setAno("2008");
-		auto.setTipoCombustivel(TipoCombustivel.GASOLINA);
-		
-		ordemServico.setAutomovel(auto);
-		
-		Cliente cli = new Cliente();
-		cli.setCpfCnpj("09876543212");
-		cli.setNomeRazaoSocial("NOME DO CLIENTE");
-		cli.setTipoPessoa(TipoPessoa.FISICA);
-		
-		ordemServico.setCliente(cli);
-		
-		
+		Automovel automovel = null;
+		if (cComboAutomovel.getSelectionIndex() != -1) {
+			key = cComboAutomovel.getItem(cComboAutomovel.getSelectionIndex());
+			automovel = (Automovel) cComboAutomovel.getData(key);
+		}
+		ordemServico.setAutomovel(automovel);
+
+		Cliente cliente = null;
+		if (cComboCliente.getSelectionIndex() != -1) {
+			key = cComboCliente.getItem(cComboCliente.getSelectionIndex());
+			cliente = (Cliente) cComboCliente.getData(key);
+		}
+		ordemServico.setCliente(cliente);
+
 		try {
 			Facade.getInstance().cadastrarOrdemServico(ordemServico);
 			closeView();
@@ -316,28 +484,7 @@ public class OSView extends BasicView {
 
 	}
 
-	private List<Servico> createModelServico() {
-
-		if (ordemServico.getServicos() != null) {
-
-			List<Servico> list = new ArrayList<Servico>();
-
-			for (Servico servico : ordemServico.getServicos()) {
-				list.add(servico);
-			}
-			return list;
-		}
-
-		return null;
-	}
-
-	public void loadOrdemServico() {
-		List<OrdemServico> list = Facade.getInstance().listOrdemServico();
-		ordemServico = list.get(1);
-		tableViewerServico.setInput(createModelServico());
-	}
-
-	class ViewContentProvider implements IStructuredContentProvider {
+	class ViewContentProviderServico implements IStructuredContentProvider {
 
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
 			v.getInput();
@@ -348,8 +495,8 @@ public class OSView extends BasicView {
 		}
 
 		public Object[] getElements(Object object) {
-			List<Servico> list = (List<Servico>)object;
-			if (list != null){
+			List<Servico> list = (List<Servico>) object;
+			if (list != null) {
 				return list.toArray(new Servico[list.size()]);
 			}
 			return null;
@@ -357,7 +504,7 @@ public class OSView extends BasicView {
 
 	}
 
-	class ViewLabelProvider extends LabelProvider {
+	class ViewLabelProviderServico extends LabelProvider {
 
 		public String getText(Object obj) {
 			Servico servico = (Servico) obj;
@@ -373,4 +520,44 @@ public class OSView extends BasicView {
 		}
 	}
 
+	class ViewContentProviderProduto implements IStructuredContentProvider {
+
+		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
+			v.getInput();
+		}
+
+		public void dispose() {
+
+		}
+
+		public Object[] getElements(Object object) {
+			List<Produto> list = (List<Produto>) object;
+			if (list != null) {
+				return list.toArray(new Produto[list.size()]);
+			}
+			return null;
+		}
+
+	}
+
+	class ViewLabelProviderProduto extends LabelProvider {
+
+		public String getText(Object obj) {
+			Produto produto = (Produto) obj;
+			return produto.getDescricao();
+		}
+
+		public Image getImage(Object obj) {
+			String imageKey = ISharedImages.IMG_OBJ_ELEMENT;
+			if (obj instanceof TreeParent)
+				imageKey = ISharedImages.IMG_OBJ_FOLDER;
+			return PlatformUI.getWorkbench().getSharedImages().getImage(
+					imageKey);
+		}
+	}
+
+	public void loadOS(OrdemServico os) {
+		this.ordemServico = os;
+		
+	}
 }
