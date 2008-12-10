@@ -410,16 +410,14 @@ public class OSView extends BasicView {
 			cComboProdutos.add(produto.getDescricao());
 		}
 
-		List<Funcionario> listAtendente = Facade.getInstance()
-				.listAtendente();
+		List<Funcionario> listAtendente = Facade.getInstance().listAtendente();
 		for (Funcionario funcionario : listAtendente) {
 			cComboAtendente.setData(funcionario.getNomeRazaoSocial(),
 					funcionario);
 			cComboAtendente.add(funcionario.getNomeRazaoSocial());
 		}
 
-		List<Funcionario> listMecanico = Facade.getInstance()
-				.listMecanico();
+		List<Funcionario> listMecanico = Facade.getInstance().listMecanico();
 		for (Funcionario funcionario : listMecanico) {
 			cComboMecanico.setData(funcionario.getNomeRazaoSocial(),
 					funcionario);
@@ -433,7 +431,28 @@ public class OSView extends BasicView {
 	}
 
 	private void performFinish() {
-		ordemServico = new OrdemServico();
+
+		try {
+			if (ordemServico == null){
+				ordemServico = new OrdemServico();
+				fillOrdemServico();
+
+				Facade.getInstance().cadastrarOrdemServico(ordemServico);
+			}else {
+				fillOrdemServico();
+				Facade.getInstance().atualizarOrdemServico(ordemServico);
+				openView(OSListView.ID);
+			}	
+			closeView();
+		} catch (DadosInsuficientesException e) {
+			labelErro.setText(e.getMessage());
+		} catch (Exception e) {
+			labelErro.setText(e.getMessage());
+		}
+
+	}
+
+	private void fillOrdemServico() {
 		ordemServico.setServicos(listServicoTableViewers);
 		ordemServico.setProdutos(listProdutoTableViewers);
 
@@ -472,16 +491,6 @@ public class OSView extends BasicView {
 			cliente = (Cliente) cComboCliente.getData(key);
 		}
 		ordemServico.setCliente(cliente);
-
-		try {
-			Facade.getInstance().cadastrarOrdemServico(ordemServico);
-			closeView();
-		} catch (DadosInsuficientesException e) {
-			labelErro.setText(e.getMessage());
-		} catch (Exception e) {
-			labelErro.setText(e.getMessage());
-		}
-
 	}
 
 	class ViewContentProviderServico implements IStructuredContentProvider {
@@ -558,6 +567,21 @@ public class OSView extends BasicView {
 
 	public void loadOS(OrdemServico os) {
 		this.ordemServico = os;
+
+		cComboMecanico.select( cComboMecanico.indexOf( this.ordemServico.getMecanico()
+				.getNomeRazaoSocial()));
+		cComboAutomovel.select( cComboAutomovel.indexOf(this.ordemServico.getAutomovel().getPlaca()));
+		cComboCliente.select(cComboCliente.indexOf(this.ordemServico.getCliente()
+				.getNomeRazaoSocial()));
 		
+		cComboAtendente.select(cComboAtendente.indexOf(this.ordemServico.getAtendente()
+				.getNomeRazaoSocial()));
+		
+		listServicoTableViewers = this.ordemServico.getServicos();
+		atualizarTableViewerServico();
+		
+		listProdutoTableViewers = this.ordemServico.getProdutos();
+		atualizarTableViewerProduto();
+
 	}
 }
