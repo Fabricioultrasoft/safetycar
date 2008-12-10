@@ -5,6 +5,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.Length;
+import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
 
 @Entity
@@ -12,19 +13,23 @@ import org.hibernate.validator.NotNull;
 public class Produto extends BaseEntity {
 	
 	@NotNull
+	@NotEmpty
 	@Length(max=50)
 	private String descricao;
 	
 	//Código de Identificação do Produto.
 	@NotNull
+	@NotEmpty
 	@Length(max=13)
 	private String EAN;
 	
 	@NotNull
+	@NotEmpty
 	@Length(max=50)
 	private String modelo;
 	
 	@NotNull
+	@NotEmpty
 	@Length(max=50)
 	private String marca;
 	
