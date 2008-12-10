@@ -444,8 +444,11 @@ public class ClienteView extends BasicView {
 		if (textCpfCnpj.getText() == null || textCpfCnpj.getText().equals("")){
 			throw new ValidatorException("O Campo Cpf/Cnpj é obrigatório!");
 		}
-		cliente.setCpfCnpj(textCpfCnpj.getText());
-		
+		if ((textCpfCnpj.getText().length() == 11) || (textCpfCnpj.getText().length() == 14)){
+			cliente.setCpfCnpj(textCpfCnpj.getText());
+		} else{
+			throw new ValidatorException("O Campo Cpf/Cnpj deve ser preenchido sem traço e com 11 ou 14 dígitos!");
+		}
 		//Declaração de string key para ser usada nos cCombos 
 		String key;
 		//SET Seleção cCombo UF
@@ -485,8 +488,13 @@ public class ClienteView extends BasicView {
 		endereco.setMunicipio(textEnderecoMunicipio.getText());
 		
 		//Set CEP
+			//validação de preenchimento de campo
 		if (textEnderecoCep.getText() == null || textEnderecoCep.getText().equals("")){
 			throw new ValidatorException("O Campo CEP é obrigatório!");
+		}
+			//validação de formatação do campo
+		if (textEnderecoCep.getText().length() != 8){
+			throw new ValidatorException("O Campo CEP deve ser preenchido conforme exemplo: 51023000");
 		}
 		endereco.setCep(textEnderecoCep.getText());
 		
