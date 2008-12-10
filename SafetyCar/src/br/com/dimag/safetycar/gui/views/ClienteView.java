@@ -463,30 +463,62 @@ public class ClienteView extends BasicView {
 			tipoEndereço = (TipoEndereco) cComboTipoEndereco.getData(key);
 		} else{throw new ValidatorException("Selecionar o Tipo Endereço é obrigatório!");}
 
-		//Instancia endereço e sets
+		//ENDEREÇO Instancia objeto endereço e sets
 		Endereco endereco = new Endereco();
+		
+		//Set LOGRADOURO
+		if (textEndereco.getText() == null || textEndereco.getText().equals("")){
+			throw new ValidatorException("O Campo Endereço é obrigatório!");
+		}
 		endereco.setLogradouro(textEndereco.getText());
+		
+		//Set BAIRRO
+		if (textEnderecoBairro.getText() == null || textEnderecoBairro.getText().equals("")){
+			throw new ValidatorException("O Campo Bairro é obrigatório!");
+		}
 		endereco.setBairro(textEnderecoBairro.getText());
+		
+		//Set MUNICIPIO
+		if (textEnderecoMunicipio.getText() == null || textEnderecoMunicipio.getText().equals("")){
+			throw new ValidatorException("O Campo Município é obrigatório!");
+		}
 		endereco.setMunicipio(textEnderecoMunicipio.getText());
+		
+		//Set CEP
+		if (textEnderecoCep.getText() == null || textEnderecoCep.getText().equals("")){
+			throw new ValidatorException("O Campo CEP é obrigatório!");
+		}
 		endereco.setCep(textEnderecoCep.getText());
+		
+		//Set Tipo Endereço
 		endereco.setTipoEndereco(tipoEndereço);
+		//Set UF
 		endereco.setUf(uf);
 		
 		//set Endereço
 		cliente.setEndereco(endereco);
 
 		// tipo Pessoa
-		key = cComboTipoPessoa.getItem(cComboTipoPessoa.getSelectionIndex());
-		cliente.setTipoPessoa((TipoPessoa) cComboTipoPessoa.getData(key));
-		
-		//TELEFONE
+		if (cComboTipoPessoa.getSelectionIndex() != -1) {
+			key = cComboTipoPessoa.getItem(cComboTipoPessoa.getSelectionIndex());
+			cliente.setTipoPessoa((TipoPessoa) cComboTipoPessoa.getData(key));
+		} else{throw new ValidatorException("Selecionar o Tipo Pessoa é obrigatório!");}
+		//TELEFONE não é obrigatório - Pelo menos um tipo de Telefone deve ser preenchido!
 		cliente.setTelefone(textTelefone.getText());
 
-		//TELEFONE COMERCIAL
+		//TELEFONE COMERCIAL não é obrigatório - Pelo menos um tipo de Telefone deve ser preenchido!
 		cliente.setTelefoneComercial(textTelefoneComercial.getText());
 	
-		//TELEFONE CELULAR
+		//TELEFONE CELULAR não é obrigatório - Pelo menos um tipo de Telefone deve ser preenchido!
 		cliente.setTelefoneCelular(textTelefoneCelular.getText());
+		
+		//REGRA DE CADASTRO DE PELO MENOS UM NUMERO DE TELEFONE
+		if ((textTelefone.getText() == null || textTelefone.getText().equals("")) &&
+				(textTelefoneComercial.getText() == null || textTelefoneComercial.getText().equals("")) &&
+				(textTelefoneCelular.getText() == null || textTelefoneCelular.getText().equals(""))
+				){
+			throw new ValidatorException("É obrigatório cadastrar pelo menos um tipo Telefone!");
+		}
 	}
 
 	public void loadCliente(Cliente cliente) {
