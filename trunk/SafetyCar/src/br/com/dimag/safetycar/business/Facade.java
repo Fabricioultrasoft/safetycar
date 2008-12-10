@@ -168,4 +168,8 @@ public class Facade {
 	
 	}
 
+	public void atualizarOrdemServico(OrdemServico ordemServico) throws DadosInsuficientesException {
+		cadastroOrdemServico.atualizar(ordemServico);
+	}
+
 }
