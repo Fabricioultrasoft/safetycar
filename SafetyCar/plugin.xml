@@ -96,7 +96,14 @@
             class="br.com.dimag.safetycar.gui.views.ServicoView"
             icon="icons/sample3.gif"
             id="SafetyCar.servico"
-            name="Cadastro de Servico">
+            name="Cadastro de Serviço">
+      </view>
+      <view
+            allowMultiple="false"
+            class="br.com.dimag.safetycar.gui.views.ServicoListView"
+            icon="icons/sample3.gif"
+            id="SafetyCar.servicoList"
+            name="Lista Serviço">
       </view>
    </extension>
    <extension
