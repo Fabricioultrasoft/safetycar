@@ -6,8 +6,12 @@ import br.com.dimag.safetycar.business.cadastro.CadastroAutomovel;
 import br.com.dimag.safetycar.business.cadastro.CadastroCliente;
 import br.com.dimag.safetycar.business.cadastro.CadastroFuncionario;
 import br.com.dimag.safetycar.business.cadastro.CadastroOrdemServico;
+
+import br.com.dimag.safetycar.business.cadastro.CadastroProduto;
+
 import br.com.dimag.safetycar.business.cadastro.CadastroProduto;
 import br.com.dimag.safetycar.business.cadastro.CadastroServico;
+
 import br.com.dimag.safetycar.business.cadastro.CadastroUF;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
 import br.com.dimag.safetycar.exception.DataException;
@@ -18,6 +22,7 @@ import br.com.dimag.safetycar.model.Funcionario;
 import br.com.dimag.safetycar.model.OrdemServico;
 import br.com.dimag.safetycar.model.Produto;
 import br.com.dimag.safetycar.model.Servico;
+import br.com.dimag.safetycar.model.Produto;
 import br.com.dimag.safetycar.model.UF;
 import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
@@ -31,6 +36,7 @@ public class Facade {
 	private CadastroFuncionario cadastroFuncionario;
 	private CadastroServico cadastroServico;
 	private CadastroProduto cadastroProduto;
+
 
 	public static Facade getInstance(){
 		if (facade == null){
@@ -46,8 +52,12 @@ public class Facade {
 			cadastroOrdemServico = new CadastroOrdemServico();
 			cadastroUf = new CadastroUF();
 			cadastroFuncionario = new CadastroFuncionario();
+
+			cadastroProduto = new CadastroProduto();
+
 			cadastroServico = new CadastroServico();
 			cadastroProduto = new CadastroProduto();
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -118,6 +128,25 @@ public class Facade {
 	public void atualizarCliente(Cliente cliente) throws FacadeException {
 		try {
 			cadastroCliente.atualizar(cliente);
+		} catch (DadosInsuficientesException e) {
+			throw new FacadeException(e.getMessage());
+		}
+	}
+
+
+	public void cadastrarProduto(Produto produto) throws DadosInsuficientesException, DataException, FacadeException {
+		// TODO Auto-generated method stub
+		try {
+			cadastroProduto.inserir(produto);
+		} catch (DadosInsuficientesException e) {
+			throw new FacadeException(e.getMessage());
+		}
+	}
+
+	public void atualizarProduto(Produto produto) throws FacadeException {
+		// TODO Auto-generated method stub
+		try {
+			cadastroProduto.atualizar(produto);
 		} catch (DadosInsuficientesException e) {
 			throw new FacadeException(e.getMessage());
 		}
