@@ -39,7 +39,7 @@ public class RepositoryAutomovel implements IRepositoryAutomovel {
 	@Override
 	@HibernateTransaction
 	public void update(Automovel automovel) {
-		HibernateUtil.getSession().merge(automovel);
+		HibernateUtil.getSession().update(automovel);
 	}
 
 	@Override

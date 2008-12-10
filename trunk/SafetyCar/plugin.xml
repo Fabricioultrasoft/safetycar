@@ -35,13 +35,20 @@
             id="SafetyCar.client"
             name="Cadastro de Cliente">
       </view>
-       <view
+      <view
             allowMultiple="false"
-            class="br.com.dimag.safetycar.gui.views.OSView"
+            class="br.com.dimag.safetycar.gui.views.ClienteListView"
             icon="icons/sample3.gif"
-            id="SafetyCar.os"
-            name="Cadastro de OS">
-      </view>
+            id="SafetyCar.clientList"
+            name="Lista de Cliente">
+       </view>
+       <view
+             allowMultiple="false"
+             class="br.com.dimag.safetycar.gui.views.OSView"
+             icon="icons/sample3.gif"
+             id="SafetyCar.os"
+             name="Cadastro de OS">
+       </view>
       <view
             allowMultiple="false"
             class="br.com.dimag.safetycar.gui.views.MainView"
@@ -51,10 +58,17 @@
       </view>
       <view
             allowMultiple="false"
-            class="br.com.dimag.safetycar.gui.views.ClienteListView"
+            class="br.com.dimag.safetycar.gui.views.AutomovelView"
             icon="icons/sample3.gif"
-            id="SafetyCar.clientList"
-            name="Lista de Cliente">
+            id="SafetyCar.automovel"
+            name="Cadastro de Automovel">
+      </view>
+      <view
+            allowMultiple="false"
+            class="br.com.dimag.safetycar.gui.views.AutomovelListView"
+            icon="icons/sample3.gif"
+            id="SafetyCar.automovelList"
+            name="Lista Automovel">
       </view>
       <view
             allowMultiple="false"
