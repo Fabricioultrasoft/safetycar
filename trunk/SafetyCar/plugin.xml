@@ -77,6 +77,13 @@
             id="SafetyCar.osList"
             name="Lista de Ordem de Serviço">
       </view>
+      <view
+            allowMultiple="false"
+            class="br.com.dimag.safetycar.gui.views.ProdutoView"
+            icon="icons/sample3.gif"
+            id="SafetyCar.produto"
+            name="Cadastro de Produto">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
