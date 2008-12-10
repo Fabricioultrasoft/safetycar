@@ -246,7 +246,7 @@ public class ProdutoView extends BasicView {
 			if (isUpdate) {
 				fillProduto();
 				Facade.getInstance().atualizarProduto(produto);
-				openView(ClienteListView.ID);
+				openView(ProdutoListView.ID);
 				
 			} else {
 				produto = new Produto();
@@ -303,10 +303,15 @@ public class ProdutoView extends BasicView {
 		
 		//Set VALOR UNITÁRIO
 		if (textValorUnitario.getText() == null || textValorUnitario.getText().equals("")){
-			throw new ValidatorException("O Valor Unitário é obrigatório! (Preço por unidade)");
+			throw new ValidatorException("O Valor Unitário é obrigatório! (Preço por unidade) Ex: 132.59");
 		}
+		//Validação VALOR UNITÁRIO de digitação de valor numérico
+		try{
 		produto.setValorUnitario(Double.parseDouble(textValorUnitario.getText()));
-	
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new ValidatorException("O Valor Unitário (R$) é de Formato Numérico obrigatório! Ex: 132.59");	
+		}
 	}
 
 	public void loadProduto(Produto produto) {
