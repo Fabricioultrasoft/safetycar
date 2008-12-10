@@ -5,26 +5,32 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.Length;
+import org.hibernate.validator.NotEmpty;
+import org.hibernate.validator.NotNull;
 
 @Entity
 public class Endereco extends BaseEntity{
-//	@NotNull
+	@NotNull
+	@NotEmpty
 	@Length(max = 200)
 	private String logradouro;
 	
-//	@NotNull
+	@NotNull
+	@NotEmpty
 	@Length(max = 50)
 	private String bairro;
 	
-//	@NotNull
+	@NotNull
+	@NotEmpty
 	@Length(max = 200)
 	private String municipio;
 	
-//	@NotNull
+	@NotNull
+	@NotEmpty
 	@Length(max = 8, min = 8)
 	private String cep;
 	
-//	@NotNull
+	@NotNull
 	private TipoEndereco tipoEndereco;
 	
 	public enum TipoEndereco{
