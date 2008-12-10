@@ -89,7 +89,6 @@ public class Facade {
 	public List<Automovel> searchListAutomovel(Cliente cliente){
 		
 		return cadastroOrdemServico.listAutomovel(cliente);
-		
 	}
 
 	public List<Cliente> listCliente() {
@@ -102,7 +101,6 @@ public class Facade {
 
 	public List<Automovel> listAutomovel() {
 		return cadastroAutomovel.list();
-		
 	}
 
 	public List<OrdemServico> listOrdemServico() {
@@ -111,7 +109,6 @@ public class Facade {
 
 	public void cadastrarOrdemServico(OrdemServico ordemServico) throws DadosInsuficientesException, DataException {
 		cadastroOrdemServico.inserir(ordemServico);
-		
 	}
 
 	public List<Funcionario> listAtendente() {
@@ -126,6 +123,14 @@ public class Facade {
 		}
 	}
 
+	public void cadastrarAutomovel(Automovel automovel) throws DadosInsuficientesException, DataException {
+		cadastroAutomovel.inserir(automovel);
+	}
+
+	public void atualizarAutomovel(Automovel automovel) throws DadosInsuficientesException {
+		cadastroAutomovel.atualizar(automovel);
+	}
+
 	public List<Servico> listServico() {
 		return cadastroServico.list();
 	}
@@ -138,4 +143,5 @@ public class Facade {
 		return cadastroFuncionario.listMecanico();
 	
 	}
+
 }
