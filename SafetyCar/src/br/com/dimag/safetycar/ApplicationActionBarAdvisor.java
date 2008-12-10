@@ -42,12 +42,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private ViewBasicAction clienteViewAction;
 	private ViewBasicAction OSViewAction;
 	private ViewBasicAction clienteListViewAction;
-<<<<<<< .mine
 	private ViewBasicAction automovelViewAction;
 	private ViewBasicAction automovelListViewAction;
-=======
 	private ViewBasicAction OSListViewAction;
->>>>>>> .r85
     
 
     public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
@@ -79,16 +76,15 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         clienteListViewAction = new ViewBasicAction(window, "Lista de Clientes", ClienteListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(clienteListViewAction);
         
-<<<<<<< .mine
         automovelViewAction = new ViewBasicAction(window, "Cadastro de Automoveis", AutomovelView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(automovelViewAction);
         
         automovelListViewAction = new ViewBasicAction(window, "Lista de Automovel", AutomovelListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(automovelListViewAction);
-=======
+        
         OSListViewAction = new ViewBasicAction(window, "Lista de Ordem de Serviço",OSListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(OSListViewAction);
->>>>>>> .r85
+
     }
     
     protected void fillMenuBar(IMenuManager menuBar) {
