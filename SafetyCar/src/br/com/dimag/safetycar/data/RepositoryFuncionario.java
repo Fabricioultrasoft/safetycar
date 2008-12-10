@@ -54,4 +54,9 @@ public class RepositoryFuncionario implements IRepositoryFuncionario {
 		return HibernateUtil.getSession().createQuery(
 				"from " + clazz.getSimpleName() +" f where f.tipoFuncionario.descricao = :atendenteDesc ").setParameter("atendenteDesc", "Atendente").list();
 	}
+
+	public List<Funcionario> listMecanico() {
+		return HibernateUtil.getSession().createQuery(
+				"from " + clazz.getSimpleName() +" f where f.tipoFuncionario.descricao = :mecanicoDesc ").setParameter("mecanicoDesc", "Mecânico").list();
+	}
 }

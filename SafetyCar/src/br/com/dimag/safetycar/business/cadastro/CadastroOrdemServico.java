@@ -8,7 +8,6 @@ import br.com.dimag.safetycar.exception.DataException;
 import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.OrdemServico;
-import br.com.dimag.safetycar.model.OrdemServicoServico;
 
 public class CadastroOrdemServico {
 
@@ -45,11 +44,6 @@ public class CadastroOrdemServico {
 
 	public List<Automovel> listAutomovel(Cliente cliente) {
 		return repository.listAutomovel(cliente);
-	}
-
-	public List<OrdemServicoServico> listOrdemServicoServico(OrdemServico os) {
-		return repository.listOrdemServicoServico(os);
-		
 	}
 
 }

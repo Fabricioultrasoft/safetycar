@@ -1,10 +1,9 @@
 package br.com.dimag.safetycar.model;
 
-import java.sql.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -19,7 +18,7 @@ import org.hibernate.validator.NotNull;
 public class OrdemServico extends BaseEntity {
 
 	@NotNull
-	private Date data;
+	private GregorianCalendar data;
 
 	@NotNull
 	@Length(max = 200)
@@ -55,12 +54,19 @@ public class OrdemServico extends BaseEntity {
 	@Cascade(value=CascadeType.SAVE_UPDATE)
 	private Automovel automovel;
 	
-	@ManyToMany(fetch=FetchType.EAGER)  
+	@ManyToMany()  
 	@JoinTable(name="os_servico",   
 	joinColumns=@JoinColumn(name="idos"),  
 	inverseJoinColumns=@JoinColumn(name="idservico"))
 	@Cascade(value=CascadeType.SAVE_UPDATE)
 	private List<Servico> servicos;
+	
+	@ManyToMany()  
+	@JoinTable(name="os_produto",   
+	joinColumns=@JoinColumn(name="idos"),  
+	inverseJoinColumns=@JoinColumn(name="idproduto"))
+	@Cascade(value=CascadeType.SAVE_UPDATE)
+	private List<Produto> produtos;
 	
 	public enum ClassificacaoOrdemServico {
 		ABERTA, CANCELADA, FECHADA, QUITADA
@@ -68,14 +74,6 @@ public class OrdemServico extends BaseEntity {
 
 	public enum StatusOrdemServico {
 		AGUARDANDO_INSPECAO, EM_INSPECAO, AGUARDANDO_AUTORIZACAO, AUTORIZADO, NAO_AUTORIZADA, EM_EXECUCAO, FINALIZADA
-	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
 	}
 
 	public String getDefeitoReclamado() {
@@ -141,6 +139,22 @@ public class OrdemServico extends BaseEntity {
 
 	public void setServicos(List<Servico> servicos) {
 		this.servicos = servicos;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+	public GregorianCalendar getData() {
+		return data;
+	}
+
+	public void setData(GregorianCalendar data) {
+		this.data = data;
 	}
 
 }

@@ -56,6 +56,13 @@
             id="SafetyCar.clientList"
             name="Lista de Cliente">
       </view>
+      <view
+            allowMultiple="false"
+            class="br.com.dimag.safetycar.gui.views.OSListView"
+            icon="icons/sample3.gif"
+            id="SafetyCar.osList"
+            name="Lista de Ordem de Serviço">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.commands">

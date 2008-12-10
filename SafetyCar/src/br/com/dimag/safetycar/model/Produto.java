@@ -1,10 +1,6 @@
 package br.com.dimag.safetycar.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -34,9 +30,6 @@ public class Produto extends BaseEntity {
 	
 	@NotNull
 	private double valorUnitario;
-	
-//	@OneToMany(mappedBy="produto", cascade= CascadeType.ALL)
-//	private List<OrdemServicoProduto> listOrdemServicoProduto; 
 
 	public String getDescricao() {
 		return descricao;
@@ -77,14 +70,5 @@ public class Produto extends BaseEntity {
 	public void setValorUnitario(double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
-
-//	public List<OrdemServicoProduto> getListOrdemServicoProduto() {
-//		return listOrdemServicoProduto;
-//	}
-//
-//	public void setListOrdemServicoProduto(
-//			List<OrdemServicoProduto> listOrdemServicoProduto) {
-//		this.listOrdemServicoProduto = listOrdemServicoProduto;
-//	}
 
 }
