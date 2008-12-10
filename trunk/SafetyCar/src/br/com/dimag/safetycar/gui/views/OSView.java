@@ -25,6 +25,7 @@ import org.eclipse.ui.PlatformUI;
 
 import br.com.dimag.safetycar.business.Facade;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
+import br.com.dimag.safetycar.exception.ValidatorException;
 import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
 import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
@@ -34,6 +35,7 @@ import br.com.dimag.safetycar.model.Produto;
 import br.com.dimag.safetycar.model.Servico;
 import br.com.dimag.safetycar.model.OrdemServico.ClassificacaoOrdemServico;
 import br.com.dimag.safetycar.model.OrdemServico.StatusOrdemServico;
+import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -452,7 +454,7 @@ public class OSView extends BasicView {
 
 	}
 
-	private void fillOrdemServico() {
+	private void fillOrdemServico() throws ValidatorException {
 		ordemServico.setServicos(listServicoTableViewers);
 		ordemServico.setProdutos(listProdutoTableViewers);
 
@@ -491,8 +493,45 @@ public class OSView extends BasicView {
 			cliente = (Cliente) cComboCliente.getData(key);
 		}
 		ordemServico.setCliente(cliente);
+		
+		//validação de placa
+		if (cComboAutomovel.getSelectionIndex() != -1) {
+			key = cComboAutomovel.getItem(cComboAutomovel.getSelectionIndex());
+			automovel.setPlaca( cComboAutomovel.getData(key).toString());
+		} else throw new ValidatorException("Selecionar a Placa é obrigatório!");
+		
+		//validação  de Cliente
+		if (cComboCliente.getSelectionIndex() != -1) {
+			key = cComboCliente.getItem(cComboCliente.getSelectionIndex());
+			cliente.setNomeRazaoSocial(cComboCliente.getData(key).toString());
+		} else throw new ValidatorException("Selecionar o Cliente é obrigatório!");
+		
+		//validação  de Atendente
+		if (cComboAtendente.getSelectionIndex() != -1) {
+			key = cComboAtendente.getItem(cComboAtendente.getSelectionIndex());
+			atendente.setNomeRazaoSocial(cComboAtendente.getData(key).toString());
+		} else throw new ValidatorException("Selecionar o Atendente é obrigatório!");
+		
+		//validação  de Mecanico
+		if (cComboMecanico.getSelectionIndex() != -1) {
+			key = cComboMecanico.getItem(cComboMecanico.getSelectionIndex());
+			atendente.setNomeRazaoSocial(cComboMecanico.getData(key).toString());
+		} else throw new ValidatorException("Selecionar o Mecanico é obrigatório!");
+		
+		//validação  de Serviço
+		if (cComboServicos.getSelectionIndex() != -1) {
+			key = cComboServicos.getItem(cComboServicos.getSelectionIndex());
+			atendente.setNomeRazaoSocial(cComboServicos.getData(key).toString());
+		} else throw new ValidatorException("Selecionar o Serviço é obrigatório!");
+	
+		//validação  de Produto
+		if (cComboProdutos.getSelectionIndex() != -1) {
+			key = cComboProdutos.getItem(cComboProdutos.getSelectionIndex());
+			atendente.setNomeRazaoSocial(cComboProdutos.getData(key).toString());
+		} else throw new ValidatorException("Selecionar o Produtos é obrigatório!");
+	
+			
 	}
-
 	class ViewContentProviderServico implements IStructuredContentProvider {
 
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
