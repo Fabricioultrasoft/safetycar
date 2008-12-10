@@ -332,9 +332,13 @@ public class AutomovelView extends BasicView {
 
 	private void fillAutomovel() throws ValidatorException {
 		// SET Placa
+		if (textPlaca.getText().length() > 7 ){
+			throw new ValidatorException("O Campo Placa deve ser preenchido com no máximo 7 dígitos conforme exemplo: sda1241");
+		}
 		if (textPlaca.getText() == null || textPlaca.getText().equals("")) {
 			throw new ValidatorException("O Campo Placa é obrigatório");
 		}
+		
 		automovel.setPlaca(textPlaca.getText());
 
 		// SET MODELO
@@ -356,8 +360,8 @@ public class AutomovelView extends BasicView {
 		automovel.setCor(textCor.getText());
 
 		// SET ANO
-		if (textAno.getText() == null || textAno.getText().equals("")) {
-			throw new ValidatorException("O Campo Ano é obrigatório");
+		if (textAno.getText().length() != 4){
+			throw new ValidatorException("O Campo Ano deve ser preenchido conforme exemplo: sda2014");
 		}
 		automovel.setAno(textAno.getText());
 
