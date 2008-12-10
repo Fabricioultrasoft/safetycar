@@ -167,9 +167,29 @@ public class Facade {
 		return cadastroFuncionario.listMecanico();
 	
 	}
-
+	//ATUALIZAR OS
 	public void atualizarOrdemServico(OrdemServico ordemServico) throws DadosInsuficientesException {
 		cadastroOrdemServico.atualizar(ordemServico);
+	}
+	//ATUALIZAR SERVIÇO
+	public void atualizarServico(Servico servico) throws DadosInsuficientesException, DataException, FacadeException {
+		// TODO Auto-generated method stub
+		try {
+			cadastroServico.atualizar(servico);
+		} catch (DadosInsuficientesException e) {
+			throw new FacadeException(e.getMessage());
+		}
+
+	}
+
+	public void cadastrarServico(Servico servico) throws DadosInsuficientesException, DataException, FacadeException {
+		// TODO Auto-generated method stub
+		try {
+			cadastroServico.inserir(servico);
+		} catch (DadosInsuficientesException e) {
+			throw new FacadeException(e.getMessage());
+		}
+		
 	}
 
 }
