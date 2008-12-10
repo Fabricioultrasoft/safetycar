@@ -19,8 +19,9 @@ public class Produto extends BaseEntity {
 	@Length(max=50)
 	private String descricao;
 	
+	//Código de Identificação do Produto.
 	@NotNull
-	@Length(max=12)
+	@Length(max=13)
 	private String EAN;
 	
 	@NotNull
