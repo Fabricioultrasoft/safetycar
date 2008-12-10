@@ -4,6 +4,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -54,7 +55,7 @@ public class OrdemServico extends BaseEntity {
 	@Cascade(value=CascadeType.SAVE_UPDATE)
 	private Automovel automovel;
 	
-	@ManyToMany()  
+	@ManyToMany(fetch=FetchType.EAGER)  
 	@JoinTable(name="os_servico",   
 	joinColumns=@JoinColumn(name="idos"),  
 	inverseJoinColumns=@JoinColumn(name="idservico"))
