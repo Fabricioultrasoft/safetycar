@@ -13,7 +13,6 @@ import org.eclipse.swt.widgets.Text;
 
 import br.com.dimag.safetycar.business.Facade;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
-import br.com.dimag.safetycar.exception.DataException;
 import br.com.dimag.safetycar.exception.FacadeException;
 import br.com.dimag.safetycar.exception.ValidatorException;
 import br.com.dimag.safetycar.model.Produto;
@@ -196,6 +195,10 @@ public class ProdutoView extends BasicView {
 
 								@Override
 								public void widgetSelected(SelectionEvent event) {
+									if (isUpdate){ 
+			//TODO						openView(produtoListView.ID);
+									}
+									
 									closeView();
 								}
 
@@ -225,7 +228,7 @@ public class ProdutoView extends BasicView {
 	}
 
 	private void loadData() {
-
+		isUpdate=false;
 		
 
 	}
@@ -240,30 +243,31 @@ public class ProdutoView extends BasicView {
 		// dados cliente
 
 		try {
-			if (produto == null) {
-				produto = new Produto();
-				fillProduto();
-				try {
-					try {
-						Facade.getInstance().cadastrarProduto(produto);
-					} catch (DadosInsuficientesException e) {
-						// TODO Auto-generated catch block
-						labelErro.setText(e.getMessage());
-					}
-				} catch (DataException e) {
-					// TODO Auto-generated catch block
-					labelErro.setText(e.getMessage());
-				}
-			} else {
+			if (isUpdate) {
 				fillProduto();
 				Facade.getInstance().atualizarProduto(produto);
 				openView(ClienteListView.ID);
+				
+			} else {
+				produto = new Produto();
+				fillProduto();
+						Facade.getInstance().cadastrarProduto(produto);
 			}
 			closeView();
 		} catch (FacadeException e) {
 			labelErro.setText(e.getMessage());
 		} catch (ValidatorException e) {
 			labelErro.setText(e.getMessage());
+		} catch (DadosInsuficientesException e) {
+			// TODO Auto-generated catch block
+			labelErro.setText(e.getMessage());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			labelErro.setText(e.getMessage());
+		} finally{
+			if (!isUpdate){
+				produto = null;
+			}
 		}
 
 	}
@@ -277,7 +281,14 @@ public class ProdutoView extends BasicView {
 			throw new ValidatorException("O Campo EAN aceita até 13 dígitos!");
 		}
 		produto.setEAN(textEAN.getText());
-				
+		
+		//SET DESCRIÇÃO
+		if (textDescricao.getText() == null || textDescricao.getText().equals("")){
+			throw new ValidatorException("O Campo Descrição é obrigatório!");
+		}
+		produto.setDescricao(textDescricao.getText());
+		
+		
 		//SET MODELO
 		if (textModelo.getText() == null || textModelo.getText().equals("")){
 			throw new ValidatorException("O Campo Modelo é obrigatório!");
@@ -299,6 +310,7 @@ public class ProdutoView extends BasicView {
 	}
 
 	public void loadProduto(Produto produto) {
+		isUpdate=true;
 		this.produto = produto;
 		
 		if (this.produto.getEAN() != null){
