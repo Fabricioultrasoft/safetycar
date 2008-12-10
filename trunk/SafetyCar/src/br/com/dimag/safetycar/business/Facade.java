@@ -6,12 +6,8 @@ import br.com.dimag.safetycar.business.cadastro.CadastroAutomovel;
 import br.com.dimag.safetycar.business.cadastro.CadastroCliente;
 import br.com.dimag.safetycar.business.cadastro.CadastroFuncionario;
 import br.com.dimag.safetycar.business.cadastro.CadastroOrdemServico;
-
-import br.com.dimag.safetycar.business.cadastro.CadastroProduto;
-
 import br.com.dimag.safetycar.business.cadastro.CadastroProduto;
 import br.com.dimag.safetycar.business.cadastro.CadastroServico;
-
 import br.com.dimag.safetycar.business.cadastro.CadastroUF;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
 import br.com.dimag.safetycar.exception.DataException;
@@ -22,7 +18,6 @@ import br.com.dimag.safetycar.model.Funcionario;
 import br.com.dimag.safetycar.model.OrdemServico;
 import br.com.dimag.safetycar.model.Produto;
 import br.com.dimag.safetycar.model.Servico;
-import br.com.dimag.safetycar.model.Produto;
 import br.com.dimag.safetycar.model.UF;
 import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
