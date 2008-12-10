@@ -18,7 +18,6 @@ import org.eclipse.ui.PlatformUI;
 
 import br.com.dimag.safetycar.business.Facade;
 import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
-import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.Produto;
 
 
