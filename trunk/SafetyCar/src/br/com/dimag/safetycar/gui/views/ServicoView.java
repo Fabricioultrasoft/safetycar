@@ -187,7 +187,7 @@ public class ServicoView extends BasicView {
 			if (isUpdate) {
 				fillServico();
 				Facade.getInstance().atualizarServico(servico);
-				openView(ProdutoListView.ID);
+				openView(ServicoListView.ID);
 				
 			} else {
 				servico = new Servico();
