@@ -3,6 +3,7 @@ package br.com.dimag.safetycar.model;
 import javax.persistence.Entity;
 
 import org.hibernate.validator.Length;
+import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
 
 
@@ -13,6 +14,7 @@ public class Servico extends BaseEntity{
 	private double valorServico;
 		
 	@NotNull
+	@NotEmpty
 	@Length(max = 200)
 	private String descricao;
 

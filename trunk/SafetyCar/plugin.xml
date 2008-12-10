@@ -91,6 +91,13 @@
             id="SafetyCar.produtoList"
             name="Lista Produto">
       </view>
+      <view
+            allowMultiple="false"
+            class="br.com.dimag.safetycar.gui.views.ServicoView"
+            icon="icons/sample3.gif"
+            id="SafetyCar.servico"
+            name="Cadastro de Servico">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
