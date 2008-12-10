@@ -23,7 +23,7 @@ import br.com.dimag.safetycar.gui.views.ClienteListView;
 import br.com.dimag.safetycar.gui.views.ClienteView;
 import br.com.dimag.safetycar.gui.views.OSListView;
 import br.com.dimag.safetycar.gui.views.OSView;
-
+import br.com.dimag.safetycar.gui.views.ProdutoView;
 
 
 /**
@@ -45,7 +45,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private ViewBasicAction automovelViewAction;
 	private ViewBasicAction automovelListViewAction;
 	private ViewBasicAction OSListViewAction;
-    
+	private ViewBasicAction produtoViewAction;
 
     public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
         super(configurer);
@@ -84,6 +84,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         
         OSListViewAction = new ViewBasicAction(window, "Lista de Ordem de Serviço",OSListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(OSListViewAction);
+        
+        produtoViewAction = new ViewBasicAction(window, "Cadastro de Produtos",ProdutoView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        register(produtoViewAction);
 
     }
     
@@ -105,6 +108,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(clienteListViewAction);
         fileMenu.add(automovelViewAction);
         fileMenu.add(automovelListViewAction);
+        fileMenu.add(produtoViewAction);
         fileMenu.add(new Separator());
         fileMenu.add(exitAction);
         
@@ -121,6 +125,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         toolbar.add(OSListViewAction);
         toolbar.add(automovelViewAction);
         toolbar.add(automovelListViewAction);
+        toolbar.add(produtoViewAction);
         
         
     }
