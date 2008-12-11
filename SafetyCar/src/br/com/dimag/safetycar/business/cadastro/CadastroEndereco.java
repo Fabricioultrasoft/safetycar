@@ -41,4 +41,8 @@ public class CadastroEndereco {
 		return repository.list();
 	}
 
+	public Endereco findEnderecoBaseByCep(String cep) {
+		return repository.findEnderecoBaseByCep(cep);
+	}
+
 }

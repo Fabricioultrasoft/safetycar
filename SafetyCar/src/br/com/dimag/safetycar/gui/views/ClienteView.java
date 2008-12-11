@@ -21,9 +21,8 @@ import br.com.dimag.safetycar.exception.FacadeException;
 import br.com.dimag.safetycar.exception.ValidatorException;
 import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.Endereco;
-import br.com.dimag.safetycar.model.EnderecoBase;
 import br.com.dimag.safetycar.model.UF;
-import br.com.dimag.safetycar.model.Endereco.TipoEndereco;
+import br.com.dimag.safetycar.model.Pessoa.TipoEndereco;
 import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
 /**
@@ -42,7 +41,7 @@ public class ClienteView extends BasicView {
 	private Group groupDadosPessoais;
 	// ENDEREÇO
 	private Label labelEndereco;
-	private Text textEndereco;
+	private Text textEnderecoLogradouro;
 
 	// ENDEREÇO BAIRRO
 	private Label labelEnderecoBairro;
@@ -98,7 +97,7 @@ public class ClienteView extends BasicView {
 
 	private Cliente cliente;
 
-	private EnderecoBase enderecoBase;
+	private Endereco endereco;
 
 	@Override
 	public void createPartControl(Composite composite) {
@@ -190,7 +189,7 @@ public class ClienteView extends BasicView {
 					textEnderecoCep = new Text(groupDadosPessoais, SWT.NONE);
 					textEnderecoCep.setLayoutData(EndereçoLData);
 					textEnderecoCep.addFocusListener(new FocusListener() {
-						
+
 						@Override
 						public void focusGained(FocusEvent arg0) {
 							// TODO Auto-generated method stub
@@ -202,7 +201,7 @@ public class ClienteView extends BasicView {
 						}
 					});
 				}
-				
+
 				// CCOMBO TIPO ENDEREÇO
 				{
 					labelTipoEndereco = new Label(groupDadosPessoais, SWT.NONE);
@@ -232,8 +231,8 @@ public class ClienteView extends BasicView {
 					EndereçoLData.widthHint = 149;
 					EndereçoLData.heightHint = 13;
 					EndereçoLData.grabExcessHorizontalSpace = true;
-					textEndereco = new Text(groupDadosPessoais, SWT.NONE);
-					textEndereco.setLayoutData(EndereçoLData);
+					textEnderecoLogradouro = new Text(groupDadosPessoais, SWT.NONE);
+					textEnderecoLogradouro.setLayoutData(EndereçoLData);
 				}
 
 				// BAIRRO
@@ -256,11 +255,14 @@ public class ClienteView extends BasicView {
 					GridData textEnderecoComplementoLData = new GridData();
 					textEnderecoComplementoLData.grabExcessHorizontalSpace = true;
 					textEnderecoComplementoLData.horizontalAlignment = SWT.FILL;
-					textEnderecoComplemento = new Text(groupDadosPessoais, SWT.NONE);
-					textEnderecoComplemento.setLayoutData(textEnderecoComplementoLData);
+					textEnderecoComplemento = new Text(groupDadosPessoais,
+							SWT.NONE);
+					textEnderecoComplemento
+							.setLayoutData(textEnderecoComplementoLData);
 				}
 				{
-					labelEnderecoBairro = new Label(groupDadosPessoais, SWT.NONE);
+					labelEnderecoBairro = new Label(groupDadosPessoais,
+							SWT.NONE);
 					labelEnderecoBairro.setText("Bairro:");
 				}
 				{
@@ -271,7 +273,7 @@ public class ClienteView extends BasicView {
 					textEnderecoBairro = new Text(groupDadosPessoais, SWT.NONE);
 					textEnderecoBairro.setLayoutData(EndereçoLData);
 				}
-				
+
 				// MUNICIPIO
 				{
 					labelEnderecoMunicipio = new Label(groupDadosPessoais,
@@ -446,21 +448,20 @@ public class ClienteView extends BasicView {
 	}
 
 	private void checkCep() {
-		enderecoBase = Facade.getInstance().findEnderecoBaseByCep(
+		endereco = Facade.getInstance().findEnderecoBaseByCep(
 				textEnderecoCep.getText());
-		if (enderecoBase != null) {
-			textEndereco.setText(enderecoBase.getLogradouro());
-			textEnderecoBairro.setText(enderecoBase.getBairro());
-			textEnderecoMunicipio.setText(enderecoBase.getMunicipio());
-			cComboUf.select(cComboUf.indexOf(enderecoBase.getUf()
-					.getDescricao()));
+		if (endereco != null) {
+			textEnderecoLogradouro.setText(endereco.getLogradouro());
+			textEnderecoBairro.setText(endereco.getBairro());
+			textEnderecoMunicipio.setText(endereco.getMunicipio());
+			cComboUf.select(cComboUf.indexOf(endereco.getUf().getDescricao()));
 
-			textEndereco.setEditable(false);
+			textEnderecoLogradouro.setEditable(false);
 			textEnderecoBairro.setEditable(false);
 			textEnderecoMunicipio.setEditable(false);
 			cComboUf.setEnabled(false);
 		} else {
-			textEndereco.setEditable(true);
+			textEnderecoLogradouro.setEditable(true);
 			textEnderecoBairro.setEditable(true);
 			textEnderecoMunicipio.setEditable(true);
 			cComboUf.setEnabled(true);
@@ -494,7 +495,7 @@ public class ClienteView extends BasicView {
 		} finally {
 			if (!isUpdate) {
 				cliente = null;
-				enderecoBase = null;
+				endereco = null;
 			}
 		}
 
@@ -525,70 +526,70 @@ public class ClienteView extends BasicView {
 		// Declaração de string key para ser usada nos cCombos
 		String key;
 
-		if (enderecoBase == null) {
-			enderecoBase = new EnderecoBase();
-
-			// Set CEP
-			// validação de preenchimento de campo
-			if (textEnderecoCep.getText() == null
-					|| textEnderecoCep.getText().equals("")) {
-				throw new ValidatorException("O Campo CEP é obrigatório!");
-			}
-			// validação de formatação do campo
-			if (textEnderecoCep.getText().length() != 8) {
-				throw new ValidatorException(
-						"O Campo CEP deve ser preenchido conforme exemplo: 51023000");
-			}
-			enderecoBase.setCep(textEnderecoCep.getText());
-			// Set LOGRADOURO
-			if (textEndereco.getText() == null
-					|| textEndereco.getText().equals("")) {
-				throw new ValidatorException("O Campo Endereço é obrigatório!");
-			}
-			enderecoBase.setLogradouro(textEndereco.getText());
-
-			// Set BAIRRO
-			if (textEnderecoBairro.getText() == null
-					|| textEnderecoBairro.getText().equals("")) {
-				throw new ValidatorException("O Campo Bairro é obrigatório!");
-			}
-			enderecoBase.setBairro(textEnderecoBairro.getText());
-
-			// Set MUNICIPIO
-			if (textEnderecoMunicipio.getText() == null
-					|| textEnderecoMunicipio.getText().equals("")) {
-				throw new ValidatorException("O Campo Município é obrigatório!");
-			}
-			enderecoBase.setMunicipio(textEnderecoMunicipio.getText());
-
-			// SET Seleção cCombo UF
-			UF uf = null;
-			if (cComboUf.getSelectionIndex() != -1) {
-				key = cComboUf.getItem(cComboUf.getSelectionIndex());
-				uf = (UF) cComboUf.getData(key);
-			} else {
-				throw new ValidatorException("Selecionar uma UF é obrigatório!");
-			}
-			enderecoBase.setUf(uf);
+		if (endereco == null) {
+			endereco = new Endereco();
+			String cep = textEnderecoCep.getText();
+			String lougradouro = textEnderecoLogradouro.getText();
+			String bairro = textEnderecoBairro.getText();
+			String municipio = textEnderecoMunicipio.getText();
+			
+			if (!cep.isEmpty() || !lougradouro.isEmpty() || !bairro.isEmpty() || !municipio.isEmpty() || cComboUf.getSelectionIndex() != -1 )
+				// Set CEP
+				// validação de preenchimento de campo
+				if (cep.isEmpty()) {
+					throw new ValidatorException("O campo CEP deve ser preenchido!");
+				}
+				// validação de formatação do campo
+				if (cep.length() != 8) {
+					throw new ValidatorException(
+							"O Campo CEP deve ser preenchido conforme exemplo: 51023000");
+				}
+				endereco.setCep(cep);
+				// Set LOGRADOURO
+				if (lougradouro.isEmpty()) {
+					throw new ValidatorException("O Campo Endereço deve ser preenchido!");
+				}
+				endereco.setLogradouro(lougradouro);
+	
+				// Set BAIRRO
+				if (bairro.isEmpty()) {
+					throw new ValidatorException("O Campo Bairro deve ser preenchido!");
+				}
+				endereco.setBairro(bairro);
+	
+				// Set MUNICIPIO
+				if (municipio.isEmpty()) {
+					throw new ValidatorException("O Campo Município deve ser preenchido!");
+				}
+				endereco.setMunicipio(municipio);
+	
+				// SET Seleção cCombo UF
+				UF uf = null;
+				if (cComboUf.getSelectionIndex() != -1) {
+					key = cComboUf.getItem(cComboUf.getSelectionIndex());
+					uf = (UF) cComboUf.getData(key);
+				} else {
+					throw new ValidatorException("O campo UF deve ser preenchido!");
+				}
+				endereco.setUf(uf);
 		}
 
 		// ENDEREÇO Instancia objeto endereço e sets
-		Endereco endereco = new Endereco();
-		endereco.setEnderecoBase(enderecoBase);
+		cliente.setEndereco(endereco);
 
 		// Set Complemento
 		if (textEnderecoComplemento.getText() == null
 				|| textEnderecoComplemento.getText().equals("")) {
 			throw new ValidatorException("O Campo Complemento é obrigatório!");
 		}
-		endereco.setComplemento(textEnderecoComplemento.getText());
+		cliente.setComplementoEndereco(textEnderecoComplemento.getText());
 
-		// Set MUNICIPIO
+		// Set Nuumero
 		if (textEnderecoNumero.getText() == null
 				|| textEnderecoNumero.getText().equals("")) {
 			throw new ValidatorException("O Campo Número é obrigatório!");
 		}
-		endereco.setNumero(textEnderecoNumero.getText());
+		cliente.setNumeroEndereco(textEnderecoNumero.getText());
 		
 		// tipo Endereço
 		TipoEndereco tipoEndereço;
@@ -602,8 +603,7 @@ public class ClienteView extends BasicView {
 		}
 
 		// Set Tipo Endereço
-		endereco.setTipoEndereco(tipoEndereço);
-		//endereco.setComplemento(text)
+		cliente.setTipoEndereco(tipoEndereço);
 
 		// set Endereço
 		cliente.setEndereco(endereco);
@@ -655,19 +655,19 @@ public class ClienteView extends BasicView {
 		if (this.cliente.getCpfCnpj() != null) {
 			textCpfCnpj.setText(this.cliente.getCpfCnpj());
 		}
-		cComboTipoEndereco.setText(this.cliente.getEndereco().getTipoEndereco()
+		cComboTipoEndereco.setText(this.cliente.getTipoEndereco()
 				.getDescricao());
-		enderecoBase = cliente.getEndereco().getEnderecoBase();
-		textEnderecoCep.setText(enderecoBase.getCep());
+		endereco = cliente.getEndereco();
+		textEnderecoCep.setText(endereco.getCep());
 		checkCep();
-		
-		if (this.cliente.getEndereco().getNumero() != null) {
-			textEnderecoNumero.setText(this.cliente.getEndereco().getNumero());
+
+		if (this.cliente.getNumeroEndereco() != null) {
+			textEnderecoNumero.setText(this.cliente.getNumeroEndereco());
 		}
-		if (this.cliente.getEndereco().getComplemento() != null) {
-			textEnderecoComplemento.setText(this.cliente.getEndereco().getComplemento());
+		if (this.cliente.getComplementoEndereco() != null) {
+			textEnderecoComplemento.setText(this.cliente.getComplementoEndereco());
 		}
-		
+
 		if (this.cliente.getTelefone() != null) {
 			textTelefone.setText(this.cliente.getTelefone());
 		}

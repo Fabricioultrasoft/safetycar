@@ -49,4 +49,9 @@ public class RepositoryEndereco implements IRepositoryEndereco {
 		return HibernateUtil.getSession().createQuery(
 				"from " + clazz.getSimpleName()).list();
 	}
+	
+	public Endereco findEnderecoBaseByCep(String cep) {
+		return (Endereco) HibernateUtil.getSession().createQuery(
+				"from " + clazz.getSimpleName()+" e where e.cep = :cep").setParameter("cep", cep).uniqueResult();
+	}
 }

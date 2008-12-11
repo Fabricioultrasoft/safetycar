@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -32,7 +32,34 @@ public abstract class Pessoa extends BaseEntity {
 	@Length(max = 14, min = 11)
 	private String cpfCnpj;
 	
-	@OneToOne
+	@NotNull
+	@NotEmpty
+	private String numeroEndereco;
+	
+	@NotNull
+	@NotEmpty
+	@Length(max = 200)
+	private String complementoEndereco;
+	
+	@NotNull
+	private TipoEndereco tipoEndereco;
+	
+	public enum TipoEndereco{
+		COMERCIAL("Comercial"), 
+		RESIDENCIAL("Residencial");
+		
+		private String descricao;
+		
+		private TipoEndereco (String descricao){
+			this.descricao = descricao;
+		}
+		
+		public String getDescricao() {
+			return descricao;
+		}
+	}
+	
+	@ManyToOne
 	@JoinColumn(name = "enderecoId")
 	@Cascade(value=CascadeType.SAVE_UPDATE)
 	private Endereco endereco;
@@ -88,6 +115,30 @@ public abstract class Pessoa extends BaseEntity {
 		this.tipoPessoa = tipoPessoa;
 	}
 
+	public String getNumeroEndereco() {
+		return numeroEndereco;
+	}
+
+	public void setNumeroEndereco(String numeroEndereco) {
+		this.numeroEndereco = numeroEndereco;
+	}
+
+	public String getComplementoEndereco() {
+		return complementoEndereco;
+	}
+
+	public void setComplementoEndereco(String complementoEndereco) {
+		this.complementoEndereco = complementoEndereco;
+	}
+
+	public TipoEndereco getTipoEndereco() {
+		return tipoEndereco;
+	}
+
+	public void setTipoEndereco(TipoEndereco tipoEndereco) {
+		this.tipoEndereco = tipoEndereco;
+	}
+
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -96,4 +147,5 @@ public abstract class Pessoa extends BaseEntity {
 		this.endereco = endereco;
 	}
 
+	
 }
