@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
@@ -35,6 +36,8 @@ import br.com.dimag.safetycar.model.Produto;
 import br.com.dimag.safetycar.model.Servico;
 import br.com.dimag.safetycar.model.OrdemServico.ClassificacaoOrdemServico;
 import br.com.dimag.safetycar.model.OrdemServico.StatusOrdemServico;
+import br.com.dimag.safetycar.model.Pessoa.TipoEndereco;
+import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -53,8 +56,12 @@ public class OSView extends BasicView {
 	private Button buttonConfirma;
 	private Button buttonCancelar;
 	private Label labelErro;
+	private Label labelDefeitoReclamado;
+	private Text textDefeitoReclamado;
 	private CCombo cComboMecanico;
 	private Label labelMecanico;
+	private Label labelStatusOrdemServico;
+	private CCombo cComboStatusOrdemServico;
 	private Button buttonAddProduto;
 	private CCombo cComboProdutos;
 	private TableViewer tableViewerProduto;
@@ -145,6 +152,37 @@ public class OSView extends BasicView {
 					cComboMecanicoLData.horizontalAlignment = GridData.FILL;
 					cComboMecanico = new CCombo(groupDadosOS, SWT.NONE);
 					cComboMecanico.setLayoutData(cComboMecanicoLData);
+				}
+				{
+					labelDefeitoReclamado = new Label(groupDadosOS, SWT.NONE);
+					GridData labelDefeitoReclamadoLData = new GridData();
+					labelDefeitoReclamadoLData.horizontalAlignment = GridData.FILL;
+					labelDefeitoReclamado.setLayoutData(labelDefeitoReclamadoLData);
+					labelDefeitoReclamado.setText("Defeito Reclamado:");
+				}
+				{
+					textDefeitoReclamado = new Text(groupDadosOS, SWT.NONE);
+					GridData DefeitoReclamadoLData = new GridData();
+					DefeitoReclamadoLData.heightHint = 13;
+					DefeitoReclamadoLData.horizontalAlignment = GridData.FILL;
+					DefeitoReclamadoLData.grabExcessHorizontalSpace = true;
+					textDefeitoReclamado.setLayoutData(DefeitoReclamadoLData);
+				}
+				{
+					labelStatusOrdemServico = new Label(groupDadosOS, SWT.NONE);
+					GridData labelStatusOrdemServicoLData = new GridData();
+					labelStatusOrdemServicoLData.verticalAlignment = GridData.BEGINNING;
+					labelStatusOrdemServicoLData.horizontalAlignment = GridData.FILL;
+					labelStatusOrdemServico.setLayoutData(labelStatusOrdemServicoLData);
+					labelStatusOrdemServico.setText("Status Ordem Servico");
+				}
+				{
+					GridData cComboStatusOrdemServicoLData = new GridData();
+					cComboStatusOrdemServicoLData.grabExcessHorizontalSpace = true;
+					cComboStatusOrdemServicoLData.verticalAlignment = GridData.BEGINNING;
+					cComboStatusOrdemServicoLData.horizontalAlignment = GridData.FILL;
+					cComboStatusOrdemServico = new CCombo(groupDadosOS, SWT.NONE);
+					cComboStatusOrdemServico.setLayoutData(cComboStatusOrdemServicoLData);
 				}
 				{
 					groupServiico = new Group(groupDadosOS, SWT.NONE);
@@ -408,12 +446,13 @@ public class OSView extends BasicView {
 			cComboServicos.setData(servico.getDescricao(), servico);
 			cComboServicos.add(servico.getDescricao());
 		}
-
-		List<Produto> listProduto = Facade.getInstance().listProduto();
-		for (Produto produto : listProduto) {
-			cComboProdutos.setData(produto.getDescricao(), produto);
-			cComboProdutos.add(produto.getDescricao());
+	
+		cComboStatusOrdemServico.removeAll();
+		for (StatusOrdemServico tipo : OrdemServico.StatusOrdemServico.values()) {
+			cComboStatusOrdemServico.setData(tipo.getStatusOrdemServico(), tipo);
+			cComboStatusOrdemServico.add(tipo.getStatusOrdemServico());
 		}
+		
 
 		List<Funcionario> listAtendente = Facade.getInstance().listAtendente();
 		for (Funcionario funcionario : listAtendente) {
@@ -483,7 +522,7 @@ public class OSView extends BasicView {
 		ordemServico.setData(new GregorianCalendar());
 
 		ordemServico.setDefeitoReclamado("Carro quebrado");
-		ordemServico.setStatusOrdemServico(StatusOrdemServico.AUTORIZADO);
+		//ordemServico.setStatusOrdemServico(StatusOrdemServico.AUTORIZADO);
 		ordemServico
 				.setClassificacaoOrdemServico(ClassificacaoOrdemServico.ABERTA);
 
@@ -529,13 +568,24 @@ public class OSView extends BasicView {
 		if (cComboServicos.getSelectionIndex() != -1) {
 			key = cComboServicos.getItem(cComboServicos.getSelectionIndex());
 			atendente.setNomeRazaoSocial(cComboServicos.getData(key).toString());
-		} else throw new ValidatorException("Selecionar o Serviço é obrigatório!");
+		} 
 	
 		//validação  de Produto
 		if (cComboProdutos.getSelectionIndex() != -1) {
 			key = cComboProdutos.getItem(cComboProdutos.getSelectionIndex());
 			atendente.setNomeRazaoSocial(cComboProdutos.getData(key).toString());
-		} else throw new ValidatorException("Selecionar o Produtos é obrigatório!");
+		} 
+	// validacao status ordem servico
+		OrdemServico ordemServico;
+		if (cComboStatusOrdemServico.getSelectionIndex() != -1) {
+			key = cComboStatusOrdemServico.getItem(cComboStatusOrdemServico
+					.getSelectionIndex());
+			ordemServico = (OrdemServico) cComboStatusOrdemServico.getData(key);
+		} else {
+			throw new ValidatorException(
+					"Selecionar o Status ordem servico é obrigatório!");
+		}
+	
 	
 			
 	}
@@ -623,6 +673,9 @@ public class OSView extends BasicView {
 		
 		cComboAtendente.select(cComboAtendente.indexOf(this.ordemServico.getAtendente()
 				.getNomeRazaoSocial()));
+
+		cComboStatusOrdemServico.select(cComboStatusOrdemServico.indexOf(this.ordemServico.getStatusOrdemServico()));
+
 		
 		listServicoTableViewers = this.ordemServico.getServicos();
 		atualizarTableViewerServico();

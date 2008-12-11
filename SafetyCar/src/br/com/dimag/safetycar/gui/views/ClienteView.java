@@ -578,10 +578,7 @@ public class ClienteView extends BasicView {
 		cliente.setEndereco(endereco);
 
 		// Set Complemento
-		if (textEnderecoComplemento.getText() == null
-				|| textEnderecoComplemento.getText().equals("")) {
-			throw new ValidatorException("O Campo Complemento é obrigatório!");
-		}
+		
 		cliente.setComplementoEndereco(textEnderecoComplemento.getText());
 
 		// Set Nuumero

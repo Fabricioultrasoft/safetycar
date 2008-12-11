@@ -367,7 +367,7 @@ public class AutomovelView extends BasicView {
 
 		// SET CHASSI
 		if (textChassi.getText() == null || textChassi.getText().equals("")) {
-			throw new ValidatorException("O Chassi Ano é obrigatório");
+			throw new ValidatorException("O Chassi é obrigatório");
 		}
 		automovel.setChassi(textChassi.getText());
 
