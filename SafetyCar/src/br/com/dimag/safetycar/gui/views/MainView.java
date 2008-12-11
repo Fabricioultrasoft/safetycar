@@ -35,7 +35,7 @@ public class MainView extends BasicView {
 				cTabFolder1 = new CTabFolder(arg0, SWT.NONE);
 				{
 					cTabItem1 = new CTabItem(cTabFolder1, SWT.NONE);
-					cTabItem1.setText("cTabItem1");
+					cTabItem1.setText("DIMAG Safety Car");
 					{
 						label1 = new Label(cTabFolder1, SWT.NONE);
 						cTabItem1.setControl(label1);
