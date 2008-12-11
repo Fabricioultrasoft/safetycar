@@ -87,19 +87,19 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         automovelViewAction = new ViewBasicAction(window, "Cadastro de Automoveis", AutomovelView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/cadastrarAutomovelG.jpg"));
         register(automovelViewAction);
         
-        automovelListViewAction = new ViewBasicAction(window, "Lista de Automovel", AutomovelListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        automovelListViewAction = new ViewBasicAction(window, "Lista de Automovel", AutomovelListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/listarAutomovelG.jpg"));
         register(automovelListViewAction);
         
-        produtoViewAction = new ViewBasicAction(window, "Cadastro de Produtos",ProdutoView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        produtoViewAction = new ViewBasicAction(window, "Cadastro de Produtos",ProdutoView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/cadastrarProdutoG.jpg"));
         register(produtoViewAction);
 
-        produtoListViewAction = new ViewBasicAction(window, "Lista de Produtos",ProdutoListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        produtoListViewAction = new ViewBasicAction(window, "Lista de Produtos",ProdutoListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/listarProdutoG.jpg"));
         register(produtoListViewAction);
 
-        servicoViewAction = new ViewBasicAction(window, "Cadastro de Serviços",ServicoView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        servicoViewAction = new ViewBasicAction(window, "Cadastro de Serviços",ServicoView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/cadastrarServicoG.jpg"));
         register(servicoViewAction);
 
-        servicoListViewAction = new ViewBasicAction(window, "Lista de Serviços",ServicoListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        servicoListViewAction = new ViewBasicAction(window, "Lista de Serviços",ServicoListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/listarServicoG.jpg"));
         register(servicoListViewAction);
         
     }
