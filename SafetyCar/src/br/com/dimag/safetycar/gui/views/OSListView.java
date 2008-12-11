@@ -6,19 +6,25 @@ import java.util.List;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Text;
 
 import br.com.dimag.safetycar.business.Facade;
-import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
-import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.OrdemServico;
 
 
@@ -37,11 +43,40 @@ public class OSListView extends BasicView {
 	public static final String ID = "SafetyCar.osList";
 	private TableViewer viewer;
 	private List<OrdemServico> listOS;
+	private Group groupDadosServico;
+
+	// PLACA
+	private Label labelPlaca;
+	private Text textPlaca;
+
+	// BOTÕES DE CONFIRMA E CANCELAR
+	private Button buttonPesquisar;	
 	
 	public OSListView(){
 		listOS = new ArrayList<OrdemServico>();
-		
 	}
+	
+	public enum ColumnProperty{
+		PLACA("PLACA",10);
+		
+		private String name;
+		private int width;
+		
+		private ColumnProperty(String name,int width){
+			this.name = name;
+			this.width = width;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public int getWidth() {
+			return width;
+		}
+	}
+
+
 
 	class ViewContentProvider implements IStructuredContentProvider {
 
@@ -59,43 +94,116 @@ public class OSListView extends BasicView {
 
 	}
 
-	class ViewLabelProvider extends LabelProvider {
+	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider{
 
-		public String getText(Object obj) {
-			OrdemServico os = (OrdemServico)obj;
-			return os.getAutomovel().getModelo() + " - " + os.getAutomovel().getPlaca() + " - " + os.getMecanico().getNomeRazaoSocial();
+		@Override
+		public Image getColumnImage(Object arg0, int arg1) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
-		public Image getImage(Object obj) {
-			String imageKey = ISharedImages.IMG_OBJ_ELEMENT;
-			if (obj instanceof TreeParent)
-				imageKey = ISharedImages.IMG_OBJ_FOLDER;
-			return PlatformUI.getWorkbench().getSharedImages().getImage(
-					imageKey);
+		@Override
+		public String getColumnText(Object element, int columnIndex) {
+			OrdemServico os = (OrdemServico)element;
+			if (columnIndex == ColumnProperty.PLACA.ordinal()){
+				return os.getAutomovel().getPlaca();
+			}
+			return "";
 		}
 	}
 
-	/**
-	 * We will set up a dummy model to initialize tree heararchy. In real code,
-	 * you will connect to a real model and expose its hierarchy.
-	 */
-	private List<OrdemServico> createModel() {
-		listOS = Facade.getInstance().listOrdemServico();
-		return listOS;
-	}
-
+	
 	/**
 	 * This is a callback that will allow us to create the viewer and initialize
 	 * it.
 	 */
-	public void createPartControl(Composite parent) {
+	public void createPartControl(Composite composite) {
 		
-		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
+		{
+			
+			composite.setSize(484, 418);
+			GridLayout mainLayout = new GridLayout();
+			mainLayout.numColumns = 1;
+			composite.setLayout(mainLayout);
+			{
+				groupDadosServico = new Group(composite, SWT.NONE);
+				GridLayout dadosServicoLayout = new GridLayout();
+				dadosServicoLayout.numColumns = 2;
+				
+				GridData dadosServicoLData = new GridData();
+				dadosServicoLData.verticalAlignment = SWT.FILL;
+				dadosServicoLData.horizontalAlignment = SWT.FILL;
+				groupDadosServico.setLayoutData(dadosServicoLData);
+				
+				groupDadosServico.setLayout(dadosServicoLayout);
+				groupDadosServico.setText("Dados da Consulta OS");
+				groupDadosServico.setSize(243, 215);
+
+				// PLACA ORDEM SERVIÇO
+
+				{
+					labelPlaca = new Label(groupDadosServico, SWT.NONE);
+					labelPlaca.setText("Placa:");
+				}
+				{
+					textPlaca = new Text(groupDadosServico, SWT.NONE);
+					GridData descricaoProdutoLData = new GridData();
+					descricaoProdutoLData.heightHint = 13;
+					descricaoProdutoLData.horizontalAlignment = GridData.FILL;
+					descricaoProdutoLData.grabExcessHorizontalSpace = true;
+					textPlaca.setLayoutData(descricaoProdutoLData);
+				}
+
+				// view BOTÃO PESQUISAR
+				{
+					buttonPesquisar = new Button(groupDadosServico, SWT.PUSH
+							| SWT.CENTER);
+					GridData buttonConfirmaLData = new GridData();
+					buttonConfirmaLData.verticalAlignment = GridData.BEGINNING;
+					buttonConfirmaLData.horizontalAlignment = GridData.BEGINNING;
+					buttonPesquisar.setLayoutData(buttonConfirmaLData);
+					buttonPesquisar.setText("Pesquisar");
+
+					buttonPesquisar
+							.addSelectionListener(new SelectionListener() {
+
+								@Override
+								public void widgetSelected(SelectionEvent event) {
+									pesquisar();
+								}
+
+								@Override
+								public void widgetDefaultSelected(
+										SelectionEvent arg0) {
+									// TODO Auto-generated method stub
+								}
+
+							});
+				}
+		
+		viewer = new TableViewer(composite, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
 				| SWT.BORDER_SOLID);
-		viewer.setColumnProperties(new String[]{"Nome","Endereço"});
+		viewer.getTable().setLinesVisible(true);
+		viewer.getTable().setHeaderVisible(true);
+		
+				
 		viewer.setContentProvider(new ViewContentProvider());
-		viewer.setLabelProvider(new ViewLabelProvider());
-		viewer.setInput(createModel());
+		GridData viewerLData = new GridData();
+				viewerLData.grabExcessHorizontalSpace = true;
+				viewerLData.grabExcessVerticalSpace = true;
+				viewerLData.horizontalAlignment = SWT.FILL;
+				viewerLData.verticalAlignment = SWT.FILL;
+				viewer.getControl().setLayoutData(viewerLData);
+				viewer.setLabelProvider(new ViewLabelProvider());
+				
+				for (ColumnProperty columnProperty : ColumnProperty.values()){
+					TableColumn coluna = new TableColumn(viewer.getTable(),SWT.NONE);
+					coluna.setText(columnProperty.getName());
+					coluna.setWidth(columnProperty.getWidth());
+				}
+		
+		
+		
 		viewer.addDoubleClickListener(new IDoubleClickListener(){
 
 			@Override
@@ -109,8 +217,14 @@ public class OSListView extends BasicView {
 			}
 			
 		});
+		loadData();}}
 	}
 
+	private void loadData() {
+		pesquisar();
+		
+	}
+	
 	/**
 	 * Passing the focus request to the viewer's control.
 	 */
@@ -118,14 +232,14 @@ public class OSListView extends BasicView {
 		viewer.getControl().setFocus();
 	}
 	
-//	private void pesquisar() {
+	private void pesquisar() {
 //		// dados servico
-//		if ( textDescricao.getText().equals("")){
-//			listServicos = Facade.getInstance().listServico();
-//		}else{
-//			listServicos = Facade.getInstance().searchListServicoByDescricao(textDescricao.getText());
-//		}
-//		viewer.setInput(listServicos);
-//	}
+		if ( textPlaca.getText().equals("")){
+			listOS = Facade.getInstance().listOrdemServico();
+		}else{
+			listOS = Facade.getInstance().searchListOSByPlaca(textPlaca.getText());
+		}
+		viewer.setInput(listOS);
+	}
 	
 }

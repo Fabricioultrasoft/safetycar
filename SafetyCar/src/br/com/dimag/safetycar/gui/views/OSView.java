@@ -438,7 +438,7 @@ public class OSView extends BasicView {
 	private void performFinish() {
 
 		try {
-			if (ordemServico == null){
+			if (!isUpdate){
 				ordemServico = new OrdemServico();
 				fillOrdemServico();
 

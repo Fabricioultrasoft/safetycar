@@ -208,5 +208,9 @@ public class Facade {
 		
 	}
 
+	public List<OrdemServico> searchListOSByPlaca(String placa) {
+		return cadastroOrdemServico.searchListServicoByDescricao(placa);
+	}
+
 
 }
