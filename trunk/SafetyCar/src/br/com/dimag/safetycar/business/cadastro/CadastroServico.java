@@ -41,4 +41,8 @@ public class CadastroServico {
 		return repository.list();
 	}
 
+	public List<Servico> searchListServicoByDescricao(String descricao) {
+		return repository.searchListServicoByDescricao(descricao);
+	}
+
 }

@@ -49,4 +49,9 @@ public class RepositoryServico implements IRepositoryServico {
 		return HibernateUtil.getSession().createQuery(
 				"from " + clazz.getSimpleName()).list();
 	}
+
+	public List<Servico> searchListServicoByDescricao(String descricao) {
+		return HibernateUtil.getSession().createQuery(
+				"from " + clazz.getSimpleName() +" s where s.descricao like lower( :descricao ) " ).setParameter("descricao", "%"+descricao.toLowerCase()+"%" ).list();
+	}
 }
