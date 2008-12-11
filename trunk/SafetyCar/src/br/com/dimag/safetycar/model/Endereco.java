@@ -4,31 +4,29 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
 
 @Entity
 public class Endereco extends BaseEntity{
-	@NotNull
-	@NotEmpty
-	@Length(max = 200)
-	private String logradouro;
 	
 	@NotNull
 	@NotEmpty
-	@Length(max = 50)
-	private String bairro;
+	private String numero;
 	
 	@NotNull
 	@NotEmpty
 	@Length(max = 200)
-	private String municipio;
+	private String complemento;
 	
+	@ManyToOne
 	@NotNull
-	@NotEmpty
-	@Length(max = 8, min = 8)
-	private String cep;
+	@JoinColumn(name = "ENDBASE_ID")
+	@Cascade(value=CascadeType.SAVE_UPDATE)
+	private EnderecoBase enderecoBase;
 	
 	@NotNull
 	private TipoEndereco tipoEndereco;
@@ -47,27 +45,6 @@ public class Endereco extends BaseEntity{
 			return descricao;
 		}
 	}
-	
-	@ManyToOne
-//	@NotNull
-	@JoinColumn(name = "UF_ID")
-	private UF uf;
-
-	public String getLogradouro() {
-		return logradouro;
-	}
-
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
 
 	public void setTipoEndereco(TipoEndereco tipoEndereco) {
 		this.tipoEndereco = tipoEndereco;
@@ -77,28 +54,28 @@ public class Endereco extends BaseEntity{
 		return tipoEndereco;
 	}
 
-	public String getMunicipio() {
-		return municipio;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setMunicipio(String municipio) {
-		this.municipio = municipio;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
-	public String getCep() {
-		return cep;
+	public String getComplemento() {
+		return complemento;
 	}
 
-	public void setCep(String cep) {
-		this.cep = cep;
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 
-	public void setUf(UF uf) {
-		this.uf = uf;
+	public EnderecoBase getEnderecoBase() {
+		return enderecoBase;
 	}
 
-	public UF getUf() {
-		return uf;
+	public void setEnderecoBase(EnderecoBase enderecoBase) {
+		this.enderecoBase = enderecoBase;
 	}
-	
+
 }

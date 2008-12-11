@@ -35,7 +35,6 @@ import br.com.dimag.safetycar.model.Produto;
 import br.com.dimag.safetycar.model.Servico;
 import br.com.dimag.safetycar.model.OrdemServico.ClassificacaoOrdemServico;
 import br.com.dimag.safetycar.model.OrdemServico.StatusOrdemServico;
-import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI

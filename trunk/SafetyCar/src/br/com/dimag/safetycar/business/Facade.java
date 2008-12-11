@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.dimag.safetycar.business.cadastro.CadastroAutomovel;
 import br.com.dimag.safetycar.business.cadastro.CadastroCliente;
+import br.com.dimag.safetycar.business.cadastro.CadastroEnderecoBase;
 import br.com.dimag.safetycar.business.cadastro.CadastroFuncionario;
 import br.com.dimag.safetycar.business.cadastro.CadastroOrdemServico;
 import br.com.dimag.safetycar.business.cadastro.CadastroProduto;
@@ -14,6 +15,7 @@ import br.com.dimag.safetycar.exception.DataException;
 import br.com.dimag.safetycar.exception.FacadeException;
 import br.com.dimag.safetycar.model.Automovel;
 import br.com.dimag.safetycar.model.Cliente;
+import br.com.dimag.safetycar.model.EnderecoBase;
 import br.com.dimag.safetycar.model.Funcionario;
 import br.com.dimag.safetycar.model.OrdemServico;
 import br.com.dimag.safetycar.model.Produto;
@@ -31,6 +33,7 @@ public class Facade {
 	private CadastroFuncionario cadastroFuncionario;
 	private CadastroServico cadastroServico;
 	private CadastroProduto cadastroProduto;
+	private CadastroEnderecoBase cadastroEnderecoBase;
 
 
 	public static Facade getInstance(){
@@ -52,6 +55,7 @@ public class Facade {
 
 			cadastroServico = new CadastroServico();
 			cadastroProduto = new CadastroProduto();
+			cadastroEnderecoBase = new CadastroEnderecoBase();
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -189,6 +193,11 @@ public class Facade {
 		} catch (DadosInsuficientesException e) {
 			throw new FacadeException(e.getMessage());
 		}
+		
+	}
+
+	public EnderecoBase findEnderecoBaseByCep(String cep) {
+		return cadastroEnderecoBase.findEnderecoBaseByCep(cep);
 		
 	}
 
