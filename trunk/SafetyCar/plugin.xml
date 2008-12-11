@@ -115,10 +115,10 @@
             id="SafetyCar.client">
       </command>
       <command
-            name="Open Message Dialog"
-            description="Open a message dialog"
+            name="Fechar Aplicação"
+            description="Fechar Aplicação"
             categoryId="SafetyCar.category"
-            id="SafetyCar.openMessage">
+            id="SafetyCar.exit">
       </command>
    </extension>
    <extension
@@ -158,6 +158,17 @@
                value="product_lg.gif">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.splashHandlers">
+      <splashHandler
+            class="safetycar.splashHandlers.InteractiveSplashHandler"
+            id="safetycar.splashHandlers.interactive">
+      </splashHandler>
+      <splashHandlerProductBinding
+            productId="SafetyCar.product"
+            splashId="safetycar.splashHandlers.interactive">
+      </splashHandlerProductBinding>
    </extension>
 
 </plugin>

@@ -32,8 +32,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     	// TODO Auto-generated method stub
     	super.openIntro();
     	Platform.endSplash();
-    	LoginDialog login = new LoginDialog(getWindowConfigurer().getWindow().getShell());
     	
+    	LoginDialog login = new LoginDialog(getWindowConfigurer().getWindow().getShell());
 		login.open();
     }
 }

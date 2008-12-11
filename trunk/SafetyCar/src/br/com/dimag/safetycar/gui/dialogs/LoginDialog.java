@@ -134,6 +134,8 @@ public class LoginDialog extends Dialog {
 					usuario = Facade.getInstance().autenticacaoUsuario(textLogin.getText(),textPassword.getText());
 					if (usuario == null){
 						labelError.setText("Login ou senha não conferem");
+					}else{
+						shell.dispose();
 					}
 				}
 				

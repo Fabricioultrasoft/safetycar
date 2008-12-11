@@ -6,7 +6,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 import javax.crypto.Cipher;
-
+@Deprecated
 public class DesEncrypt {
 	private static byte[] encrypt(byte[] inpBytes, PublicKey key, String xform)
 			throws Exception {
