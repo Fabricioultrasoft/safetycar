@@ -46,4 +46,8 @@ public class CadastroOrdemServico {
 		return repository.listAutomovel(cliente);
 	}
 
+	public List<OrdemServico> searchListServicoByDescricao(String placa) {
+		return repository.searchListServicoByDescricao(placa);
+	}
+
 }

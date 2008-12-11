@@ -64,4 +64,9 @@ public class RepositoryOrdemServico implements IRepositoryOrdemServico {
 		return listAutomovel; 
 	}
 
+	public List<OrdemServico> searchListServicoByDescricao(String placa) {
+		return HibernateUtil.getSession().createQuery(
+				"from " + clazz.getSimpleName() +" s where s.placa like lower( :placa ) " ).setParameter("placa", "%"+placa.toLowerCase()+"%" ).list();
+	}
+
 }
