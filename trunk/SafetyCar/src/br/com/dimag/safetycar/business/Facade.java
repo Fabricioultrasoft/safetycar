@@ -10,6 +10,7 @@ import br.com.dimag.safetycar.business.cadastro.CadastroOrdemServico;
 import br.com.dimag.safetycar.business.cadastro.CadastroProduto;
 import br.com.dimag.safetycar.business.cadastro.CadastroServico;
 import br.com.dimag.safetycar.business.cadastro.CadastroUF;
+import br.com.dimag.safetycar.business.cadastro.CadastroUsuario;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
 import br.com.dimag.safetycar.exception.DataException;
 import br.com.dimag.safetycar.exception.FacadeException;
@@ -21,6 +22,7 @@ import br.com.dimag.safetycar.model.OrdemServico;
 import br.com.dimag.safetycar.model.Produto;
 import br.com.dimag.safetycar.model.Servico;
 import br.com.dimag.safetycar.model.UF;
+import br.com.dimag.safetycar.model.Usuario;
 import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
 public class Facade {
@@ -34,6 +36,7 @@ public class Facade {
 	private CadastroServico cadastroServico;
 	private CadastroProduto cadastroProduto;
 	private CadastroEndereco cadastroEndereco;
+	private CadastroUsuario cadastroUsuario;
 
 
 	public static Facade getInstance(){
@@ -56,6 +59,7 @@ public class Facade {
 			cadastroServico = new CadastroServico();
 			cadastroProduto = new CadastroProduto();
 			cadastroEndereco = new CadastroEndereco();
+			cadastroUsuario = new CadastroUsuario();
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -208,9 +212,12 @@ public class Facade {
 		
 	}
 
+	public Usuario autenticacaoUsuario(String login, String senha) {
+		// TODO Auto-generated method stub
+		return cadastroUsuario.autenticacaoUsuario(login,senha);
+	}
 	public List<OrdemServico> searchListOSByPlaca(String placa) {
 		return cadastroOrdemServico.searchListServicoByDescricao(placa);
 	}
-
 
 }
