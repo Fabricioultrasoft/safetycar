@@ -89,7 +89,7 @@ public class UsuarioListView extends BasicView {
 		}
 
 		public Object[] getElements(Object parent) {
-			return listUsuarios.toArray(new Servico[listUsuarios.size()]);
+			return listUsuarios.toArray(new Usuario[listUsuarios.size()]);
 		}
 
 	}
@@ -126,7 +126,7 @@ public class UsuarioListView extends BasicView {
 			{
 				groupDadosUsuario = new Group(composite, SWT.NONE);
 				GridLayout dadosUsuarioLayout = new GridLayout();
-				dadosUsuarioLayout.numColumns = 2;
+				dadosUsuarioLayout.numColumns = 1;
 				
 				GridData dadosServicoLData = new GridData();
 				dadosServicoLData.verticalAlignment = SWT.FILL;
