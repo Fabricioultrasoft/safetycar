@@ -105,6 +105,20 @@
             id="SafetyCar.servicoList"
             name="Lista Serviço">
       </view>
+      <view
+            allowMultiple="false"
+            class="br.com.dimag.safetycar.gui.views.UsuarioView"
+            icon="icons/sample3.gif"
+            id="SafetyCar.usuario"
+            name="Cadastro de Usuario">
+      </view>
+      <view
+            allowMultiple="false"
+            class="br.com.dimag.safetycar.gui.views.UsuarioListView"
+            icon="icons/sample3.gif"
+            id="SafetyCar.usuarioList"
+            name="Lista Usuario">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.commands">

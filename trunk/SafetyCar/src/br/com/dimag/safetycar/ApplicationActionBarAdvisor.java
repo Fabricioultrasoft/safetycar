@@ -27,6 +27,8 @@ import br.com.dimag.safetycar.gui.views.ProdutoView;
 import br.com.dimag.safetycar.gui.views.ProdutoListView;
 import br.com.dimag.safetycar.gui.views.ServicoView;
 import br.com.dimag.safetycar.gui.views.ServicoListView;
+import br.com.dimag.safetycar.gui.views.UsuarioView;
+import br.com.dimag.safetycar.gui.views.UsuarioListView;
 
 /**
  * An action bar advisor is responsible for creating, adding, and disposing of the
@@ -51,6 +53,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private ViewBasicAction produtoListViewAction;
 	private ViewBasicAction servicoViewAction;
 	private ViewBasicAction servicoListViewAction;
+	private ViewBasicAction usuarioViewAction;
+	private ViewBasicAction usuarioListViewAction;	
 	
     public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
         super(configurer);
@@ -102,6 +106,12 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         servicoListViewAction = new ViewBasicAction(window, "Lista de Serviços",ServicoListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/listarServicoG.jpg"));
         register(servicoListViewAction);
         
+        usuarioViewAction = new ViewBasicAction(window, "Cadastro de Usuários",UsuarioView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/cadastrarUsuarioG.jpg"));
+        register(usuarioViewAction);
+
+        usuarioListViewAction = new ViewBasicAction(window, "Lista de Usuários",UsuarioListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/listarUsuarioG.jpg"));
+        register(usuarioListViewAction);
+        
     }
     
     protected void fillMenuBar(IMenuManager menuBar) {
@@ -124,6 +134,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(automovelViewAction);
         fileMenu.add(produtoViewAction);
         fileMenu.add(servicoViewAction);
+        fileMenu.add(usuarioViewAction);
         fileMenu.add(new Separator());
         fileMenu.add(exitAction);
         
@@ -133,6 +144,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         listMenu.add(automovelListViewAction);
         listMenu.add(produtoListViewAction);
         listMenu.add(servicoListViewAction);
+        listMenu.add(usuarioListViewAction);
         // Help
         helpMenu.add(aboutAction);
     }
@@ -150,6 +162,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         toolbar.add(produtoListViewAction);
         toolbar.add(servicoViewAction);
         toolbar.add(servicoListViewAction);
+        toolbar.add(usuarioViewAction);
+        toolbar.add(usuarioListViewAction);
         
     }
 

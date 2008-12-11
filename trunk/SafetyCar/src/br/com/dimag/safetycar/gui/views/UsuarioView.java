@@ -15,8 +15,7 @@ import br.com.dimag.safetycar.business.Facade;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
 import br.com.dimag.safetycar.exception.FacadeException;
 import br.com.dimag.safetycar.exception.ValidatorException;
-import br.com.dimag.safetycar.model.Servico;
-import br.com.dimag.safetycar.model.Usuario;;
+import br.com.dimag.safetycar.model.Usuario;
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
  * Builder, which is free for non-commercial use. If Jigloo is being used
@@ -141,7 +140,7 @@ public class UsuarioView extends BasicView {
 								@Override
 								public void widgetSelected(SelectionEvent event) {
 									if (isUpdate){ 
-	//TODO									openView(ServicoListView.ID);
+										openView(ServicoListView.ID);
 									}
 									
 									closeView();
@@ -191,7 +190,7 @@ public class UsuarioView extends BasicView {
 			if (isUpdate) {
 				fillServico();
 				Facade.getInstance().atualizarUsuario(usuario);
-//TODO				openView(UsuarioListView.ID);
+				openView(UsuarioListView.ID);
 				
 			} else {
 				usuario = new Usuario();
@@ -232,13 +231,13 @@ public class UsuarioView extends BasicView {
 		
 	}
 
-	public void loadServico(Servico servico) {
+	public void loadUsuario(Usuario usuario) {
 		isUpdate=true;
 		this.usuario = usuario;
 		
 		if (this.usuario.getPassword() != null){
 			textPassword.setText(this.usuario.getPassword());
-			textPassword.setEchoChar('*');
+			// textPassword.setEchoChar('*');
 		}
 		
 		if (this.usuario.getLogin() != null){

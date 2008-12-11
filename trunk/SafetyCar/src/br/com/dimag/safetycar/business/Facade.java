@@ -238,6 +238,16 @@ public class Facade {
 			throw new FacadeException(e.getMessage());
 		}
 	}
+
+	public List<Usuario> listUsuario() {
+		// TODO Auto-generated method stub
+		return cadastroUsuario.list();
+	}
+
+	public List<Usuario> searchListUsuarioByLogin(String login) {
+		// TODO Auto-generated method stub
+		return cadastroUsuario.searchListServicoByDescricao(login);
+	}
 }
 	
 	
