@@ -14,6 +14,6 @@ public interface ICommandIds {
 
     public static final String CMD_CLIENTE = ClienteView.ID;
     public static final String CMD_CLIENTE_LIST = ClienteListView.ID;
-    public static final String CMD_OPEN_MESSAGE = "SafetyCar.openMessage";
+    public static final String CMD_EXIT = "SafetyCar.exit";
     
 }
