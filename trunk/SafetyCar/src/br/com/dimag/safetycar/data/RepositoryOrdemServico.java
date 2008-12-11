@@ -53,8 +53,10 @@ public class RepositoryOrdemServico implements IRepositoryOrdemServico {
 				"from " + clazz.getSimpleName()).list();
 	}
 	
+	
 	@Override
 	@HibernateTransaction
+	@SuppressWarnings("unchecked")
 	public List<Automovel> listAutomovel(Cliente cliente){
 		List<Automovel> listAutomovel = new ArrayList<Automovel>();
 		List<OrdemServico> list = HibernateUtil.getSession().createQuery("from OrdemServico os where os.cliente.id= :clienteId").setParameter("clienteId", cliente.getId()).list();
@@ -64,6 +66,7 @@ public class RepositoryOrdemServico implements IRepositoryOrdemServico {
 		return listAutomovel; 
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<OrdemServico> searchListServicoByDescricao(String placa) {
 		return HibernateUtil.getSession().createQuery(
 				"from " + clazz.getSimpleName() +" s where s.placa like lower( :placa ) " ).setParameter("placa", "%"+placa.toLowerCase()+"%" ).list();
