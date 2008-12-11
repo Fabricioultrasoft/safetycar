@@ -196,9 +196,17 @@ public class Facade {
 		
 	}
 
+
+	public List<Servico> searchListServicoByDescricao(String descricao) {
+		return cadastroServico.searchListServicoByDescricao(descricao);
+		
+	}
+
+
 	public EnderecoBase findEnderecoBaseByCep(String cep) {
 		return cadastroEnderecoBase.findEnderecoBaseByCep(cep);
 		
 	}
+
 
 }

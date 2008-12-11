@@ -310,6 +310,9 @@ public class OSView extends BasicView {
 
 								@Override
 								public void widgetSelected(SelectionEvent event) {
+									if (isUpdate){ 
+										openView(OSListView.ID);
+									}
 									closeView();
 								}
 
@@ -384,6 +387,7 @@ public class OSView extends BasicView {
 	}
 
 	private void loadData() {
+		isUpdate = false;
 		listServicoTableViewers = new ArrayList<Servico>();
 		listProdutoTableViewers = new ArrayList<Produto>();
 
@@ -449,6 +453,10 @@ public class OSView extends BasicView {
 			labelErro.setText(e.getMessage());
 		} catch (Exception e) {
 			labelErro.setText(e.getMessage());
+		} finally{
+			if (! isUpdate){
+				ordemServico = null;
+			}
 		}
 
 	}
@@ -604,8 +612,9 @@ public class OSView extends BasicView {
 	}
 
 	public void loadOS(OrdemServico os) {
+		isUpdate = true;
 		this.ordemServico = os;
-
+		
 		cComboMecanico.select( cComboMecanico.indexOf( this.ordemServico.getMecanico()
 				.getNomeRazaoSocial()));
 		cComboAutomovel.select( cComboAutomovel.indexOf(this.ordemServico.getAutomovel().getPlaca()));

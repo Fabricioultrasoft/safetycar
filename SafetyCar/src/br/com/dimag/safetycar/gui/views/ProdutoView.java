@@ -196,7 +196,7 @@ public class ProdutoView extends BasicView {
 								@Override
 								public void widgetSelected(SelectionEvent event) {
 									if (isUpdate){ 
-			//TODO						openView(produtoListView.ID);
+									openView(ProdutoListView.ID);
 									}
 									
 									closeView();

@@ -137,7 +137,7 @@ public class ServicoView extends BasicView {
 								@Override
 								public void widgetSelected(SelectionEvent event) {
 									if (isUpdate){ 
-			//TODO						openView(servicoListView.ID);
+										openView(ServicoListView.ID);
 									}
 									
 									closeView();
