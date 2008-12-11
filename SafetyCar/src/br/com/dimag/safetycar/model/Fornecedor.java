@@ -31,4 +31,9 @@ public class Fornecedor extends BaseEntity {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone.trim();
 	}
+
+	@Override
+	public String getTextDefault() {
+		return nome;
+	}
 }

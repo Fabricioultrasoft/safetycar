@@ -30,6 +30,7 @@ import br.com.dimag.safetycar.exception.DadosInsuficientesException;
 import br.com.dimag.safetycar.exception.ValidatorException;
 import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
 import br.com.dimag.safetycar.model.Automovel;
+import br.com.dimag.safetycar.model.BaseEntity;
 import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.Funcionario;
 import br.com.dimag.safetycar.model.OrdemServico;
@@ -49,6 +50,29 @@ import br.com.dimag.safetycar.model.OrdemServico.StatusOrdemServico;
  * ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
 public class OSView extends BasicView {
+
+	public class Model<T extends BaseEntity>{
+		private T type;
+		private int comboIndex;
+		
+		public Model(T type, int comboIndex){
+			this.type = type;
+			this.comboIndex = comboIndex;
+		}
+		
+		public T getType() {
+			return type;
+		}
+		public void setType(T type) {
+			this.type = type;
+		}
+		public int getComboIndex() {
+			return comboIndex;
+		}
+		public void setComboIndex(int comboIndex) {
+			this.comboIndex = comboIndex;
+		}
+	}
 
 	public static final String ID = "SafetyCar.os";
 	private Group groupDadosOS;
@@ -79,6 +103,13 @@ public class OSView extends BasicView {
 
 	private List<Servico> listServicoTableViewers;
 	private List<Produto> listProdutoTableViewers;
+	
+	private List<Model<BaseEntity>> listComboAumovel = new ArrayList<Model<BaseEntity>>();
+	private List<Model<BaseEntity>> listComboCliente = new ArrayList<Model<BaseEntity>>();
+	private List<Model<BaseEntity>> listComboAtendente = new ArrayList<Model<BaseEntity>>();
+	private List<Model<BaseEntity>> listComboMecanico = new ArrayList<Model<BaseEntity>>();
+	private List<Model<BaseEntity>> listComboProdutos = new ArrayList<Model<BaseEntity>>();
+	private List<Model<BaseEntity>> listComboServicos = new ArrayList<Model<BaseEntity>>();
 
 	@Override
 	public void createPartControl(Composite composite) {
@@ -432,78 +463,34 @@ public class OSView extends BasicView {
 		listProdutoTableViewers = new ArrayList<Produto>();
 		HibernateUtil.getSession().beginTransaction();
 
-		List<Automovel> listAutomovel = Facade.getInstance().listAutomovel();
-		String selected = "";
-		if (cComboAutomovel.getSelectionIndex() != -1) {
-			selected = cComboAutomovel.getText();
-		}
-		cComboAutomovel.removeAll();
-		for (Automovel automovel : listAutomovel) {
-			cComboAutomovel.setData(automovel.getPlaca(), automovel);
-			cComboAutomovel.add(automovel.getPlaca());
-		}
-		if (!selected.isEmpty()) {
-			cComboAutomovel.select(cComboAutomovel.indexOf(selected));
-		}
+		List<BaseEntity> list = new ArrayList<BaseEntity>();
+		
+		list.addAll(Facade.getInstance().listAutomovel());
+		populateCombo(cComboAutomovel, listComboAumovel, list);
+		
+		list.clear();
+		list.addAll(Facade.getInstance().listCliente());
+		populateCombo(cComboCliente,listComboCliente ,list );
+		
+		list.clear();
+		list.addAll( Facade.getInstance().listAtendente());
+		populateCombo(cComboAtendente,listComboAtendente , list);
+		
+		list.clear();
+		list.addAll(Facade.getInstance().listMecanico());
+		populateCombo(cComboMecanico,listComboMecanico , list);
+		
+		list.clear();
+		list.addAll(Facade.getInstance().listMecanico());
+		populateCombo(cComboServicos,listComboServicos , list);
 
-		selected = "";
-		if (cComboCliente.getSelectionIndex() != -1) {
-			selected = cComboCliente.getText();
-		}
-		cComboCliente.removeAll();
-		List<Cliente> listCliente = Facade.getInstance().listCliente();
-		for (Cliente cliente : listCliente) {
-			cComboCliente.setData(cliente.getNomeRazaoSocial(), cliente);
-			cComboCliente.add(cliente.getNomeRazaoSocial());
-		}
-		if (!selected.isEmpty()) {
-			cComboCliente.select(cComboCliente.indexOf(selected));
-		}
+		list.clear();
+		list.addAll(Facade.getInstance().listServico());
+		populateCombo(cComboProdutos,listComboProdutos , list);
 
-		selected = "";
-		if (cComboAtendente.getSelectionIndex() != -1) {
-			selected = cComboAtendente.getText();
-		}
-		cComboAtendente.removeAll();
-		List<Funcionario> listAtendente = Facade.getInstance().listAtendente();
-		for (Funcionario funcionario : listAtendente) {
-			cComboAtendente.setData(funcionario.getNomeRazaoSocial(),
-					funcionario);
-			cComboAtendente.add(funcionario.getNomeRazaoSocial());
-		}
-		if (!selected.isEmpty()) {
-			cComboAtendente.select(cComboAtendente.indexOf(selected));
-		}
-
-		selected = "";
-		if (cComboMecanico.getSelectionIndex() != -1) {
-			selected = cComboMecanico.getText();
-		}
-		cComboMecanico.removeAll();
-		List<Funcionario> listMecanico = Facade.getInstance().listMecanico();
-		for (Funcionario funcionario : listMecanico) {
-			cComboMecanico.setData(funcionario.getNomeRazaoSocial(),
-					funcionario);
-			cComboMecanico.add(funcionario.getNomeRazaoSocial());
-		}
-		if (!selected.isEmpty()) {
-			cComboMecanico.select(cComboMecanico.indexOf(selected));
-		}
-
-		List<Servico> listServico = Facade.getInstance().listServico();
-		cComboServicos.removeAll();
-		for (Servico servico : listServico) {
-			cComboServicos.setData(servico.getDescricao(), servico);
-			cComboServicos.add(servico.getDescricao());
-		}
-
-		List<Produto> listProduto = Facade.getInstance().listProduto();
-		cComboProdutos.removeAll();
-		for (Servico servico : listServico) {
-			cComboProdutos.setData(servico.getDescricao(), servico);
-			cComboProdutos.add(servico.getDescricao());
-		}
-
+		/*
+		 * StatusOrdemServico
+		 */
 		StatusOrdemServico selectedTipo = null;
 		if (cComboStatusOrdemServico.getSelectionIndex() != -1) {
 			String key = cComboStatusOrdemServico
@@ -522,6 +509,29 @@ public class OSView extends BasicView {
 					.indexOf(selectedTipo.getDescricao()));
 		}
 	}
+
+	private void populateCombo(CCombo combo, List<Model<BaseEntity>> listCombo, List<BaseEntity> listNewItems) {
+		int selectedId = 0;
+		if (combo.getSelectionIndex() != -1) {
+			selectedId = listCombo.get(combo.getSelectionIndex()).getType().getId();
+		}
+		listCombo.clear(); 
+		combo.removeAll();
+		int i = 0;
+		int selectedIndex = -1;
+		for (BaseEntity base : listNewItems) {
+			if (base.getId() == selectedId){
+				selectedIndex = i;
+			}
+			listCombo.add(i++, new Model<BaseEntity>(base,i));
+			combo.add(base.getTextDefault(), i);
+		}
+		if (selectedIndex != -1) {
+			cComboAutomovel.select(selectedIndex);
+		}
+	}
+	
+	
 
 	@Override
 	public void setFocus() {

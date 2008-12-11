@@ -36,4 +36,10 @@ public class Servico extends BaseEntity{
 		this.descricao = descricao;
 	}
 
+
+	@Override
+	public String getTextDefault() {
+		return descricao;
+	}
+
 }

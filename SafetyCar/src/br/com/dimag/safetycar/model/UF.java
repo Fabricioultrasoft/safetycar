@@ -29,4 +29,8 @@ public class UF extends BaseEntity{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	@Override
+	public String getTextDefault() {
+		return sigla;
+	}
 }

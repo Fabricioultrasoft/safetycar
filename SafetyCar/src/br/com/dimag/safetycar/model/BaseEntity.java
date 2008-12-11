@@ -29,6 +29,8 @@ public abstract class BaseEntity {
 		}
 		return false;
 	}
+	
+	public abstract String getTextDefault();
 }
 
 	

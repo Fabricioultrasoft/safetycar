@@ -120,4 +120,9 @@ public class Automovel extends BaseEntity {
 		this.tipoCombustivel = tipoCombustivel;
 	}
 
+	@Override
+	public String getTextDefault() {
+		return this.placa;
+	}
+
 }

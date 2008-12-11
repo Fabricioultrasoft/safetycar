@@ -76,4 +76,9 @@ public class Produto extends BaseEntity {
 		this.valorUnitario = valorUnitario;
 	}
 
+	@Override
+	public String getTextDefault() {
+		return descricao;
+	}
+
 }

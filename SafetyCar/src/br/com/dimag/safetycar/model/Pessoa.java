@@ -146,5 +146,9 @@ public abstract class Pessoa extends BaseEntity {
 		this.endereco = endereco;
 	}
 
+	@Override
+	public String getTextDefault(){
+		return this.nomeRazaoSocial;
+	}
 	
 }

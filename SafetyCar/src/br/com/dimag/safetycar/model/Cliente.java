@@ -37,4 +37,5 @@ public class Cliente extends Pessoa {
 	public void setTelefoneCelular(String telefoneCelular) {
 		this.telefoneCelular = telefoneCelular;
 	}
+	
 }
