@@ -118,6 +118,14 @@ public class OSListView extends BasicView {
 		viewer.getControl().setFocus();
 	}
 	
-	
+//	private void pesquisar() {
+//		// dados servico
+//		if ( textDescricao.getText().equals("")){
+//			listServicos = Facade.getInstance().listServico();
+//		}else{
+//			listServicos = Facade.getInstance().searchListServicoByDescricao(textDescricao.getText());
+//		}
+//		viewer.setInput(listServicos);
+//	}
 	
 }
