@@ -112,16 +112,18 @@ public class NavigationView extends BasicView {
      * code, you will connect to a real model and expose its hierarchy.
      */
     private TreeObject createDummyModel() {
-        TreeObject to1 = new TreeObject("Inbox");
-        TreeObject to2 = new TreeObject("Drafts");
-        TreeObject to3 = new TreeObject("Sent");
-        TreeParent p1 = new TreeParent("me@this.com");
+        TreeObject to1 = new TreeObject("Augusto Pelzer");
+        TreeObject to2 = new TreeObject("Diego Schmith");
+        TreeObject to3 = new TreeObject("Gustavo Porpino");
+        TreeObject to5 = new TreeObject("Mario Duarte");
+        TreeParent p1 = new TreeParent("Equipe DIMAG");
         p1.addChild(to1);
         p1.addChild(to2);
         p1.addChild(to3);
-
-        TreeObject to4 = new TreeObject("Inbox");
-        TreeParent p2 = new TreeParent("other@aol.com");
+        p1.addChild(to5);
+        
+        TreeObject to4 = new TreeObject("João Murilo");
+        TreeParent p2 = new TreeParent("Professor");
         p2.addChild(to4);
 
         TreeParent root = new TreeParent("");
