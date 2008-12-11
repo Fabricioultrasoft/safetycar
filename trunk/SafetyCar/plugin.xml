@@ -136,7 +136,7 @@
       <key
             commandId="org.eclipse.ui.file.exit"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="CTRL+X">
+            sequence="ESC">
       </key>
    </extension>
    <extension

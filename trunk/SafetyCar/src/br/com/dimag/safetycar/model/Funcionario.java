@@ -4,7 +4,6 @@ import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -19,15 +18,30 @@ public class Funcionario extends Pessoa {
 	/**
 	 * Relação tabela TipoFuncionario que possui descricao e salarioBase
 	 */
-	@ManyToOne
-	private TipoFuncionario tipoFuncionario;
-	
 	@NotNull
 	@GeneratedValue
 	private int matricula;
 	
 	@NotNull
 	private Date dataAdmissao;
+	
+	private TipoFuncionario tipoFuncionario;
+	
+	public enum TipoFuncionario{
+		ATENDENTE("Atendente"),
+		MECANICO("Mecânico");
+		
+		public String descricao;
+		
+		private TipoFuncionario(String descricao){
+			this.descricao = descricao;
+		}
+
+		public String getDescricao() {
+			return descricao;
+		}
+		
+	}
 
 	public TipoFuncionario getTipoFuncionario() {
 		return tipoFuncionario;

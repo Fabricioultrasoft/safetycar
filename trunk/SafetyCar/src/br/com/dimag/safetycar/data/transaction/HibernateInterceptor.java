@@ -24,25 +24,37 @@ public abstract class HibernateInterceptor implements MethodInterceptor {
 		Object result = null;
 		
 		boolean isTransactional = isTransactional(object, method);
+		boolean isAlreadyAtive = false;
 		if (isTransactional) {
-			HibernateUtil.beginTransaction();
+			if (!HibernateUtil.getSession().getTransaction().isActive()){
+				HibernateUtil.beginTransaction();
+			}else{
+				isAlreadyAtive = true;
+			}
+			
 		}
 		try {
 			result = methodProxy.invokeSuper(object, args);
 			if (isTransactional) {
-				HibernateUtil.flush();
-				HibernateUtil.commitTransaction();
+				if (!isAlreadyAtive){
+					HibernateUtil.flush();
+					HibernateUtil.commitTransaction();
+				}
 			}
 		} catch (Exception e) {
 			for (Object obj : args) {
 				System.out.println("obj:" + obj);
 			}
 			if (isTransactional) {
-				HibernateUtil.rollbackTransaction();
+				if (!isAlreadyAtive){
+					HibernateUtil.rollbackTransaction();
+				}
 			}
 			throw e;
 		} finally {
-			HibernateUtil.closeSession();
+			if (!isAlreadyAtive){
+				HibernateUtil.closeSession();
+			}
 		}
 		return result;
 	}

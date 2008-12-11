@@ -8,6 +8,7 @@ import br.com.dimag.safetycar.data.transaction.HibernateTransaction;
 import br.com.dimag.safetycar.data.transaction.HibernateUtil;
 import br.com.dimag.safetycar.data.transaction.TransactionClass;
 import br.com.dimag.safetycar.model.Funcionario;
+import br.com.dimag.safetycar.model.Funcionario.TipoFuncionario;
 
 public class RepositoryFuncionario implements IRepositoryFuncionario {
 
@@ -52,11 +53,11 @@ public class RepositoryFuncionario implements IRepositoryFuncionario {
 
 	public List<Funcionario> listAtendente() {
 		return HibernateUtil.getSession().createQuery(
-				"from " + clazz.getSimpleName() +" f where f.tipoFuncionario.descricao = :atendenteDesc ").setParameter("atendenteDesc", "Atendente").list();
+				"from " + clazz.getSimpleName() +" f where f.tipoFuncionario = :atendente ").setParameter("atendente", TipoFuncionario.ATENDENTE).list();
 	}
 
 	public List<Funcionario> listMecanico() {
 		return HibernateUtil.getSession().createQuery(
-				"from " + clazz.getSimpleName() +" f where f.tipoFuncionario.descricao = :mecanicoDesc ").setParameter("mecanicoDesc", "Mecânico").list();
+				"from " + clazz.getSimpleName() +" f where f.tipoFuncionario = :mecanico ").setParameter("mecanico", TipoFuncionario.MECANICO).list();
 	}
 }

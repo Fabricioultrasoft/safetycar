@@ -26,12 +26,6 @@ public class OrdemServico extends BaseEntity {
 	private String defeitoReclamado;
 
 	@NotNull
-	private String statusOrdemServico;
-
-	@NotNull
-	private ClassificacaoOrdemServico classificacaoOrdemServico;
-
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "atendenteId")
 	@Cascade(value=CascadeType.SAVE_UPDATE)
@@ -69,6 +63,12 @@ public class OrdemServico extends BaseEntity {
 	@Cascade(value=CascadeType.SAVE_UPDATE)
 	private List<Produto> produtos;
 	
+	@NotNull
+	private StatusOrdemServico statusOrdemServico;
+
+	@NotNull
+	private ClassificacaoOrdemServico classificacaoOrdemServico;
+	
 	public enum ClassificacaoOrdemServico {
 		ABERTA, CANCELADA, FECHADA, QUITADA
 	}
@@ -83,13 +83,13 @@ public class OrdemServico extends BaseEntity {
 		EM_EXECUCAO("EM EXECUÇAO"),
 		FINALIZADA ("FINALIZADA");
 		
-		private String statusOrdemServico;
+		private String descricao;
 	
-		private StatusOrdemServico(String statusOrdemServico){
-			this.statusOrdemServico = statusOrdemServico;
+		private StatusOrdemServico(String descricao){
+			this.descricao = descricao;
 		}
-		public String getStatusOrdemServico(){
-			return statusOrdemServico;
+		public String getDescricao(){
+			return descricao;
 		}
 		
 	}
@@ -102,11 +102,11 @@ public class OrdemServico extends BaseEntity {
 		this.defeitoReclamado = defeitoReclamado;
 	}
 
-	public String getStatusOrdemServico() {
+	public StatusOrdemServico getStatusOrdemServico() {
 		return statusOrdemServico;
 	}
 
-	public void setStatusOrdemServico(String statusOrdemServico) {
+	public void setStatusOrdemServico(StatusOrdemServico statusOrdemServico) {
 		this.statusOrdemServico = statusOrdemServico;
 	}
 
