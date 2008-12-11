@@ -39,7 +39,7 @@ public class MainView extends BasicView {
 					{
 						label1 = new Label(cTabFolder1, SWT.NONE);
 						cTabItem1.setControl(label1);
-						label1.setText("INICIO");
+						label1.setText("Sistema de Oficina Automotiva");
 					}
 				}
 				cTabFolder1.setSelection(0);
