@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
@@ -20,13 +21,12 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.PlatformUI;
 
 import br.com.dimag.safetycar.business.Facade;
-import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
 import br.com.dimag.safetycar.model.Servico;
+import br.com.dimag.safetycar.util.FormatUtil;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -49,19 +49,33 @@ public class ServicoListView extends BasicView {
 	private Label labelDescricao;
 	private Text textDescricao;
 
-	// INICIO DA LOUCURA
-
-	// LABEL ERROS
-	private Label labelErro;
-
 	// BOTÕES DE CONFIRMA E CANCELAR
-	private Button buttonCancelar;
 	private Button buttonPesquisar;
-
-	private Servico servico;
 
 	public ServicoListView() {
 		listServicos = new ArrayList<Servico>();
+
+	}
+	
+	public enum ColumnProperty{
+		DESCRICAO("Descrição",200),
+		VALOR_UNITARIO("Valor Unitário",200);
+		
+		private String name;
+		private int width;
+		
+		private ColumnProperty(String name,int width){
+			this.name = name;
+			this.width = width;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public int getWidth() {
+			return width;
+		}
 
 	}
 
@@ -81,30 +95,24 @@ public class ServicoListView extends BasicView {
 
 	}
 
-	class ViewLabelProvider extends LabelProvider {
+	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 
-		public String getText(Object obj) {
-			Servico servico = (Servico) obj;
-			return servico.getDescricao();
+		@Override
+		public Image getColumnImage(Object arg0, int arg1) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
-		public Image getImage(Object obj) {
-			String imageKey = ISharedImages.IMG_OBJ_ELEMENT;
-			if (obj instanceof TreeParent)
-				imageKey = ISharedImages.IMG_OBJ_FOLDER;
-			return PlatformUI.getWorkbench().getSharedImages().getImage(
-					imageKey);
+		@Override
+		public String getColumnText(Object element, int columnIndex) {
+			Servico servico = (Servico)element;
+			if (columnIndex == ColumnProperty.DESCRICAO.ordinal()){
+				return servico.getDescricao();
+			}else if (columnIndex == ColumnProperty.VALOR_UNITARIO.ordinal()){
+				return FormatUtil.formatDouble(servico.getValorServico());
+			}
+			return "";
 		}
-	}
-
-	/**
-	 * We will set up a dummy model to initialize tree heararchy. In real code,
-	 * you will connect to a real model and expose its hierarchy.
-	 */
-	private List<Servico> createModel() {
-		listServicos = Facade.getInstance().listServico();
-
-		return listServicos;
 	}
 
 	/**
@@ -113,11 +121,21 @@ public class ServicoListView extends BasicView {
 	 */
 	public void createPartControl(Composite composite) {
 		{
+			
 			composite.setSize(484, 418);
+			GridLayout mainLayout = new GridLayout();
+			mainLayout.numColumns = 1;
+			composite.setLayout(mainLayout);
 			{
 				groupDadosServico = new Group(composite, SWT.NONE);
 				GridLayout dadosServicoLayout = new GridLayout();
 				dadosServicoLayout.numColumns = 2;
+				
+				GridData dadosServicoLData = new GridData();
+				dadosServicoLData.verticalAlignment = SWT.FILL;
+				dadosServicoLData.horizontalAlignment = SWT.FILL;
+				groupDadosServico.setLayoutData(dadosServicoLData);
+				
 				groupDadosServico.setLayout(dadosServicoLayout);
 				groupDadosServico.setText("Dados da Consulta Serviço");
 				groupDadosServico.setSize(243, 215);
@@ -163,26 +181,29 @@ public class ServicoListView extends BasicView {
 
 							});
 				}
-				// LABEL ERRO
-				{
-					labelErro = new Label(groupDadosServico, SWT.NONE);
-					GridData labelErroLData = new GridData();
-					labelErroLData.horizontalAlignment = GridData.FILL;
-					labelErroLData.horizontalSpan = 2;
-					labelErroLData.grabExcessHorizontalSpace = true;
-					labelErroLData.widthHint = 319;
-					labelErroLData.heightHint = 26;
-					labelErro.setLayoutData(labelErroLData);
-					labelErro.setText("");
-				}
 
 				// PRA BAIXO JA ESTAVA
-				viewer = new TableViewer(composite, SWT.MULTI | SWT.H_SCROLL
-						| SWT.V_SCROLL | SWT.BORDER_SOLID);
-				viewer.setColumnProperties(new String[] { "Descrição",
-						"Valor Serviço" });
+
+				
+				viewer = new TableViewer(composite, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL| SWT.BORDER_SOLID);
+				viewer.getTable().setLinesVisible(true);
+				viewer.getTable().setHeaderVisible(true);
+
 				viewer.setContentProvider(new ViewContentProvider());
+				GridData viewerLData = new GridData();
+				viewerLData.grabExcessHorizontalSpace = true;
+				viewerLData.grabExcessVerticalSpace = true;
+				viewerLData.horizontalAlignment = SWT.FILL;
+				viewerLData.verticalAlignment = SWT.FILL;
+				viewer.getControl().setLayoutData(viewerLData);
 				viewer.setLabelProvider(new ViewLabelProvider());
+				
+				for (ColumnProperty columnProperty : ColumnProperty.values()){
+					TableColumn coluna = new TableColumn(viewer.getTable(),SWT.NONE);
+					coluna.setText(columnProperty.getName());
+					coluna.setWidth(columnProperty.getWidth());
+				}
+				
 				viewer.addDoubleClickListener(new IDoubleClickListener() {
 
 					@Override
