@@ -211,7 +211,7 @@ public class Facade {
 		return cadastroEndereco.findEnderecoBaseByCep(cep);
 		
 	}
-
+	//Autenticação de Usuário
 	public Usuario autenticacaoUsuario(String login, String senha) {
 		// TODO Auto-generated method stub
 		return cadastroUsuario.autenticacaoUsuario(login,senha);
@@ -220,4 +220,26 @@ public class Facade {
 		return cadastroOrdemServico.searchListServicoByDescricao(placa);
 	}
 
+	public void atualizarUsuario(Usuario usuario) throws DadosInsuficientesException, DataException, FacadeException {
+		// TODO Auto-generated method stub
+		try {
+			cadastroUsuario.atualizar(usuario);
+		} catch (DadosInsuficientesException e) {
+			throw new FacadeException(e.getMessage());
+		}
+
+	}
+
+	public void cadastrarUsuario(Usuario usuario)throws DadosInsuficientesException, DataException, FacadeException {
+		// TODO Auto-generated method stub
+		try {
+			cadastroUsuario.inserir(usuario);
+		} catch (DadosInsuficientesException e) {
+			throw new FacadeException(e.getMessage());
+		}
+	}
 }
+	
+	
+	
+
