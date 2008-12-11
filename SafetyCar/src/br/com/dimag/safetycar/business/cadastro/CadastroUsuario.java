@@ -44,4 +44,8 @@ public class CadastroUsuario {
 	public Usuario autenticacaoUsuario(String login, String senha) {
 		return repository.autenticacaoUsuario(login,senha);
 	}
+
+	public List<Usuario> searchListServicoByDescricao(String login) {
+		return repository.searchListServicoByDescricao(login);
+	}
 }
