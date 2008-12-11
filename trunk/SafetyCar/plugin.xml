@@ -147,7 +147,7 @@
             name="Safety Car">
          <property
                name="aboutText"
-               value="RCP Mail template created by PDE">
+               value="DIMAG Safety Car created by Gustavo Porpino, Augusto Pelzer, Mario Duarte e Diego Schmith.">
          </property>
          <property
                name="windowImages"
