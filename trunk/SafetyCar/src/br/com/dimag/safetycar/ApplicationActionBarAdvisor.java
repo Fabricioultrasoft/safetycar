@@ -72,23 +72,23 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         newWindowAction = ActionFactory.OPEN_NEW_WINDOW.create(window);
         register(newWindowAction);
         
-        clienteViewAction = new ViewBasicAction(window, "Cadastro de Clientes", ClienteView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        clienteViewAction = new ViewBasicAction(window, "Cadastro de Clientes", ClienteView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/cadastrarclienteG.jpg"));
         register(clienteViewAction);
         
-        OSViewAction = new ViewBasicAction(window, "Ordem de Serviço", OSView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        OSViewAction = new ViewBasicAction(window, "Ordem de Serviço", OSView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/cadastrarOSG.jpg"));
         register(OSViewAction);
         
-        clienteListViewAction = new ViewBasicAction(window, "Lista de Clientes", ClienteListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        OSListViewAction = new ViewBasicAction(window, "Lista de Ordem de Serviço",OSListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/listarOSG.jpg"));
+        register(OSListViewAction);
+        
+        clienteListViewAction = new ViewBasicAction(window, "Lista de Clientes", ClienteListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/listarclienteG.jpg"));
         register(clienteListViewAction);
         
-        automovelViewAction = new ViewBasicAction(window, "Cadastro de Automoveis", AutomovelView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
+        automovelViewAction = new ViewBasicAction(window, "Cadastro de Automoveis", AutomovelView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/cadastrarAutomovelG.jpg"));
         register(automovelViewAction);
         
         automovelListViewAction = new ViewBasicAction(window, "Lista de Automovel", AutomovelListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(automovelListViewAction);
-        
-        OSListViewAction = new ViewBasicAction(window, "Lista de Ordem de Serviço",OSListView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
-        register(OSListViewAction);
         
         produtoViewAction = new ViewBasicAction(window, "Cadastro de Produtos",ProdutoView.ID,br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample2.gif"));
         register(produtoViewAction);
@@ -106,9 +106,12 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     
     protected void fillMenuBar(IMenuManager menuBar) {
         MenuManager fileMenu = new MenuManager("&File", IWorkbenchActionConstants.M_FILE);
+        MenuManager listMenu = new MenuManager("&List", IWorkbenchActionConstants.M_FILE);
         MenuManager helpMenu = new MenuManager("&Help", IWorkbenchActionConstants.M_HELP);
         
         menuBar.add(fileMenu);
+        menuBar.add(listMenu);
+        
         // Add a group marker indicating where action set menus will appear.
         menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
         menuBar.add(helpMenu);
@@ -118,17 +121,18 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(new Separator());
         fileMenu.add(clienteViewAction);
         fileMenu.add(OSViewAction);
-        fileMenu.add(OSListViewAction);
-        fileMenu.add(clienteListViewAction);
         fileMenu.add(automovelViewAction);
-        fileMenu.add(automovelListViewAction);
         fileMenu.add(produtoViewAction);
-        fileMenu.add(produtoListViewAction);
         fileMenu.add(servicoViewAction);
-        fileMenu.add(servicoListViewAction);
         fileMenu.add(new Separator());
         fileMenu.add(exitAction);
         
+        // List
+        listMenu.add(clienteListViewAction);
+        listMenu.add(OSListViewAction);
+        listMenu.add(automovelListViewAction);
+        listMenu.add(produtoListViewAction);
+        listMenu.add(servicoListViewAction);
         // Help
         helpMenu.add(aboutAction);
     }
