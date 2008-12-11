@@ -175,4 +175,9 @@ public class OrdemServico extends BaseEntity {
 		this.data = data;
 	}
 
+	@Override
+	public String getTextDefault() {
+		return this.cliente.getNomeRazaoSocial() +" - " + this.getAutomovel().getPlaca() + " - "+this.defeitoReclamado;
+	}
+
 }

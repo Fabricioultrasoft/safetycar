@@ -75,5 +75,10 @@ public class Endereco extends BaseEntity{
 	public UF getUf() {
 		return uf;
 	}
+
+	@Override
+	public String getTextDefault() {
+		return logradouro;
+	}
 	
 }
