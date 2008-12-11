@@ -51,7 +51,7 @@ public abstract class RepositoryUsuario implements IRepositoryUsuario {
 	@SuppressWarnings("unchecked")
 	@HibernateTransaction
 	public List<Usuario> list() {
-		return HibernateUtil.getSession().createQuery(
+		return  HibernateUtil.getSession().createQuery(
 				"from " + clazz.getSimpleName()).list();
 	}
 
