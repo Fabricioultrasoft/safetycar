@@ -8,21 +8,21 @@ import br.com.dimag.safetycar.ICommandIds;
 
 
 
-public class MessagePopupAction extends Action {
+public class ExitAction extends Action {
 
     private final IWorkbenchWindow window;
 
-    MessagePopupAction(String text, IWorkbenchWindow window) {
+    ExitAction(String text, IWorkbenchWindow window) {
         super(text);
         this.window = window;
         // The id is used to refer to the action in a menu or toolbar
-        setId(ICommandIds.CMD_OPEN_MESSAGE);
+        setId(ICommandIds.CMD_EXIT);
         // Associate the action with a pre-defined command, to allow key bindings.
-        setActionDefinitionId(ICommandIds.CMD_OPEN_MESSAGE);
+        setActionDefinitionId(ICommandIds.CMD_EXIT);
         setImageDescriptor(br.com.dimag.safetycar.Activator.getImageDescriptor("/icons/sample3.gif"));
     }
 
     public void run() {
-        MessageDialog.openInformation(window.getShell(), "Open", "Open Message Dialog!");
+        MessageDialog.openInformation(window.getShell(), "Exit", "Exit!");
     }
 }
