@@ -26,7 +26,7 @@ public class OrdemServico extends BaseEntity {
 	private String defeitoReclamado;
 
 	@NotNull
-	private StatusOrdemServico statusOrdemServico;
+	private String statusOrdemServico;
 
 	@NotNull
 	private ClassificacaoOrdemServico classificacaoOrdemServico;
@@ -74,9 +74,26 @@ public class OrdemServico extends BaseEntity {
 	}
 
 	public enum StatusOrdemServico {
-		AGUARDANDO_INSPECAO, EM_INSPECAO, AGUARDANDO_AUTORIZACAO, AUTORIZADO, NAO_AUTORIZADA, EM_EXECUCAO, FINALIZADA
+		
+		AGUARDANDO_INSPECAO ("AGUARDANDO_INSPEÇAO"),
+		EM_INSPECAO("EM_INPECAO"),
+		AGUARDANDO_AUTORIZACAO ("AGUARDANDO_AUTORIZAÇAO"), 
+		AUTORIZADO ("AUTORIZADO"), 
+		NAO_AUTORIZADA ("NAO AUTORIZADA"),
+		EM_EXECUCAO("EM EXECUÇAO"),
+		FINALIZADA ("FINALIZADA");
+		
+		private String statusOrdemServico;
+	
+		private StatusOrdemServico(String statusOrdemServico){
+			this.statusOrdemServico = statusOrdemServico;
+		}
+		public String getStatusOrdemServico(){
+			return statusOrdemServico;
+		}
+		
 	}
-
+	
 	public String getDefeitoReclamado() {
 		return defeitoReclamado;
 	}
@@ -85,11 +102,11 @@ public class OrdemServico extends BaseEntity {
 		this.defeitoReclamado = defeitoReclamado;
 	}
 
-	public StatusOrdemServico getStatusOrdemServico() {
+	public String getStatusOrdemServico() {
 		return statusOrdemServico;
 	}
 
-	public void setStatusOrdemServico(StatusOrdemServico statusOrdemServico) {
+	public void setStatusOrdemServico(String statusOrdemServico) {
 		this.statusOrdemServico = statusOrdemServico;
 	}
 

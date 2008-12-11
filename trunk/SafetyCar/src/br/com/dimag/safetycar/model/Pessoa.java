@@ -36,8 +36,7 @@ public abstract class Pessoa extends BaseEntity {
 	@NotEmpty
 	private String numeroEndereco;
 	
-	@NotNull
-	@NotEmpty
+	
 	@Length(max = 200)
 	private String complementoEndereco;
 	
