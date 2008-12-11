@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
@@ -15,67 +13,67 @@ public class Endereco extends BaseEntity{
 	
 	@NotNull
 	@NotEmpty
-	private String numero;
+	@Length(max = 200)
+	private String logradouro;
+	
+	@NotNull
+	@NotEmpty
+	@Length(max = 50)
+	private String bairro;
 	
 	@NotNull
 	@NotEmpty
 	@Length(max = 200)
-	private String complemento;
+	private String municipio;
+	
+	@NotNull
+	@NotEmpty
+	@Length(max = 8, min = 8)
+	private String cep;
 	
 	@ManyToOne
 	@NotNull
-	@JoinColumn(name = "ENDBASE_ID")
-	@Cascade(value=CascadeType.SAVE_UPDATE)
-	private EnderecoBase enderecoBase;
+	@JoinColumn(name = "UF_ID")
+	private UF uf;
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public void setUf(UF uf) {
+		this.uf = uf;
+	}
+
+	public UF getUf() {
+		return uf;
+	}
 	
-	@NotNull
-	private TipoEndereco tipoEndereco;
-	
-	public enum TipoEndereco{
-		COMERCIAL("Comercial"), 
-		RESIDENCIAL("Residencial");
-		
-		private String descricao;
-		
-		private TipoEndereco (String descricao){
-			this.descricao = descricao;
-		}
-		
-		public String getDescricao() {
-			return descricao;
-		}
-	}
-
-	public void setTipoEndereco(TipoEndereco tipoEndereco) {
-		this.tipoEndereco = tipoEndereco;
-	}
-
-	public TipoEndereco getTipoEndereco() {
-		return tipoEndereco;
-	}
-
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
-	public EnderecoBase getEnderecoBase() {
-		return enderecoBase;
-	}
-
-	public void setEnderecoBase(EnderecoBase enderecoBase) {
-		this.enderecoBase = enderecoBase;
-	}
-
 }
