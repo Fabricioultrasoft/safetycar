@@ -4,21 +4,27 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
+import org.w3c.dom.events.EventException;
 
 import br.com.dimag.safetycar.business.Facade;
 import br.com.dimag.safetycar.exception.FacadeException;
 import br.com.dimag.safetycar.exception.ValidatorException;
 import br.com.dimag.safetycar.model.Cliente;
 import br.com.dimag.safetycar.model.Endereco;
+import br.com.dimag.safetycar.model.EnderecoBase;
 import br.com.dimag.safetycar.model.UF;
 import br.com.dimag.safetycar.model.Endereco.TipoEndereco;
 import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
@@ -58,23 +64,27 @@ public class ClienteView extends BasicView {
 	private Label labelTipoEndereco;
 	// LABEL ERROS
 	private Label labelErro;
+	private Text textEnderecoNumero;
+	private Label labelNumero;
+	private Text textEnderecoComplemento;
+	private Label labelComplemento;
 	// CPF CNPJ
 	private Label labelCpfCnpj;
 	private Text textCpfCnpj;
 
-	//TELEFONE
+	// TELEFONE
 	private Text textTelefone;
 	private Label labelTelefone;
-	
-	//TELEFONE COMERCIAL
+
+	// TELEFONE COMERCIAL
 	private Text textTelefoneComercial;
 	private Label labelTelefoneComercial;
-	
-	//TELEFONE CELULAR
+
+	// TELEFONE CELULAR
 	private Text textTelefoneCelular;
 	private Label labelTelefoneCelular;
-	
-	//BOTÕES DE CONFIRMA E CANCELAR
+
+	// BOTÕES DE CONFIRMA E CANCELAR
 	private Button buttonCancelar;
 	private Button buttonConfirma;
 
@@ -91,6 +101,7 @@ public class ClienteView extends BasicView {
 
 	private Cliente cliente;
 
+	private EnderecoBase enderecoBase;
 
 	@Override
 	public void createPartControl(Composite composite) {
@@ -104,8 +115,8 @@ public class ClienteView extends BasicView {
 				groupDadosPessoais.setLayout(dadosPessoaisLayout);
 				groupDadosPessoais.setText("Dados Pessoais");
 				groupDadosPessoais.setSize(243, 215);
-				
-				//TIPO PESSOA
+
+				// TIPO PESSOA
 				{
 					labelTipoPessoa = new Label(groupDadosPessoais, SWT.NONE);
 					GridData labelUfLData = new GridData();
@@ -122,7 +133,7 @@ public class ClienteView extends BasicView {
 					cComboUfLData.heightHint = 16;
 					cComboTipoPessoa.setLayoutData(cComboUfLData);
 				}
-				
+
 				// NOME CLIENTE - RAZÃO SOCIAL
 
 				{
@@ -170,7 +181,31 @@ public class ClienteView extends BasicView {
 					nomeClienteLData.grabExcessHorizontalSpace = true;
 					textCpfCnpj.setLayoutData(nomeClienteLData);
 				}
+				{
+					labelEnderecoCep = new Label(groupDadosPessoais, SWT.NONE);
+					labelEnderecoCep.setText("Cep:");
+				}
+				{
+					GridData EndereçoLData = new GridData();
+					EndereçoLData.heightHint = 13;
+					EndereçoLData.horizontalAlignment = GridData.FILL;
+					EndereçoLData.grabExcessHorizontalSpace = true;
+					textEnderecoCep = new Text(groupDadosPessoais, SWT.NONE);
+					textEnderecoCep.setLayoutData(EndereçoLData);
+					textEnderecoCep.addFocusListener(new FocusListener() {
+						
+						@Override
+						public void focusGained(FocusEvent arg0) {
+							// TODO Auto-generated method stub
+						}
 
+						@Override
+						public void focusLost(FocusEvent arg0) {
+							checkCep();
+						}
+					});
+				}
+				
 				// CCOMBO TIPO ENDEREÇO
 				{
 					labelTipoEndereco = new Label(groupDadosPessoais, SWT.NONE);
@@ -189,7 +224,7 @@ public class ClienteView extends BasicView {
 					cComboTipoEnderecoLData.widthHint = 155;
 					cComboTipoEndereco.setLayoutData(cComboTipoEnderecoLData);
 				}
-				//LOGRADOURO
+				// LOGRADOURO
 				{
 					labelEndereco = new Label(groupDadosPessoais, SWT.NONE);
 					labelEndereco.setText("Endereço:");
@@ -206,8 +241,29 @@ public class ClienteView extends BasicView {
 
 				// BAIRRO
 				{
-					labelEnderecoBairro = new Label(groupDadosPessoais,
-							SWT.NONE);
+					labelNumero = new Label(groupDadosPessoais, SWT.NONE);
+					labelNumero.setText("Número:");
+				}
+				{
+					GridData textEnderecoNumeroLData = new GridData();
+					textEnderecoNumeroLData.grabExcessHorizontalSpace = true;
+					textEnderecoNumeroLData.horizontalAlignment = SWT.FILL;
+					textEnderecoNumero = new Text(groupDadosPessoais, SWT.NONE);
+					textEnderecoNumero.setLayoutData(textEnderecoNumeroLData);
+				}
+				{
+					labelComplemento = new Label(groupDadosPessoais, SWT.NONE);
+					labelComplemento.setText("Complemento:");
+				}
+				{
+					GridData textEnderecoComplementoLData = new GridData();
+					textEnderecoComplementoLData.grabExcessHorizontalSpace = true;
+					textEnderecoComplementoLData.horizontalAlignment = SWT.FILL;
+					textEnderecoComplemento = new Text(groupDadosPessoais, SWT.NONE);
+					textEnderecoComplemento.setLayoutData(textEnderecoComplementoLData);
+				}
+				{
+					labelEnderecoBairro = new Label(groupDadosPessoais, SWT.NONE);
 					labelEnderecoBairro.setText("Bairro:");
 				}
 				{
@@ -218,7 +274,7 @@ public class ClienteView extends BasicView {
 					textEnderecoBairro = new Text(groupDadosPessoais, SWT.NONE);
 					textEnderecoBairro.setLayoutData(EndereçoLData);
 				}
-
+				
 				// MUNICIPIO
 				{
 					labelEnderecoMunicipio = new Label(groupDadosPessoais,
@@ -236,20 +292,8 @@ public class ClienteView extends BasicView {
 				}
 
 				// CEP
-				{
-					labelEnderecoCep = new Label(groupDadosPessoais, SWT.NONE);
-					labelEnderecoCep.setText("Cep:");
-				}
-				{
-					GridData EndereçoLData = new GridData();
-					EndereçoLData.heightHint = 13;
-					EndereçoLData.horizontalAlignment = GridData.FILL;
-					EndereçoLData.grabExcessHorizontalSpace = true;
-					textEnderecoCep = new Text(groupDadosPessoais, SWT.NONE);
-					textEnderecoCep.setLayoutData(EndereçoLData);
-				}
-				
-				//LABEL UF
+
+				// LABEL UF
 				{
 					labelUf = new Label(groupDadosPessoais, SWT.NONE);
 					GridData labelUfLData = new GridData();
@@ -257,7 +301,7 @@ public class ClienteView extends BasicView {
 					labelUf.setLayoutData(labelUfLData);
 					labelUf.setText("UF:");
 				}
-				//CCOMBO UF
+				// CCOMBO UF
 				{
 					cComboUf = new CCombo(groupDadosPessoais, SWT.NONE);
 					GridData cComboUfLData = new GridData();
@@ -280,23 +324,26 @@ public class ClienteView extends BasicView {
 					textTelefone = new Text(groupDadosPessoais, SWT.NONE);
 					textTelefone.setLayoutData(textTelefoneLData);
 				}
-				
+
 				// TELEFONE COMERCIAL
 				{
-					labelTelefoneComercial = new Label(groupDadosPessoais, SWT.NONE);
+					labelTelefoneComercial = new Label(groupDadosPessoais,
+							SWT.NONE);
 					labelTelefoneComercial.setText("Telefone Comercial:");
 				}
 				{
 					GridData textTelefoneLData = new GridData();
 					textTelefoneLData.grabExcessHorizontalSpace = true;
 					textTelefoneLData.horizontalAlignment = GridData.FILL;
-					textTelefoneComercial = new Text(groupDadosPessoais, SWT.NONE);
+					textTelefoneComercial = new Text(groupDadosPessoais,
+							SWT.NONE);
 					textTelefoneComercial.setLayoutData(textTelefoneLData);
 				}
-				
+
 				// TELEFONE CELULAR
 				{
-					labelTelefoneCelular = new Label(groupDadosPessoais, SWT.NONE);
+					labelTelefoneCelular = new Label(groupDadosPessoais,
+							SWT.NONE);
 					labelTelefoneCelular.setText("Telefone Celular:");
 				}
 				{
@@ -306,10 +353,9 @@ public class ClienteView extends BasicView {
 					textTelefoneCelular = new Text(groupDadosPessoais, SWT.NONE);
 					textTelefoneCelular.setLayoutData(textTelefoneLData);
 				}
-	
 
 				// CCOMBO TIPOPESSOA
-				//view BOTÃO CONFIRMA
+				// view BOTÃO CONFIRMA
 				{
 					buttonConfirma = new Button(groupDadosPessoais, SWT.PUSH
 							| SWT.CENTER);
@@ -335,7 +381,7 @@ public class ClienteView extends BasicView {
 
 							});
 				}
-				//view BOTÃO CANCELAR
+				// view BOTÃO CANCELAR
 				{
 					buttonCancelar = new Button(groupDadosPessoais, SWT.PUSH
 							| SWT.CENTER);
@@ -383,6 +429,7 @@ public class ClienteView extends BasicView {
 		// UF
 		List<UF> listUFs = Facade.getInstance().listUf();
 		cComboUf.removeAll();
+		cComboUf.setEditable(false);
 		for (UF uf : listUFs) {
 			cComboUf.setData(uf.getDescricao(), uf);
 			cComboUf.add(uf.getDescricao());
@@ -399,10 +446,31 @@ public class ClienteView extends BasicView {
 			cComboTipoPessoa.setData(tipo.getDescricao(), tipo);
 			cComboTipoPessoa.add(tipo.getDescricao());
 		}
-
 	}
-	
-	//Obrigatório
+
+	private void checkCep() {
+		enderecoBase = Facade.getInstance().findEnderecoBaseByCep(
+				textEnderecoCep.getText());
+		if (enderecoBase != null) {
+			textEndereco.setText(enderecoBase.getLogradouro());
+			textEnderecoBairro.setText(enderecoBase.getBairro());
+			textEnderecoMunicipio.setText(enderecoBase.getMunicipio());
+			cComboUf.select(cComboUf.indexOf(enderecoBase.getUf()
+					.getDescricao()));
+
+			textEndereco.setEditable(false);
+			textEnderecoBairro.setEditable(false);
+			textEnderecoMunicipio.setEditable(false);
+			cComboUf.setEnabled(false);
+		} else {
+			textEndereco.setEditable(true);
+			textEnderecoBairro.setEditable(true);
+			textEnderecoMunicipio.setEditable(true);
+			cComboUf.setEnabled(true);
+		}
+	}
+
+	// Obrigatório
 	@Override
 	public void setFocus() {
 
@@ -426,110 +494,153 @@ public class ClienteView extends BasicView {
 			labelErro.setText(e.getMessage());
 		} catch (ValidatorException e) {
 			labelErro.setText(e.getMessage());
-		}finally{
-			if (!isUpdate){
+		} finally {
+			if (!isUpdate) {
 				cliente = null;
+				enderecoBase = null;
 			}
 		}
 
 	}
 
 	private void fillCliente() throws ValidatorException {
-		//SET NOME RAZAOSOCIAL
-		if (textNomeCliente.getText() == null || textNomeCliente.getText().equals("")){
+		// SET NOME RAZAOSOCIAL
+		if (textNomeCliente.getText() == null
+				|| textNomeCliente.getText().equals("")) {
 			throw new ValidatorException("O Campo Nome Cliente é obrigatório!");
 		}
 		cliente.setNomeRazaoSocial(textNomeCliente.getText());
-		
-		//SET APELIDOFANTASIA PODE SER NULO
+
+		// SET APELIDOFANTASIA PODE SER NULO
 		cliente.setApelidoFantasia(textApelidoFantasia.getText());
-		
-		//SET CPFCNPJ
-		if (textCpfCnpj.getText() == null || textCpfCnpj.getText().equals("")){
+
+		// SET CPFCNPJ
+		if (textCpfCnpj.getText() == null || textCpfCnpj.getText().equals("")) {
 			throw new ValidatorException("O Campo Cpf/Cnpj é obrigatório!");
 		}
-		if ((textCpfCnpj.getText().length() == 11) || (textCpfCnpj.getText().length() == 14)){
+		if ((textCpfCnpj.getText().length() == 11)
+				|| (textCpfCnpj.getText().length() == 14)) {
 			cliente.setCpfCnpj(textCpfCnpj.getText());
-		} else{
-			throw new ValidatorException("O Campo Cpf/Cnpj deve ser preenchido sem traço e com 11 ou 14 dígitos!");
+		} else {
+			throw new ValidatorException(
+					"O Campo Cpf/Cnpj deve ser preenchido sem traço e com 11 ou 14 dígitos!");
 		}
-		//Declaração de string key para ser usada nos cCombos 
+		// Declaração de string key para ser usada nos cCombos
 		String key;
-		//SET Seleção cCombo UF
-		UF uf = null;
-		if (cComboUf.getSelectionIndex() != -1) {
-			key = cComboUf.getItem(cComboUf.getSelectionIndex());
-			uf = (UF) cComboUf.getData(key);
-		} else{throw new ValidatorException("Selecionar uma UF é obrigatório!");}
 
+		if (enderecoBase == null) {
+			enderecoBase = new EnderecoBase();
+
+			// Set CEP
+			// validação de preenchimento de campo
+			if (textEnderecoCep.getText() == null
+					|| textEnderecoCep.getText().equals("")) {
+				throw new ValidatorException("O Campo CEP é obrigatório!");
+			}
+			// validação de formatação do campo
+			if (textEnderecoCep.getText().length() != 8) {
+				throw new ValidatorException(
+						"O Campo CEP deve ser preenchido conforme exemplo: 51023000");
+			}
+			enderecoBase.setCep(textEnderecoCep.getText());
+			// Set LOGRADOURO
+			if (textEndereco.getText() == null
+					|| textEndereco.getText().equals("")) {
+				throw new ValidatorException("O Campo Endereço é obrigatório!");
+			}
+			enderecoBase.setLogradouro(textEndereco.getText());
+
+			// Set BAIRRO
+			if (textEnderecoBairro.getText() == null
+					|| textEnderecoBairro.getText().equals("")) {
+				throw new ValidatorException("O Campo Bairro é obrigatório!");
+			}
+			enderecoBase.setBairro(textEnderecoBairro.getText());
+
+			// Set MUNICIPIO
+			if (textEnderecoMunicipio.getText() == null
+					|| textEnderecoMunicipio.getText().equals("")) {
+				throw new ValidatorException("O Campo Município é obrigatório!");
+			}
+			enderecoBase.setMunicipio(textEnderecoMunicipio.getText());
+
+			// SET Seleção cCombo UF
+			UF uf = null;
+			if (cComboUf.getSelectionIndex() != -1) {
+				key = cComboUf.getItem(cComboUf.getSelectionIndex());
+				uf = (UF) cComboUf.getData(key);
+			} else {
+				throw new ValidatorException("Selecionar uma UF é obrigatório!");
+			}
+			enderecoBase.setUf(uf);
+		}
+
+		// ENDEREÇO Instancia objeto endereço e sets
+		Endereco endereco = new Endereco();
+		endereco.setEnderecoBase(enderecoBase);
+
+		// Set Complemento
+		if (textEnderecoComplemento.getText() == null
+				|| textEnderecoComplemento.getText().equals("")) {
+			throw new ValidatorException("O Campo Complemento é obrigatório!");
+		}
+		endereco.setComplemento(textEnderecoComplemento.getText());
+
+		// Set MUNICIPIO
+		if (textEnderecoNumero.getText() == null
+				|| textEnderecoNumero.getText().equals("")) {
+			throw new ValidatorException("O Campo Número é obrigatório!");
+		}
+		endereco.setNumero(textEnderecoNumero.getText());
+		
 		// tipo Endereço
 		TipoEndereco tipoEndereço;
 		if (cComboTipoEndereco.getSelectionIndex() != -1) {
-			key = cComboTipoEndereco
-				.getItem(cComboTipoEndereco.getSelectionIndex());
+			key = cComboTipoEndereco.getItem(cComboTipoEndereco
+					.getSelectionIndex());
 			tipoEndereço = (TipoEndereco) cComboTipoEndereco.getData(key);
-		} else{throw new ValidatorException("Selecionar o Tipo Endereço é obrigatório!");}
+		} else {
+			throw new ValidatorException(
+					"Selecionar o Tipo Endereço é obrigatório!");
+		}
 
-		//ENDEREÇO Instancia objeto endereço e sets
-		Endereco endereco = new Endereco();
-		
-		//Set LOGRADOURO
-		if (textEndereco.getText() == null || textEndereco.getText().equals("")){
-			throw new ValidatorException("O Campo Endereço é obrigatório!");
-		}
-		endereco.setLogradouro(textEndereco.getText());
-		
-		//Set BAIRRO
-		if (textEnderecoBairro.getText() == null || textEnderecoBairro.getText().equals("")){
-			throw new ValidatorException("O Campo Bairro é obrigatório!");
-		}
-		endereco.setBairro(textEnderecoBairro.getText());
-		
-		//Set MUNICIPIO
-		if (textEnderecoMunicipio.getText() == null || textEnderecoMunicipio.getText().equals("")){
-			throw new ValidatorException("O Campo Município é obrigatório!");
-		}
-		endereco.setMunicipio(textEnderecoMunicipio.getText());
-		
-		//Set CEP
-			//validação de preenchimento de campo
-		if (textEnderecoCep.getText() == null || textEnderecoCep.getText().equals("")){
-			throw new ValidatorException("O Campo CEP é obrigatório!");
-		}
-			//validação de formatação do campo
-		if (textEnderecoCep.getText().length() != 8){
-			throw new ValidatorException("O Campo CEP deve ser preenchido conforme exemplo: 51023000");
-		}
-		endereco.setCep(textEnderecoCep.getText());
-		
-		//Set Tipo Endereço
+		// Set Tipo Endereço
 		endereco.setTipoEndereco(tipoEndereço);
-		//Set UF
-		endereco.setUf(uf);
-		
-		//set Endereço
+		//endereco.setComplemento(text)
+
+		// set Endereço
 		cliente.setEndereco(endereco);
 
 		// tipo Pessoa
 		if (cComboTipoPessoa.getSelectionIndex() != -1) {
-			key = cComboTipoPessoa.getItem(cComboTipoPessoa.getSelectionIndex());
+			key = cComboTipoPessoa
+					.getItem(cComboTipoPessoa.getSelectionIndex());
 			cliente.setTipoPessoa((TipoPessoa) cComboTipoPessoa.getData(key));
-		} else{throw new ValidatorException("Selecionar o Tipo Pessoa é obrigatório!");}
-		//TELEFONE não é obrigatório - Pelo menos um tipo de Telefone deve ser preenchido!
+		} else {
+			throw new ValidatorException(
+					"Selecionar o Tipo Pessoa é obrigatório!");
+		}
+		// TELEFONE não é obrigatório - Pelo menos um tipo de Telefone deve ser
+		// preenchido!
 		cliente.setTelefone(textTelefone.getText());
 
-		//TELEFONE COMERCIAL não é obrigatório - Pelo menos um tipo de Telefone deve ser preenchido!
+		// TELEFONE COMERCIAL não é obrigatório - Pelo menos um tipo de Telefone
+		// deve ser preenchido!
 		cliente.setTelefoneComercial(textTelefoneComercial.getText());
-	
-		//TELEFONE CELULAR não é obrigatório - Pelo menos um tipo de Telefone deve ser preenchido!
+
+		// TELEFONE CELULAR não é obrigatório - Pelo menos um tipo de Telefone
+		// deve ser preenchido!
 		cliente.setTelefoneCelular(textTelefoneCelular.getText());
-		
-		//REGRA DE CADASTRO DE PELO MENOS UM NUMERO DE TELEFONE
-		if ((textTelefone.getText() == null || textTelefone.getText().equals("")) &&
-				(textTelefoneComercial.getText() == null || textTelefoneComercial.getText().equals("")) &&
-				(textTelefoneCelular.getText() == null || textTelefoneCelular.getText().equals(""))
-				){
-			throw new ValidatorException("É obrigatório cadastrar pelo menos um tipo Telefone!");
+
+		// REGRA DE CADASTRO DE PELO MENOS UM NUMERO DE TELEFONE
+		if ((textTelefone.getText() == null || textTelefone.getText()
+				.equals(""))
+				&& (textTelefoneComercial.getText() == null || textTelefoneComercial
+						.getText().equals(""))
+				&& (textTelefoneCelular.getText() == null || textTelefoneCelular
+						.getText().equals(""))) {
+			throw new ValidatorException(
+					"É obrigatório cadastrar pelo menos um tipo Telefone!");
 		}
 	}
 
@@ -538,38 +649,35 @@ public class ClienteView extends BasicView {
 		this.cliente = cliente;
 
 		cComboTipoPessoa.setText(this.cliente.getTipoPessoa().getDescricao());
-		if (this.cliente.getNomeRazaoSocial() != null){
+		if (this.cliente.getNomeRazaoSocial() != null) {
 			textNomeCliente.setText(this.cliente.getNomeRazaoSocial());
 		}
-		if (this.cliente.getApelidoFantasia() != null){
+		if (this.cliente.getApelidoFantasia() != null) {
 			textApelidoFantasia.setText(this.cliente.getApelidoFantasia());
 		}
 		if (this.cliente.getCpfCnpj() != null) {
 			textCpfCnpj.setText(this.cliente.getCpfCnpj());
 		}
-			cComboTipoEndereco.setText(this.cliente.getEndereco().getTipoEndereco()
+		cComboTipoEndereco.setText(this.cliente.getEndereco().getTipoEndereco()
 				.getDescricao());
-		if (this.cliente.getEndereco().getLogradouro() != null){
-			textEndereco.setText(this.cliente.getEndereco().getLogradouro());
+		enderecoBase = cliente.getEndereco().getEnderecoBase();
+		textEnderecoCep.setText(enderecoBase.getCep());
+		checkCep();
+		
+		if (this.cliente.getEndereco().getNumero() != null) {
+			textEnderecoNumero.setText(this.cliente.getEndereco().getNumero());
 		}
-		if (this.cliente.getEndereco().getBairro() != null){
-			textEnderecoBairro.setText(this.cliente.getEndereco().getBairro());
+		if (this.cliente.getEndereco().getComplemento() != null) {
+			textEnderecoComplemento.setText(this.cliente.getEndereco().getComplemento());
 		}
-		if (this.cliente.getEndereco().getMunicipio() != null){
-			textEnderecoMunicipio
-				.setText(this.cliente.getEndereco().getMunicipio());
-		}
-		if (this.cliente.getEndereco().getCep() != null){
-			textEnderecoCep.setText(this.cliente.getEndereco().getCep());
-		}
-		cComboUf.setText(this.cliente.getEndereco().getUf().getDescricao());
+		
 		if (this.cliente.getTelefone() != null) {
 			textTelefone.setText(this.cliente.getTelefone());
 		}
-		if (this.cliente.getTelefoneComercial() != null){
+		if (this.cliente.getTelefoneComercial() != null) {
 			textTelefoneComercial.setText(this.cliente.getTelefoneComercial());
 		}
-		if (this.cliente.getTelefoneCelular() != null){
+		if (this.cliente.getTelefoneCelular() != null) {
 			textTelefoneCelular.setText(this.cliente.getTelefoneCelular());
 		}
 	}
