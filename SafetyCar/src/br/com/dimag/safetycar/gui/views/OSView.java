@@ -25,6 +25,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
 import br.com.dimag.safetycar.business.Facade;
+import br.com.dimag.safetycar.data.transaction.HibernateUtil;
 import br.com.dimag.safetycar.exception.DadosInsuficientesException;
 import br.com.dimag.safetycar.exception.ValidatorException;
 import br.com.dimag.safetycar.gui.views.NavigationView.TreeParent;
@@ -36,8 +37,6 @@ import br.com.dimag.safetycar.model.Produto;
 import br.com.dimag.safetycar.model.Servico;
 import br.com.dimag.safetycar.model.OrdemServico.ClassificacaoOrdemServico;
 import br.com.dimag.safetycar.model.OrdemServico.StatusOrdemServico;
-import br.com.dimag.safetycar.model.Pessoa.TipoEndereco;
-import br.com.dimag.safetycar.model.Pessoa.TipoPessoa;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -157,7 +156,8 @@ public class OSView extends BasicView {
 					labelDefeitoReclamado = new Label(groupDadosOS, SWT.NONE);
 					GridData labelDefeitoReclamadoLData = new GridData();
 					labelDefeitoReclamadoLData.horizontalAlignment = GridData.FILL;
-					labelDefeitoReclamado.setLayoutData(labelDefeitoReclamadoLData);
+					labelDefeitoReclamado
+							.setLayoutData(labelDefeitoReclamadoLData);
 					labelDefeitoReclamado.setText("Defeito Reclamado:");
 				}
 				{
@@ -173,7 +173,8 @@ public class OSView extends BasicView {
 					GridData labelStatusOrdemServicoLData = new GridData();
 					labelStatusOrdemServicoLData.verticalAlignment = GridData.BEGINNING;
 					labelStatusOrdemServicoLData.horizontalAlignment = GridData.FILL;
-					labelStatusOrdemServico.setLayoutData(labelStatusOrdemServicoLData);
+					labelStatusOrdemServico
+							.setLayoutData(labelStatusOrdemServicoLData);
 					labelStatusOrdemServico.setText("Status Ordem Servico");
 				}
 				{
@@ -181,8 +182,10 @@ public class OSView extends BasicView {
 					cComboStatusOrdemServicoLData.grabExcessHorizontalSpace = true;
 					cComboStatusOrdemServicoLData.verticalAlignment = GridData.BEGINNING;
 					cComboStatusOrdemServicoLData.horizontalAlignment = GridData.FILL;
-					cComboStatusOrdemServico = new CCombo(groupDadosOS, SWT.NONE);
-					cComboStatusOrdemServico.setLayoutData(cComboStatusOrdemServicoLData);
+					cComboStatusOrdemServico = new CCombo(groupDadosOS,
+							SWT.NONE);
+					cComboStatusOrdemServico
+							.setLayoutData(cComboStatusOrdemServicoLData);
 				}
 				{
 					groupServiico = new Group(groupDadosOS, SWT.NONE);
@@ -348,7 +351,7 @@ public class OSView extends BasicView {
 
 								@Override
 								public void widgetSelected(SelectionEvent event) {
-									if (isUpdate){ 
+									if (isUpdate) {
 										openView(OSListView.ID);
 									}
 									closeView();
@@ -377,7 +380,6 @@ public class OSView extends BasicView {
 			}
 		}
 
-		loadData();
 	}
 
 	private void adicionarServico() {
@@ -428,72 +430,131 @@ public class OSView extends BasicView {
 		isUpdate = false;
 		listServicoTableViewers = new ArrayList<Servico>();
 		listProdutoTableViewers = new ArrayList<Produto>();
+		HibernateUtil.getSession().beginTransaction();
 
 		List<Automovel> listAutomovel = Facade.getInstance().listAutomovel();
+		String selected = "";
+		if (cComboAutomovel.getSelectionIndex() != -1) {
+			selected = cComboAutomovel.getText();
+		}
+		cComboAutomovel.removeAll();
 		for (Automovel automovel : listAutomovel) {
 			cComboAutomovel.setData(automovel.getPlaca(), automovel);
 			cComboAutomovel.add(automovel.getPlaca());
 		}
+		if (!selected.isEmpty()) {
+			cComboAutomovel.select(cComboAutomovel.indexOf(selected));
+		}
 
+		selected = "";
+		if (cComboCliente.getSelectionIndex() != -1) {
+			selected = cComboCliente.getText();
+		}
+		cComboCliente.removeAll();
 		List<Cliente> listCliente = Facade.getInstance().listCliente();
 		for (Cliente cliente : listCliente) {
 			cComboCliente.setData(cliente.getNomeRazaoSocial(), cliente);
 			cComboCliente.add(cliente.getNomeRazaoSocial());
 		}
-
-		List<Servico> listServico = Facade.getInstance().listServico();
-		for (Servico servico : listServico) {
-			cComboServicos.setData(servico.getDescricao(), servico);
-			cComboServicos.add(servico.getDescricao());
+		if (!selected.isEmpty()) {
+			cComboCliente.select(cComboCliente.indexOf(selected));
 		}
-	
-		cComboStatusOrdemServico.removeAll();
-		for (StatusOrdemServico tipo : OrdemServico.StatusOrdemServico.values()) {
-			cComboStatusOrdemServico.setData(tipo.getStatusOrdemServico(), tipo);
-			cComboStatusOrdemServico.add(tipo.getStatusOrdemServico());
-		}
-		
 
+		selected = "";
+		if (cComboAtendente.getSelectionIndex() != -1) {
+			selected = cComboAtendente.getText();
+		}
+		cComboAtendente.removeAll();
 		List<Funcionario> listAtendente = Facade.getInstance().listAtendente();
 		for (Funcionario funcionario : listAtendente) {
 			cComboAtendente.setData(funcionario.getNomeRazaoSocial(),
 					funcionario);
 			cComboAtendente.add(funcionario.getNomeRazaoSocial());
 		}
+		if (!selected.isEmpty()) {
+			cComboAtendente.select(cComboAtendente.indexOf(selected));
+		}
 
+		selected = "";
+		if (cComboMecanico.getSelectionIndex() != -1) {
+			selected = cComboMecanico.getText();
+		}
+		cComboMecanico.removeAll();
 		List<Funcionario> listMecanico = Facade.getInstance().listMecanico();
 		for (Funcionario funcionario : listMecanico) {
 			cComboMecanico.setData(funcionario.getNomeRazaoSocial(),
 					funcionario);
 			cComboMecanico.add(funcionario.getNomeRazaoSocial());
 		}
+		if (!selected.isEmpty()) {
+			cComboMecanico.select(cComboMecanico.indexOf(selected));
+		}
+
+		List<Servico> listServico = Facade.getInstance().listServico();
+		cComboServicos.removeAll();
+		for (Servico servico : listServico) {
+			cComboServicos.setData(servico.getDescricao(), servico);
+			cComboServicos.add(servico.getDescricao());
+		}
+
+		List<Produto> listProduto = Facade.getInstance().listProduto();
+		cComboProdutos.removeAll();
+		for (Servico servico : listServico) {
+			cComboProdutos.setData(servico.getDescricao(), servico);
+			cComboProdutos.add(servico.getDescricao());
+		}
+
+		StatusOrdemServico selectedTipo = null;
+		if (cComboStatusOrdemServico.getSelectionIndex() != -1) {
+			String key = cComboStatusOrdemServico
+					.getItem(cComboStatusOrdemServico.getSelectionIndex());
+			selectedTipo = (StatusOrdemServico) cComboStatusOrdemServico
+					.getData(key);
+		}
+
+		cComboStatusOrdemServico.removeAll();
+		for (StatusOrdemServico tipo : OrdemServico.StatusOrdemServico.values()) {
+			cComboStatusOrdemServico.setData(tipo.getDescricao(), tipo);
+			cComboStatusOrdemServico.add(tipo.getDescricao());
+		}
+		if (selectedTipo != null) {
+			cComboStatusOrdemServico.select(cComboStatusOrdemServico
+					.indexOf(selectedTipo.getDescricao()));
+		}
 	}
 
 	@Override
 	public void setFocus() {
-
+		loadData();
 	}
 
 	private void performFinish() {
 
 		try {
-			if (!isUpdate){
+			if (!isUpdate) {
 				ordemServico = new OrdemServico();
 				fillOrdemServico();
 
 				Facade.getInstance().cadastrarOrdemServico(ordemServico);
-			}else {
+
+			} else {
 				fillOrdemServico();
 				Facade.getInstance().atualizarOrdemServico(ordemServico);
 				openView(OSListView.ID);
-			}	
+			}
+			HibernateUtil.flush();
+			HibernateUtil.commitTransaction();
+			HibernateUtil.closeSession();
 			closeView();
 		} catch (DadosInsuficientesException e) {
+			
+			HibernateUtil.rollbackTransaction();
 			labelErro.setText(e.getMessage());
 		} catch (Exception e) {
+			HibernateUtil.rollbackTransaction();
 			labelErro.setText(e.getMessage());
-		} finally{
-			if (! isUpdate){
+		} finally {
+			if (!isUpdate) {
 				ordemServico = null;
 			}
 		}
@@ -501,6 +562,8 @@ public class OSView extends BasicView {
 	}
 
 	private void fillOrdemServico() throws ValidatorException {
+		validarTela();
+		
 		ordemServico.setServicos(listServicoTableViewers);
 		ordemServico.setProdutos(listProdutoTableViewers);
 
@@ -522,7 +585,13 @@ public class OSView extends BasicView {
 		ordemServico.setData(new GregorianCalendar());
 
 		ordemServico.setDefeitoReclamado("Carro quebrado");
-		//ordemServico.setStatusOrdemServico(StatusOrdemServico.AUTORIZADO);
+
+		StatusOrdemServico status;
+			key = cComboStatusOrdemServico.getItem(cComboStatusOrdemServico
+					.getSelectionIndex());
+			status = (StatusOrdemServico) cComboStatusOrdemServico.getData(key);
+
+		ordemServico.setStatusOrdemServico(status);
 		ordemServico
 				.setClassificacaoOrdemServico(ClassificacaoOrdemServico.ABERTA);
 
@@ -539,56 +608,42 @@ public class OSView extends BasicView {
 			cliente = (Cliente) cComboCliente.getData(key);
 		}
 		ordemServico.setCliente(cliente);
+
+	}
+
+	private void validarTela() throws ValidatorException {
+		String key;
+		// validação de placa
+		if (cComboAutomovel.getSelectionIndex() == -1) {
+			throw new ValidatorException("Selecionar a Placa é obrigatório!");
+		}
+
+		// validação de Cliente
+		if (cComboCliente.getSelectionIndex() == -1) {
+			throw new ValidatorException("Selecionar o Cliente é obrigatório!");
+		}
+
+		// validação de Atendente
+		if (cComboAtendente.getSelectionIndex() == -1) {
 		
-		//validação de placa
-		if (cComboAutomovel.getSelectionIndex() != -1) {
-			key = cComboAutomovel.getItem(cComboAutomovel.getSelectionIndex());
-			automovel.setPlaca( cComboAutomovel.getData(key).toString());
-		} else throw new ValidatorException("Selecionar a Placa é obrigatório!");
+			throw new ValidatorException(
+					"Selecionar o Atendente é obrigatório!");
+		}
+
+		// validação de Mecanico
+		if (cComboMecanico.getSelectionIndex() == -1) {
+			
+			throw new ValidatorException("Selecionar o Mecanico é obrigatório!");
+		}
 		
-		//validação  de Cliente
-		if (cComboCliente.getSelectionIndex() != -1) {
-			key = cComboCliente.getItem(cComboCliente.getSelectionIndex());
-			cliente.setNomeRazaoSocial(cComboCliente.getData(key).toString());
-		} else throw new ValidatorException("Selecionar o Cliente é obrigatório!");
-		
-		//validação  de Atendente
-		if (cComboAtendente.getSelectionIndex() != -1) {
-			key = cComboAtendente.getItem(cComboAtendente.getSelectionIndex());
-			atendente.setNomeRazaoSocial(cComboAtendente.getData(key).toString());
-		} else throw new ValidatorException("Selecionar o Atendente é obrigatório!");
-		
-		//validação  de Mecanico
-		if (cComboMecanico.getSelectionIndex() != -1) {
-			key = cComboMecanico.getItem(cComboMecanico.getSelectionIndex());
-			atendente.setNomeRazaoSocial(cComboMecanico.getData(key).toString());
-		} else throw new ValidatorException("Selecionar o Mecanico é obrigatório!");
-		
-		//validação  de Serviço
-		if (cComboServicos.getSelectionIndex() != -1) {
-			key = cComboServicos.getItem(cComboServicos.getSelectionIndex());
-			atendente.setNomeRazaoSocial(cComboServicos.getData(key).toString());
-		} 
-	
-		//validação  de Produto
-		if (cComboProdutos.getSelectionIndex() != -1) {
-			key = cComboProdutos.getItem(cComboProdutos.getSelectionIndex());
-			atendente.setNomeRazaoSocial(cComboProdutos.getData(key).toString());
-		} 
-	// validacao status ordem servico
-		OrdemServico ordemServico;
-		if (cComboStatusOrdemServico.getSelectionIndex() != -1) {
-			key = cComboStatusOrdemServico.getItem(cComboStatusOrdemServico
-					.getSelectionIndex());
-			ordemServico = (OrdemServico) cComboStatusOrdemServico.getData(key);
-		} else {
+		// validacao status ordem servico
+		if (cComboStatusOrdemServico.getSelectionIndex() == -1) {
 			throw new ValidatorException(
 					"Selecionar o Status ordem servico é obrigatório!");
 		}
-	
-	
-			
+
 	}
+
 	class ViewContentProviderServico implements IStructuredContentProvider {
 
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
@@ -664,22 +719,24 @@ public class OSView extends BasicView {
 	public void loadOS(OrdemServico os) {
 		isUpdate = true;
 		this.ordemServico = os;
-		
-		cComboMecanico.select( cComboMecanico.indexOf( this.ordemServico.getMecanico()
-				.getNomeRazaoSocial()));
-		cComboAutomovel.select( cComboAutomovel.indexOf(this.ordemServico.getAutomovel().getPlaca()));
-		cComboCliente.select(cComboCliente.indexOf(this.ordemServico.getCliente()
-				.getNomeRazaoSocial()));
-		
-		cComboAtendente.select(cComboAtendente.indexOf(this.ordemServico.getAtendente()
-				.getNomeRazaoSocial()));
 
-		cComboStatusOrdemServico.select(cComboStatusOrdemServico.indexOf(this.ordemServico.getStatusOrdemServico()));
+		cComboMecanico.select(cComboMecanico.indexOf(this.ordemServico
+				.getMecanico().getNomeRazaoSocial()));
+		cComboAutomovel.select(cComboAutomovel.indexOf(this.ordemServico
+				.getAutomovel().getPlaca()));
+		cComboCliente.select(cComboCliente.indexOf(this.ordemServico
+				.getCliente().getNomeRazaoSocial()));
 
-		
+		cComboAtendente.select(cComboAtendente.indexOf(this.ordemServico
+				.getAtendente().getNomeRazaoSocial()));
+
+		cComboStatusOrdemServico.select(cComboStatusOrdemServico
+				.indexOf(this.ordemServico.getStatusOrdemServico()
+						.getDescricao()));
+
 		listServicoTableViewers = this.ordemServico.getServicos();
 		atualizarTableViewerServico();
-		
+
 		listProdutoTableViewers = this.ordemServico.getProdutos();
 		atualizarTableViewerProduto();
 

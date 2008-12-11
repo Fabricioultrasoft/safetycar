@@ -34,7 +34,6 @@
 		<mapping class="br.com.dimag.safetycar.model.Endereco"/>
 		<mapping class="br.com.dimag.safetycar.model.Pessoa"/>
 		<mapping class="br.com.dimag.safetycar.model.Funcionario"/>
-		<mapping class="br.com.dimag.safetycar.model.TipoFuncionario"/>
 		<mapping class="br.com.dimag.safetycar.model.Produto"/>
 		<mapping class="br.com.dimag.safetycar.model.Servico"/>
 		<mapping class="br.com.dimag.safetycar.model.OrdemServico"/>
