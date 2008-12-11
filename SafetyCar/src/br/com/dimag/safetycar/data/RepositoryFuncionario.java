@@ -51,11 +51,13 @@ public class RepositoryFuncionario implements IRepositoryFuncionario {
 				"from " + clazz.getSimpleName()).list();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Funcionario> listAtendente() {
 		return HibernateUtil.getSession().createQuery(
 				"from " + clazz.getSimpleName() +" f where f.tipoFuncionario = :atendente ").setParameter("atendente", TipoFuncionario.ATENDENTE).list();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Funcionario> listMecanico() {
 		return HibernateUtil.getSession().createQuery(
 				"from " + clazz.getSimpleName() +" f where f.tipoFuncionario = :mecanico ").setParameter("mecanico", TipoFuncionario.MECANICO).list();
