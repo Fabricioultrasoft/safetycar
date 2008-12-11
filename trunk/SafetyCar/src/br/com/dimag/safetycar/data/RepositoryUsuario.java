@@ -60,6 +60,8 @@ public abstract class RepositoryUsuario implements IRepositoryUsuario {
 				"from " + clazz.getSimpleName()+ " u where u.login = :login and u.password = :pass ").setParameter("login",	login).setParameter("pass", senha).uniqueResult();
 	}
 
+	
+	@SuppressWarnings("unchecked")
 	public List<Usuario> searchListServicoByDescricao(String login) {
 		return HibernateUtil.getSession().createQuery(
 				"from " + clazz.getSimpleName() +" s where s.login like lower( :login ) " ).setParameter("login", "%"+login.toLowerCase()+"%" ).list();

@@ -140,7 +140,7 @@ public class UsuarioView extends BasicView {
 								@Override
 								public void widgetSelected(SelectionEvent event) {
 									if (isUpdate){ 
-										openView(ServicoListView.ID);
+										openView(UsuarioListView.ID);
 									}
 									
 									closeView();
